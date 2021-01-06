@@ -1,0 +1,53 @@
+import React, { useState } from "react";
+import { Header, Icon, Segment } from "semantic-ui-react";
+
+type Props = {
+  title: string;
+  toggleCollapse?: any;
+  collapsed?: any;
+};
+export const SectionComponent: React.FC<Props> = ({
+  title,
+  collapsed,
+  toggleCollapse,
+  children,
+}) => {
+  const [localCollapsed, setCollapsed] = useState(false);
+
+  const showContent = toggleCollapse ? collapsed : localCollapsed;
+  const clickHandler = toggleCollapse ? toggleCollapse : setCollapsed;
+  return (
+    <>
+      <Segment
+        className="fancy-hover"
+        color="black"
+        basic
+        onClick={() => clickHandler(!showContent)}
+        inverted
+        style={{
+          borderRadius: 0,
+          marginBottom: 0,
+          border: 0,
+          cursor: "pointer",
+          borderTop: "3px groove rgba(255, 250, 250, 0.2)",
+        }}
+      >
+        <Icon name={showContent ? "plus square outline" : "minus square outline"} />
+        <h3 className="header inverted" style={{ display: "inline", paddingLeft: "8px" }}>
+          {title}
+        </h3>
+      </Segment>
+      {!showContent && (
+        <div
+          style={{
+            backgroundColor: "rgba(70, 66, 66, 0.6)",
+            paddingTop: "1rem",
+            textAlign: "center",
+          }}
+        >
+          {children}
+        </div>
+      )}
+    </>
+  );
+};
