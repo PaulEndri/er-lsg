@@ -37,17 +37,16 @@ export const SectionComponent: React.FC<Props> = ({
           {title}
         </h3>
       </Segment>
-      {!showContent && (
-        <div
-          style={{
-            backgroundColor: "rgba(70, 66, 66, 0.6)",
-            paddingTop: "1rem",
-            textAlign: "center",
-          }}
-        >
-          {children}
-        </div>
-      )}
+      <div
+        style={{
+          backgroundColor: "rgba(70, 66, 66, 0.6)",
+          paddingTop: "1rem",
+          textAlign: "center",
+          display: showContent ? "block" : "none",
+        }}
+      >
+        {children}
+      </div>
     </>
   );
 };

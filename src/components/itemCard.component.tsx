@@ -12,7 +12,7 @@ type ItemCardProps = {
   adding?: boolean;
 };
 
-export const ItemCardComponent: FunctionComponent<ItemCardProps> = ({ adding, item, showReqs }) => {
+export const ItemCardComponent: FunctionComponent<ItemCardProps> = ({ item, showReqs }) => {
   const { setItem } = useContext(ItemModalContext);
   return (
     <Segment.Group
@@ -35,7 +35,6 @@ export const ItemCardComponent: FunctionComponent<ItemCardProps> = ({ adding, it
             <Segment
               basic
               inverted
-              fluid
               raised
               style={{
                 // backgroundColor: '#877e8a',
@@ -71,7 +70,7 @@ export const ItemCardComponent: FunctionComponent<ItemCardProps> = ({ adding, it
             <Segment inverted style={{ backgroundColor: "transparent" }}>
               <Header>Built From</Header>
               {item.buildsFrom.map(({ name, id }, idx) => (
-                <ItemModalButton key={name + idx} id={id} />
+                <ItemModalButton key={`${name}${id}`} id={id} />
               ))}
             </Segment>
           )}

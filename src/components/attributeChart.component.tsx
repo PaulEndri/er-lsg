@@ -14,12 +14,12 @@ export const AttributeChartComponent: React.FC<AttrProps> = ({ attributeBlock })
   const captions = {
     move: "Mobility",
     disruptor: "CC",
-
     attack: "Attack",
-
     assistance: "Support",
     defense: "Def",
   };
 
-  return <RadarChart data={[{ data, meta: { color: "blue" } }]} captions={captions} size={150} />;
+  Object.keys(data).forEach((key) => (data[key] = data[key] / 3));
+
+  return <RadarChart data={[{ data, meta: { color: "brown" } }]} captions={captions} size={100} />;
 };

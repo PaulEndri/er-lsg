@@ -1,28 +1,27 @@
-import { Armors, Locations, Weapons, WeaponsLookup } from "erbs-sdk";
+import { Armors, Character, Locations, Weapons, WeaponsLookup } from "erbs-sdk";
 import React, { PureComponent, useState } from "react";
 import { Segment, Menu, Grid, List, Label, Header, Image, Button } from "semantic-ui-react";
 import { Link, Route, Switch, useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import { PageComponent } from "../../components/page";
-import { Characters } from "erbs-data";
 import { CharacterLandingPage, CharacterPage } from "./children/characterPage.component";
 import { WeaponPage } from "./children/weaponPage.component";
 import { ArmorPage } from "./children/armorPage.component";
 import { ItemPage } from "./children/itemPage.component";
 import { LocationLandingPage, LocationPage } from "./children/locationPage.component";
-import { getMiscListKeys } from "../../utilities/getList";
 import { CharacterPortrait } from "../../components/characterPortrait.component";
 import CharacterThumbnailComponent from "../../components/characterThumbnail.component";
 import { getImageSrc } from "../../utilities/getImageSrc";
 import { BG_HALF, BG_THIRD } from "../../utilities/bgImages";
 import { MapComponent } from "../../components/map";
 import { AnimalLandingPage, AnimalPage } from "./children/animalPage.component";
+import { MiscListKeys } from "../../utilities/getList";
 
 const menuItems = [
-  ["characters", "Characters", Object.keys(Characters)],
-  ["weapons", "Weapons", Object.values(Weapons).filter((wpn) => wpn !== "Whip")],
+  ["characters", "Characters", Object.keys(Character.SOURCES)],
+  ["weapons", "Weapons", Object.values(Weapons)],
   ["armors", "Armors", Object.values(Armors)],
   ["locations", "Locations", Object.values(Locations)],
-  ["items", "Items", getMiscListKeys()],
+  ["items", "Items", MiscListKeys],
   ["animals", "Animals"],
 ];
 
@@ -201,7 +200,7 @@ const WikiView = () => {
                               maxHeight: "auto",
                               width: "50px",
                             }}
-                            src={getImageSrc(`Weapon${WeaponsLookup[wpn]}`)}
+                            src={getImageSrc(`Weapon${wpn}`)}
                           />
                         </Button>
                       ))}

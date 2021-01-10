@@ -7,7 +7,7 @@ import PlannerView from "./views/planner";
 import { ItemModalProvider } from "./state/itemModal";
 import { ItemModalComponent } from "./components/itemModal.component";
 import WikiView from "./views/wiki";
-import { LoadoutProvider } from "./state/loadout.tsx";
+import { LoadoutProvider } from "./state/loadout";
 import { BG_THIRD } from "./utilities/bgImages";
 import PlayerView from "./views/players";
 import { FilterProvider } from "./views/planner/state";

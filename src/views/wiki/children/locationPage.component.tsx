@@ -11,11 +11,8 @@ import {
   Table,
 } from "semantic-ui-react";
 import { Link, useHistory, useParams } from "react-router-dom";
-import { getMiscList, getMiscListKeys } from "../../../utilities/getList";
-import { ItemSearchComponent } from "./ItemSearch.component";
-import { LocationsLookup, Region, Locations } from "erbs-sdk";
+import { Locations, Location, IRawLocation } from "erbs-sdk";
 import { getImageSrc } from "../../../utilities/getImageSrc";
-import { Locations as LocData } from "erbs-data";
 import { ItemModalButton } from "../../../components/itemModalButton.component";
 import { MapComponent } from "../../../components/map";
 
@@ -84,27 +81,29 @@ export const LocationLandingPage = () => {
             <Table.HeaderCell>Drops</Table.HeaderCell>
           </Table.Header>
           <Table.Body>
-            {Object.entries(LocData).map(([loc, locObject]) => (
-              <Table.Row
-                key={loc}
-                onClick={() => history.push(`/wiki/locations/${locObject.name}`)}
-              >
-                <Table.Cell>{locObject.name}</Table.Cell>
-                <Table.Cell>
-                  {locObject.animals.map(({ name }, id) => (
-                    <Label key={id}>{`${name}`.replace(/([A-Z])/g, " $1").trim()}</Label>
-                  ))}
-                </Table.Cell>
-                <Table.Cell>
-                  {locObject.drops.map(({ name, id, quantity }) => (
-                    <Label key={id}>
-                      {`${name}`.replace(/([A-Z])/g, " $1").trim()}
-                      <Label.Detail>{quantity}</Label.Detail>
-                    </Label>
-                  ))}
-                </Table.Cell>
-              </Table.Row>
-            ))}
+            {Object.entries(Location.SOURCES as Record<string, IRawLocation>).map(
+              ([loc, locObject]) => (
+                <Table.Row
+                  key={loc}
+                  onClick={() => history.push(`/wiki/locations/${locObject.name}`)}
+                >
+                  <Table.Cell>{locObject.name}</Table.Cell>
+                  <Table.Cell>
+                    {locObject.animals.map(({ name }, id) => (
+                      <Label key={id}>{`${name}`.replace(/([A-Z])/g, " $1").trim()}</Label>
+                    ))}
+                  </Table.Cell>
+                  <Table.Cell>
+                    {locObject.drops.map(({ name, id, quantity }) => (
+                      <Label key={id}>
+                        {`${name}`.replace(/([A-Z])/g, " $1").trim()}
+                        <Label.Detail>{quantity}</Label.Detail>
+                      </Label>
+                    ))}
+                  </Table.Cell>
+                </Table.Row>
+              )
+            )}
           </Table.Body>
         </Table>
       </Segment>
@@ -116,7 +115,7 @@ export const LocationPage = () => {
   const { id } = useParams() as any;
   const history = useHistory();
 
-  const location = id ? LocData[id.replace(" ", "")] : null;
+  const location = id ? Location.SOURCES[id.replace(" ", "")] : null;
 
   return (
     <LocationView>
@@ -210,7 +209,7 @@ export const LocationPage = () => {
               padding: "5rem",
               paddingTop: "10px",
               borderRadius: 0,
-              backgroundColor: "rgba(255, 250, 250, 0.9)",
+              backgroundColor: "rgba(31, 29, 29, 0.9)",
               marginLeft: 0,
             }}
             textAlign="center"

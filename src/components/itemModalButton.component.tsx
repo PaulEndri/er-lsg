@@ -5,8 +5,6 @@ import { getImageSrc } from "../utilities/getImageSrc";
 import { itemRarityBackground, rarityColor } from "../utilities/rarityColor";
 import { ItemModalContext } from "../state/itemModal";
 import { useLocation } from "react-router-dom";
-import { act } from "react-dom/test-utils";
-
 type ItemModalButtonProps = {
   id: any;
   label?: any;

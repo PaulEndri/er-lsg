@@ -7,17 +7,19 @@ type CharacterPortraitProps = {
   name: string;
   width?: number;
   type?: string;
+  margin?: string;
 };
 
 export const CharacterPortrait: FunctionComponent<CharacterPortraitProps> = ({
   width = 200,
   type = "half",
+  margin = "auto",
   name,
 }) => (
   <div
     style={{
       backgroundColor: "#877e8a",
-      margin: "auto",
+      margin,
       marginBottom: "10px",
       width,
       border: "2px groove white",

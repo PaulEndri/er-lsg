@@ -10,9 +10,8 @@ import {
   Table,
   Image,
 } from "semantic-ui-react";
-import { Link, useHistory, useParams } from "react-router-dom";
-import { Animals } from "erbs-sdk";
-import { Animals as AniData } from "erbs-data";
+import { useHistory, useParams } from "react-router-dom";
+import { Animal, IAnimal, AnimalsLookup } from "erbs-sdk";
 import { ItemModalButton } from "../../../components/itemModalButton.component";
 import { getImageSrc } from "../../../utilities/getImageSrc";
 
@@ -32,21 +31,23 @@ const AnimalView: React.FC = ({ children }) => {
           justifyContent: "center",
         }}
       >
-        {Object.keys(Animals).map((type) => (
-          <Menu.Item
-            key={type}
-            active={id === type}
-            onClick={() => {
-              history.push(`/wiki/animals/${type}`);
-            }}
-            color="red"
-            style={{
-              borderRadius: 0,
-            }}
-          >
-            {type}
-          </Menu.Item>
-        ))}
+        {Object.keys(AnimalsLookup)
+          .filter((x) => isNaN(x as any))
+          .map((type) => (
+            <Menu.Item
+              key={type}
+              active={id === type}
+              onClick={() => {
+                history.push(`/wiki/animals/${type}`);
+              }}
+              color="red"
+              style={{
+                borderRadius: 0,
+              }}
+            >
+              {type}
+            </Menu.Item>
+          ))}
       </Menu>
       {children}
     </Container>
@@ -64,15 +65,18 @@ export const AnimalLandingPage = () => {
         </Header>
       </Segment>
 
-      <Segment style={{ marginTop: 0, borderRadius: 0 }} textAlign="center">
-        <Table selectable striped collapsing style={{ margin: "auto" }}>
+      <Segment
+        style={{ marginTop: 0, borderRadius: 0, background: "transparent" }}
+        textAlign="center"
+      >
+        <Table selectable inverted striped collapsing style={{ margin: "auto", borderRadius: 0 }}>
           <Table.Header>
             <Table.HeaderCell>Name</Table.HeaderCell>
             <Table.HeaderCell>Locations</Table.HeaderCell>
             <Table.HeaderCell>Drops</Table.HeaderCell>
           </Table.Header>
           <Table.Body>
-            {Object.entries(AniData).map(([animal, aniObject]) => (
+            {Object.entries<Animal>(Animal.SOURCES).map(([animal, aniObject]) => (
               <Table.Row key={animal} onClick={() => history.push(`/wiki/animals/${animal}`)}>
                 <Table.Cell>{aniObject.displayName}</Table.Cell>
                 <Table.Cell>
@@ -101,13 +105,12 @@ export const AnimalPage = () => {
   const { id } = useParams() as any;
   const history = useHistory();
 
-  const animal = id ? AniData[id] || Object.values(AniData).find((ani) => ani.name === id) : null;
+  const animal: Animal = id ? (Animal.Generate(id) as any) : null;
 
   return (
     <AnimalView>
       <Segment
         color="black"
-        fluid
         inverted
         style={{
           margin: 0,
@@ -181,13 +184,13 @@ export const AnimalPage = () => {
               padding: "5rem",
               paddingTop: "10px",
               borderRadius: 0,
-              backgroundColor: "rgba(255, 250, 250, 0.9)",
+              backgroundColor: "rgba(31, 29, 29, 0.9)",
               marginLeft: 0,
             }}
             textAlign="center"
           >
-            {animal.items.map(({ name, id, percentage }) => (
-              <ItemModalButton id={name.replace(" ", "")} key={id} label={percentage + "%"} />
+            {animal.items.map(({ name, percentage }, id) => (
+              <ItemModalButton id={`${name}`.replace(" ", "")} key={id} label={percentage + "%"} />
             ))}
           </Grid.Row>
         </Grid>

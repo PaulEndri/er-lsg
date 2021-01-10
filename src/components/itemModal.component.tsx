@@ -1,8 +1,8 @@
-import { Item } from "erbs-sdk";
+import { Categories, Item } from "erbs-sdk";
 import React, { useContext } from "react";
 import { Button, Icon, Modal, Segment } from "semantic-ui-react";
 import { ItemModalContext } from "../state/itemModal";
-import { LoadoutContext } from "../state/loadout.tsx";
+import { LoadoutContext } from "../state/loadout";
 import { Types } from "../utilities/types";
 import { ItemCardComponent } from "./itemCard.component";
 
@@ -10,7 +10,8 @@ export const ItemModalComponent = () => {
   const { item, setItem, itemHistory, addingToLoadout } = useContext(ItemModalContext);
   const { updateLoadout } = useContext(LoadoutContext);
   const itemData = item ? (item instanceof Item ? item : new Item(item)) : null;
-  const addableItem = itemData && Object.keys(Types).includes(itemData.clientType);
+  const addableItem =
+    itemData && [Categories.Armor, Categories.Weapon].includes(itemData.category as any);
 
   return (
     <Modal basic onClose={() => setItem(null)} open={item} size="small">

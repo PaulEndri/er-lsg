@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Image, Menu, Segment } from "semantic-ui-react";
+import { Button, Image, Menu } from "semantic-ui-react";
 import { getImageSrc } from "../../../utilities/getImageSrc";
 import { itemRarityBackground } from "../../../utilities/rarityColor";
 
@@ -8,7 +8,6 @@ export const LoadOutItemComponent = ({ item, onClick, type }) => {
     return (
       <Menu.Item
         className="fancy-hover"
-        fluid
         onClick={() => onClick(null, type)}
         style={{ borderRadius: "0px" }}
       >
@@ -18,9 +17,7 @@ export const LoadOutItemComponent = ({ item, onClick, type }) => {
   }
   return (
     <Menu.Item
-      compact
       className="fancy-hover"
-      fluid
       onClick={() => onClick(item, type)}
       style={{
         borderRadius: "0px",

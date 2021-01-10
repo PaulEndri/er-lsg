@@ -1,33 +1,23 @@
-import { Item, WeaponsLookup, WeaponType } from "erbs-sdk";
+import { Item, Weapons, WeaponsLookup, WeaponType } from "erbs-sdk";
 import React, { useState } from "react";
-import {
-  Button,
-  Image,
-  Segment,
-  Container,
-  Grid,
-  Menu,
-  Header,
-  Statistic,
-  TransitionGroup,
-} from "semantic-ui-react";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Image, Segment, Container, Grid, Menu, Header, Statistic } from "semantic-ui-react";
+import { useHistory, useParams } from "react-router-dom";
 import { getImageSrc } from "../../../utilities/getImageSrc";
 import CharacterThumbnailComponent from "../../../components/characterThumbnail.component";
 import { ItemModalButton } from "../../../components/itemModalButton.component";
 import { ItemCardComponent } from "../../../components/itemCard.component";
-import { getItemList } from "../../../utilities/getList";
 import { Types } from "../../../utilities/types";
 import { ItemSearchComponent } from "./ItemSearch.component";
-import { BG_HALF, BG_THIRD } from "../../../utilities/bgImages";
+import { BG_THIRD } from "../../../utilities/bgImages";
+import { getList } from "../../../utilities/getList";
 
 export const WeaponPage = () => {
   const history = useHistory();
   const { id } = useParams() as any;
-  const weaponType = id ? new WeaponType(id) : null;
+  const weaponType = id ? new WeaponType(Weapons[id]) : null;
 
   const [selectedItem, setSelectedItem] = useState(null);
-
+  console.log("[test]", weaponType);
   return (
     <Container fluid>
       <Menu
@@ -41,29 +31,33 @@ export const WeaponPage = () => {
           flexWrap: "wrap",
         }}
       >
-        {Object.keys(WeaponsLookup)
-          .filter((wpn) => wpn !== "Whip")
-          .map((wpn) => (
-            <Menu.Item
-              key={wpn}
-              active={id === wpn}
-              onClick={() => {
-                history.push(`/wiki/weapons/${wpn}`);
-              }}
-              color="red"
+        {Object.entries(Weapons).map(([key, name]) => (
+          <Menu.Item
+            key={name}
+            active={id === key}
+            onClick={() => {
+              history.push(`/wiki/weapons/${key}`);
+            }}
+            color="red"
+            style={{
+              borderRadius: 0,
+            }}
+          >
+            <div
               style={{
-                borderRadius: 0,
+                backgroundColor: "rgba(51, 49, 49, 0.9)",
+                borderRadius: "5px",
+                boxShadow: "2px 2px 2px rgba(31, 29, 29, 0.3)",
               }}
             >
-              <Image size="mini" src={getImageSrc(`Weapon${WeaponsLookup[wpn]}`)} />
-            </Menu.Item>
-          ))}
+              <Image size="mini" src={getImageSrc(`Weapon${name}`)} />
+            </div>
+          </Menu.Item>
+        ))}
       </Menu>
 
       {id && (
         <Segment
-          color="black"
-          fluid
           inverted
           style={{
             margin: 0,
@@ -73,82 +67,84 @@ export const WeaponPage = () => {
           }}
         >
           <Grid centered>
-            <Grid.Row
-              verticalAlign="middle"
-              style={{
-                backgroundColor: "rgba(76, 70, 70, 1)",
-                backgroundImage: BG_THIRD,
-                borderBottom: "1px groove",
-                borderTop: "1px groove",
-              }}
-              centered
-            >
-              <Grid.Column width={2} textAlign="center">
-                <Image centered bordered src={getImageSrc(`/weaponSkills/${WeaponsLookup[id]}`)} />
-              </Grid.Column>
-              <Grid.Column width={2} textAlign="center">
-                <Header inverted textAlign="center">
-                  {id}
-                </Header>
-              </Grid.Column>
-              <Grid.Column width={Math.min(weaponType.usableBy.length + 2, 8) as any}>
-                <div style={{ display: "flex", flexFlow: "row wrap" }}>
-                  {weaponType.usableBy.map((char) => (
-                    <div key={char}>
-                      <CharacterThumbnailComponent
-                        onClick={() => history.push(`/wiki/characters/${char}`)}
-                        isActive={false}
-                        name={char}
-                      />
-                    </div>
-                  ))}
-                </div>
+            <Grid.Row style={{ backgroundImage: BG_THIRD }}>
+              <Grid.Column width={16}>
+                <Grid centered>
+                  <Grid.Row
+                    verticalAlign="middle"
+                    style={{
+                      backgroundColor: "rgba(145, 140, 140, 0.3)",
+                      borderBottom: "1px groove",
+                    }}
+                    centered
+                  >
+                    <Grid.Column width={3} textAlign="center">
+                      <Image centered bordered src={getImageSrc(`/weaponSkills/${Weapons[id]}`)} />
+                    </Grid.Column>
+                    <Grid.Column width={2} textAlign="center">
+                      <Header inverted textAlign="center">
+                        {weaponType.name}
+                      </Header>
+                    </Grid.Column>
+                    <Grid.Column width={Math.min(weaponType.usableBy.length + 4, 8) as any}>
+                      <div style={{ display: "flex", flexFlow: "row wrap" }}>
+                        {weaponType.usableBy.map((char) => (
+                          <div key={char}>
+                            <CharacterThumbnailComponent
+                              onClick={() => history.push(`/wiki/characters/${char}`)}
+                              isActive={false}
+                              name={char}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </Grid.Column>
+                  </Grid.Row>
+                  {weaponType.abilityDetails && weaponType.abilityDetails.name && (
+                    <Grid.Row
+                      verticalAlign="middle"
+                      style={{
+                        backgroundColor: "rgba(38, 35, 35, 0.5)",
+                      }}
+                      centered
+                    >
+                      <Grid.Column width={16} textAlign="center">
+                        <Header inverted as="h1">
+                          {weaponType.abilityDetails.name.replace(/_/g, " ")}
+                        </Header>
+                      </Grid.Column>
+                      <Grid.Column width={16} textAlign="center">
+                        {weaponType.abilityDetails.description}
+                      </Grid.Column>
+                      <Grid.Column width={12} textAlign="center" style={{ paddingTop: "2rem" }}>
+                        <Statistic.Group
+                          size={"mini"}
+                          widths="three"
+                          color="red"
+                          inverted
+                          items={weaponType.abilityDetails.info.map(({ title, value }) => ({
+                            key: title,
+                            value,
+                            label: title,
+                          }))}
+                        />
+                      </Grid.Column>
+                    </Grid.Row>
+                  )}
+                </Grid>
               </Grid.Column>
             </Grid.Row>
-            {weaponType.abilityDetails && weaponType.abilityDetails.name && (
-              <Grid.Row
-                verticalAlign="middle"
-                style={{
-                  backgroundColor: "rgba(38, 35, 35, 0.5)",
-                  borderBottom: "1px groove",
-                  borderTop: "1px groove",
-                }}
-                centered
-              >
-                <Grid.Column width={16} textAlign="center">
-                  <Header inverted as="h1">
-                    {weaponType.abilityDetails.name.replace(/_/g, " ")}
-                  </Header>
-                </Grid.Column>
-                <Grid.Column width={16} textAlign="center">
-                  {weaponType.abilityDetails.description}
-                </Grid.Column>
-                <Grid.Column width={12} textAlign="center" style={{ paddingTop: "2rem" }}>
-                  <Statistic.Group
-                    size={"mini"}
-                    widths="three"
-                    color="red"
-                    inverted
-                    items={weaponType.abilityDetails.info.map(({ title, value }) => ({
-                      key: title,
-                      value,
-                      label: title,
-                    }))}
-                  />
-                </Grid.Column>
-              </Grid.Row>
-            )}
             <Grid.Row
               style={{
-                backgroundColor: "rgba(255, 250, 250, 0.9)",
                 paddingTop: 0,
-                backgroundImage: BG_HALF,
+                backgroundColor: "rgba(32, 29, 29, 0.2)",
+                background: BG_THIRD,
               }}
               centered
             >
               <Grid.Column width={16}>
-                <Segment style={{ borderRadius: 0 }} textAlign="center" secondary raised>
-                  <Header color="orange">Weapon Options</Header>
+                <Segment style={{ borderRadius: 0 }} textAlign="center" secondary raised inverted>
+                  <Header inverted>Weapon Options</Header>
                 </Segment>
               </Grid.Column>
               {selectedItem && (
@@ -166,7 +162,7 @@ export const WeaponPage = () => {
                 textAlign="center"
               >
                 {weaponType.items.map(({ id }) => (
-                  <ItemModalButton key={id} id={id} action={(id) => setSelectedItem(id)} />
+                  <ItemModalButton key={id} id={id} action={() => setSelectedItem(id)} />
                 ))}
               </Grid.Column>
             </Grid.Row>
@@ -180,7 +176,7 @@ export const WeaponPage = () => {
             history.push(`/wiki/weapons/${item.clientType}`);
             setSelectedItem(id);
           }}
-          items={getItemList(Types.Weapon)}
+          items={getList(Types.Weapon)}
           title="Weapon Options"
           path="/wiki/weapons"
         />

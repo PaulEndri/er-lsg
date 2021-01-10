@@ -1,52 +1,46 @@
-import { Armors, ArmorType, Item, Weapons, WeaponsLookup, WeaponType } from "erbs-sdk";
+import { Weapons, WeaponsLookup, Items, ItemDictionary, Item, setStaticCache } from "erbs-sdk";
 import { Types } from "./types";
-import { Items } from "erbs-data";
 
-const armorListByType = Object.fromEntries<Item[]>(
-  Object.values(Armors).map((key: Armors) => {
-    const type = new ArmorType(key);
+setStaticCache();
 
-    return [key, type.loadArmors()];
-  })
-);
+const LoadedWeapons = [];
+const LoadedItems = Object.fromEntries(
+  Object.entries(ItemDictionary).map(([name, values]) => {
+    const vals = Object.entries(values)
+      .filter(([key, val]) => typeof key === "string" && typeof val === "number")
+      .map(([, val]) => {
+        return Item.Generate(val);
+      });
 
-const weaponListByType = Object.fromEntries<Item[]>(
-  Object.entries(WeaponsLookup).map(([name, val]) => {
-    const type = new WeaponType(val);
-    console.log("[sup]", name, val);
-    return [name, type.loadWeapons()];
-  })
-);
-
-const miscListByType = {};
-
-Object.values(Items)
-  .filter((item: any) => ["Misc", "Consume", "Special"].includes(item.apiMetaData.category))
-  .forEach((item: any) => {
-    if (!miscListByType[item.apiMetaData.type]) {
-      miscListByType[item.apiMetaData.type] = [];
+    if (Weapons[name] || WeaponsLookup[name]) {
+      LoadedWeapons.push(...vals);
     }
 
-    miscListByType[item.apiMetaData.type].push(new Item(item));
-  });
+    return [name, vals as Item[]];
+  })
+);
 
-export const getItemList = (type?: Types | Weapons) => {
-  console.log("[item state]", type);
-  if (armorListByType[type]) {
-    return armorListByType[type];
-  } else if (weaponListByType[type]) {
-    return weaponListByType[type];
-  } else if (type === Types.Weapon) {
-    return Object.values(weaponListByType).flat();
-  } else {
-    return Object.values(armorListByType).flat();
-  }
+export const MiscListKeys = ["Beverage", "Material", "Summon", "Food"];
+
+const getArmoredList = () => {
+  return LoadedItems["Chest"], LoadedItems["Arm"];
 };
+export const getList = (val: keyof typeof Items | Types) => {
+  if (LoadedItems[val]) {
+    return LoadedItems[val];
+  }
 
-export const getMiscListKeys = () => {
-  return Object.keys(miscListByType);
+  if (val === Types.Weapon) {
+    return LoadedWeapons;
+  }
+
+  if (val === Types.Accessory) {
+    return LoadedItems.Trinket;
+  }
+
+  return Object.values(LoadedItems).flat();
 };
 
 export const getMiscList = (type) => {
-  return type ? miscListByType[type] : Object.values(miscListByType).flat();
+  return type ? LoadedItems[type] : MiscListKeys.map((val) => LoadedItems[val]).flat();
 };

@@ -36,7 +36,6 @@ export const DesktopLoadoutComponent: FunctionComponent<LoadoutProps> = ({
         color="black"
         textAlign="center"
         placeholder={!selectedCharacter}
-        fluid
         style={{ minHeight: "166px" }}
       >
         {selectedCharacter && (

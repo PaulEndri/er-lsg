@@ -1,35 +1,27 @@
 import React, { useContext } from "react";
 import { Grid } from "semantic-ui-react";
-import { getItemList } from "../../../utilities/getList";
-import { Characters, Item } from "erbs-sdk";
+import { Character, Characters } from "erbs-sdk";
 import { Types } from "../../../utilities/types";
 import { ItemModalButton } from "../../../components/itemModalButton.component";
 import { SectionComponent } from "../../../components/section.component";
-import { FilterContext } from "../state";
 import CharacterThumbnailComponent from "../../../components/characterThumbnail.component";
+import { getList } from "../../../utilities/getList";
+import { LoadoutContext } from "../../../state/loadout";
+import { FilterContext } from "../state";
 
-type Props = {
-  selectedCharacter: any;
-  toggle: any;
-  updateCharacter: any;
-  filterStates: Record<Types, boolean>;
-};
+export const SelectionPaneComponent: React.FC = () => {
+  const { character, updateCharacter } = useContext(LoadoutContext);
+  const { toggle, filterStates } = useContext(FilterContext);
 
-export const SelectionPaneComponent: React.FC<Props> = ({
-  filterStates,
-  toggle,
-  selectedCharacter,
-  updateCharacter,
-}) => {
   const getTypeValue = (type) =>
-    type === Types.Weapon && selectedCharacter
-      ? selectedCharacter.weapons.map((wpn) => getItemList(wpn)).flat()
-      : getItemList(type);
+    type === Types.Weapon && character && character.attributes
+      ? character.attributes.map((attr) => getList(attr.mastery as any)).flat()
+      : getList(type);
 
   return (
     <Grid centered>
       <Grid.Row>
-        <Grid.Column width={9}>
+        <Grid.Column width={12}>
           <SectionComponent title="Test Subject Selection">
             <div
               style={{
@@ -38,13 +30,13 @@ export const SelectionPaneComponent: React.FC<Props> = ({
                 justifyContent: "center",
               }}
             >
-              {Object.keys(Characters).map((character) => (
-                <div key={character} style={{ marginRight: "4px" }}>
+              {Object.keys(Character.SOURCES).map((char) => (
+                <div key={char} style={{ marginRight: "4px" }}>
                   <CharacterThumbnailComponent
                     width={60}
-                    name={character}
-                    isActive={selectedCharacter && selectedCharacter.name === character}
-                    onClick={() => updateCharacter(character)}
+                    name={char}
+                    isActive={character && character.name === char}
+                    onClick={() => updateCharacter(char as keyof typeof Characters)}
                   />
                 </div>
               ))}
@@ -53,7 +45,7 @@ export const SelectionPaneComponent: React.FC<Props> = ({
         </Grid.Column>
         {Object.keys(Types).map((type: Types) => {
           return (
-            <Grid.Column width={9} key={type}>
+            <Grid.Column width={12} key={type}>
               <SectionComponent
                 title={`${type} Selection`}
                 collapsed={filterStates[type]}
