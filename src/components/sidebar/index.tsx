@@ -1,11 +1,10 @@
-import React, { ReactNode, StatelessComponent } from "react";
+import React, { ReactNode } from "react";
 import { Segment, Menu, Header } from "semantic-ui-react";
-import { Link, useLocation } from "react-router-dom";
 
 interface SidebarProps {
   title: ReactNode;
 }
-export const SidebarComponent: StatelessComponent<SidebarProps> = ({ title, children }) => {
+export const SidebarComponent: React.FC<SidebarProps> = ({ title, children }) => {
   return (
     <Segment
       basic

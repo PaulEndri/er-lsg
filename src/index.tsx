@@ -4,7 +4,6 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
-import { setStaticCache } from "erbs-sdk";
 
 ReactDOM.render(
   <React.StrictMode>

@@ -9,7 +9,7 @@
     "dotenv": "^8.2.0",
     "erbs-client": "^1.6.2",
     "erbs-data": "^1.6.10",
-    "erbs-sdk": "^1.6.10",
+    "erbs-sdk": "^1.6.11",
     "netlify-lambda": "^2.0.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

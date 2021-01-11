@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Header, Icon, Segment } from "semantic-ui-react";
+import { Icon, Segment } from "semantic-ui-react";
 
 type Props = {
   title: string;

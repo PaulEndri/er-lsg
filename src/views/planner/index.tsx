@@ -33,9 +33,9 @@ export const loadoutMenu = [
 ];
 
 const PlannerView = () => {
-  const { loadout, character, updateCharacter, setRoutes } = useContext(DataContext);
+  const { loadout, character, setRoutes } = useContext(DataContext);
   const { setItem } = useContext(ItemModalContext);
-  const { massUpdate, filterStates, toggle } = useContext(FilterContext);
+  const { massUpdate } = useContext(FilterContext);
   const [activeTab, setActiveTab] = useState(
     window.location.pathname.includes("/route")
       ? 1

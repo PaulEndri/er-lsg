@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Segment, Grid, Header, Button, Label, Form, Dropdown } from "semantic-ui-react";
+import { Segment, Grid, Header, Button, Label, Dropdown } from "semantic-ui-react";
 import { getImageSrc } from "../../../utilities/getImageSrc";
 import { Item, Items, Locations, Route } from "erbs-sdk";
 import { ItemModalContext } from "../../../state/itemModal";
@@ -93,7 +93,10 @@ export const RoutePaneComponent: React.FC = () => {
                         image
                         onClick={() => setItem(new Item(Items[material]))}
                       >
-                        <img src={getImageSrc(Items[material].replace(/([A-Z])/g, " $1").trim())} />
+                        <img
+                          alt={material}
+                          src={getImageSrc(Items[material].replace(/([A-Z])/g, " $1").trim())}
+                        />
                         <Label.Detail style={{ marginLeft: "-.5em" }}>{quantity}</Label.Detail>
                       </Label>
                     </div>

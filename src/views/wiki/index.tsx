@@ -1,6 +1,6 @@
-import { Armors, Character, Locations, Weapons, WeaponsLookup } from "erbs-sdk";
+import { Armors, Character, Locations, Weapons } from "erbs-sdk";
 import React, { useState } from "react";
-import { Menu, Grid, List, Label, Header, Image, Button } from "semantic-ui-react";
+import { Menu, Grid, Label, Header, Image, Button } from "semantic-ui-react";
 import { Link, Route, Switch, useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import { PageComponent } from "../../components/page";
 import { CharacterLandingPage, CharacterPage } from "./children/characterPage.component";
@@ -64,7 +64,7 @@ const HpHeader = ({ content, path }) => {
 };
 const WikiView = () => {
   const location = useLocation();
-  const { path, url } = useRouteMatch();
+  const { path } = useRouteMatch();
   const history = useHistory();
 
   const sidebarItems = menuItems.map(([route, name, subMenuItems]: [string, string, string[]]) => {

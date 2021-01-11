@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Container, Header, Segment } from "semantic-ui-react";
+import { Container, Header } from "semantic-ui-react";
 import { PageComponent } from "../../components/page";
 
 const HomeView = () => {

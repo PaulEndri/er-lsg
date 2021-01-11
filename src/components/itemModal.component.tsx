@@ -3,7 +3,6 @@ import React, { useContext } from "react";
 import { Button, Icon, Modal, Segment } from "semantic-ui-react";
 import { ItemModalContext } from "../state/itemModal";
 import { DataContext } from "../state/data";
-import { Types } from "../utilities/types";
 import { ItemCardComponent } from "./itemCard.component";
 
 export const ItemModalComponent = () => {

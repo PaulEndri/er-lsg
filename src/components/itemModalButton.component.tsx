@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { Button, Image, Label, Segment } from "semantic-ui-react";
+import { Button, Image } from "semantic-ui-react";
 import { Item } from "erbs-sdk";
 import { getImageSrc } from "../utilities/getImageSrc";
-import { itemRarityBackground, rarityColor } from "../utilities/rarityColor";
+import { itemRarityBackground } from "../utilities/rarityColor";
 import { ItemModalContext } from "../state/itemModal";
 import { useLocation } from "react-router-dom";
 type ItemModalButtonProps = {

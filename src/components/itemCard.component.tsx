@@ -116,7 +116,7 @@ export const ItemCardComponent: FunctionComponent<ItemCardProps> = ({ item, show
                 {Object.entries(item.materials).map(([material, quantity], key) => (
                   <div style={{ margin: "5px" }}>
                     <Label image key={key + material} onClick={() => setItem(material)}>
-                      <img src={getImageSrc(material)} />
+                      <img alt={material} src={getImageSrc(material)} />
                       {quantity}
                     </Label>
                   </div>

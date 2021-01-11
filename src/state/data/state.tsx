@@ -1,7 +1,7 @@
-import { Character, ICharacter, Characters, Location, Loadout } from "erbs-sdk";
-import { IPlayer } from "../../utilities/player";
+import { Character, ICharacter, Characters, Location, Loadout, setStaticCache } from "erbs-sdk";
+import { IPlayer } from "../../utilities//player";
 import { ActiveRouteDetail } from "../../utilities/activeRouteDetail";
-
+setStaticCache();
 export const initialLoadout = {
   Weapon: null,
   Chest: null,
@@ -18,7 +18,7 @@ export const generateEmptyDetail = (val = null) => ({
   completed: [],
 });
 
-const defaultCharacter = Math.floor(Math.random() * Object.keys(Character.SOURCES).length);
+const defaultCharacter = Math.floor(Math.random() * Object.keys(Characters).length);
 
 export const initialState = {
   loadout: Loadout.GenerateLoadout(initialLoadout),

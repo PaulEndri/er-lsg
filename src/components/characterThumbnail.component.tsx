@@ -64,6 +64,7 @@ const CharacterThumbnailComponent: FunctionComponent<CharacterThumbnailProps> = 
       >
         <div style={containerStyle}>
           <img
+            alt={name}
             style={{
               height: "auto",
               width: `${width}px`,

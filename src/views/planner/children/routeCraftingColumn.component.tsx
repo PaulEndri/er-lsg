@@ -17,8 +17,6 @@ export const RouteCraftingColumnComponent: React.FC<RouteCraftingComponentProps>
   craftable,
   setItem,
 }) => {
-  const sortedMaterial = {};
-
   return (
     <Grid.Column width={3}>
       <Segment
@@ -66,7 +64,7 @@ export const RouteCraftingColumnComponent: React.FC<RouteCraftingComponentProps>
           {craftable.map((item) => (
             <div key={item.id} style={{ margin: "5px" }}>
               <Label style={{ padding: 0 }} color="teal" as={Button} onClick={() => setItem(item)}>
-                <img src={getImageSrc(item.displayName)} />
+                <img alt={item.displayName} src={getImageSrc(item.displayName)} />
               </Label>
             </div>
           ))}

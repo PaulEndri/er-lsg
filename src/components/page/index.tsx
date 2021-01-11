@@ -1,6 +1,5 @@
-import React, { StatelessComponent, ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { Segment, Header } from "semantic-ui-react";
-import { BG_THIRD } from "../../utilities/bgImages";
 import { SidebarComponent } from "../sidebar";
 
 interface PageProps {
@@ -9,7 +8,7 @@ interface PageProps {
   sidebarTitle?: ReactNode;
 }
 
-export const PageComponent: StatelessComponent<PageProps> = ({
+export const PageComponent: React.FC<PageProps> = ({
   sidebarItems,
   title,
   sidebarTitle,
