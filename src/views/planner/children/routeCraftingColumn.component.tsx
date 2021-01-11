@@ -17,20 +17,35 @@ export const RouteCraftingColumnComponent: React.FC<RouteCraftingComponentProps>
   craftable,
   setItem,
 }) => {
+  const sortedMaterial = {};
+
   return (
     <Grid.Column width={3}>
       <Segment
         style={{ padding: 0, borderRadius: 0, backgroundColor: "rgba(29, 25, 25, 0.65)" }}
         textAlign="center"
         inverted
+        raised
       >
-        <Segment color="black" inverted style={{ borderRadius: 0, margin: 0 }}>
-          <Header inverted>{location.name}</Header>
-        </Segment>
-        <Image
-          src={`${process.env.PUBLIC_URL}/assets/images/locations/${location.name}.jpg`}
-          width={"100%"}
-        />
+        <div style={{ position: "relative" }}>
+          <Image
+            src={`${process.env.PUBLIC_URL}/assets/images/locations/${location.name}.jpg`}
+            width={"100%"}
+          />
+          <Segment
+            inverted
+            style={{
+              borderRadius: 0,
+              margin: 0,
+              position: "absolute",
+              top: 0,
+              width: "100%",
+              background: `linear-gradient(180deg,rgba(255, 50, 50, 1) 0%, rgba(255, 50, 50, 0.4) 40%,rgba(255, 150, 100, 0) 90%)`,
+            }}
+          >
+            <Header inverted>{location.name}</Header>
+          </Segment>
+        </div>
 
         {completed && completed.length > 0 && (
           <>

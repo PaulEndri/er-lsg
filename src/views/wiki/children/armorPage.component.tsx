@@ -1,6 +1,6 @@
 import { Armors } from "erbs-sdk";
-import React, { useState } from "react";
-import { Button, Container, Menu } from "semantic-ui-react";
+import React from "react";
+import { Container, Menu } from "semantic-ui-react";
 import { useHistory, useParams } from "react-router-dom";
 import { getList } from "../../../utilities/getList";
 import { ItemSearchComponent } from "./ItemSearch.component";
@@ -21,7 +21,7 @@ export const ArmorPage = () => {
           justifyContent: "center",
         }}
       >
-        {Object.values(Armors).map((armor) => (
+        {Object.keys(Armors).map((armor) => (
           <Menu.Item
             key={armor}
             active={id === armor}

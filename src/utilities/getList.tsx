@@ -23,7 +23,13 @@ const LoadedItems = Object.fromEntries(
 export const MiscListKeys = ["Beverage", "Material", "Summon", "Food"];
 
 const getArmoredList = () => {
-  return LoadedItems["Chest"], LoadedItems["Arm"];
+  return [
+    ...LoadedItems.Chest,
+    ...LoadedItems.Arm,
+    ...LoadedItems.Head,
+    ...LoadedItems.Trinket,
+    ...LoadedItems.Leg,
+  ];
 };
 export const getList = (val: keyof typeof Items | Types) => {
   if (LoadedItems[val]) {
@@ -38,7 +44,7 @@ export const getList = (val: keyof typeof Items | Types) => {
     return LoadedItems.Trinket;
   }
 
-  return Object.values(LoadedItems).flat();
+  return getArmoredList();
 };
 
 export const getMiscList = (type) => {

@@ -39,7 +39,7 @@ export const SidebarContents = ({
       }}
     >
       <Button onClick={() => generateRoute()} color="green" style={{ borderRadius: "0px" }} fluid>
-        GenerateRoutes
+        Generate Routes
       </Button>
     </Menu.Item>
   </React.Fragment>

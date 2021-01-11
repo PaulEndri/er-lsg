@@ -22,6 +22,7 @@ export const SidebarComponent: StatelessComponent<SidebarProps> = ({ title, chil
         padding: 0,
         marginRight: 0,
         width: "150px",
+        height: "max-content",
       }}
     >
       <Menu inverted vertical style={{ border: 0, borderRadius: 0 }} fluid color="black">

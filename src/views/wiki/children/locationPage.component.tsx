@@ -32,21 +32,23 @@ const LocationView: React.FC = ({ children }) => {
           justifyContent: "center",
         }}
       >
-        {Object.keys(Locations).map((type) => (
-          <Menu.Item
-            key={type}
-            active={id === type}
-            onClick={() => {
-              history.push(`/wiki/locations/${type}`);
-            }}
-            color="red"
-            style={{
-              borderRadius: 0,
-            }}
-          >
-            {type}
-          </Menu.Item>
-        ))}
+        {Object.keys(Locations)
+          .filter((type) => !isNaN(Locations[type]))
+          .map((type) => (
+            <Menu.Item
+              key={type}
+              active={id === type}
+              onClick={() => {
+                history.push(`/wiki/locations/${type}`);
+              }}
+              color="red"
+              style={{
+                borderRadius: 0,
+              }}
+            >
+              {type}
+            </Menu.Item>
+          ))}
       </Menu>
       {children}
     </Container>

@@ -11,7 +11,7 @@ import {
   Image,
 } from "semantic-ui-react";
 import { useHistory, useParams } from "react-router-dom";
-import { Animal, IAnimal, AnimalsLookup } from "erbs-sdk";
+import { Animal, Animals } from "erbs-sdk";
 import { ItemModalButton } from "../../../components/itemModalButton.component";
 import { getImageSrc } from "../../../utilities/getImageSrc";
 
@@ -31,7 +31,7 @@ const AnimalView: React.FC = ({ children }) => {
           justifyContent: "center",
         }}
       >
-        {Object.keys(AnimalsLookup)
+        {Object.keys(Animals)
           .filter((x) => isNaN(x as any))
           .map((type) => (
             <Menu.Item
@@ -189,8 +189,8 @@ export const AnimalPage = () => {
             }}
             textAlign="center"
           >
-            {animal.items.map(({ name, percentage }, id) => (
-              <ItemModalButton id={`${name}`.replace(" ", "")} key={id} label={percentage + "%"} />
+            {animal.items.map(({ name, percentage }) => (
+              <ItemModalButton id={name} key={id} label={percentage + "%"} />
             ))}
           </Grid.Row>
         </Grid>

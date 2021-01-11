@@ -21,6 +21,5 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
-, "src/views/wiki/ArmorPage/.tsx"  ]
+    "src"  ]
 }

@@ -40,7 +40,7 @@ const CharacterAttrStatistic = ({ attr }) => (
       />
     </Statistic.Value>
     <Statistic.Label>
-      <Rating icon="star" defaultRating={attr.controlDifficulty} maxRating={3} />
+      <Rating disabled icon="star" defaultRating={attr.controlDifficulty} maxRating={3} />
     </Statistic.Label>
   </Statistic>
 );
@@ -216,6 +216,7 @@ export const CharacterPage = () => {
                         <Table.Cell>
                           <Rating
                             icon="star"
+                            disabled
                             defaultRating={attr.controlDifficulty}
                             maxRating={3}
                           />
@@ -357,10 +358,8 @@ export const CharacterLandingPage = () => {
                   <Table.Cell>
                     {characterObject.attributes.map((attr, id) => (
                       <Image
-                        bordered
-                        wrapped
                         key={attr.mastery}
-                        size="small"
+                        inline
                         style={{
                           maxHeight: "auto",
                           width: "50px",

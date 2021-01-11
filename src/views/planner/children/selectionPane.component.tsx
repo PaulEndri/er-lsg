@@ -1,16 +1,17 @@
 import React, { useContext } from "react";
-import { Grid } from "semantic-ui-react";
+import { Grid, Header, Segment } from "semantic-ui-react";
 import { Character, Characters } from "erbs-sdk";
 import { Types } from "../../../utilities/types";
 import { ItemModalButton } from "../../../components/itemModalButton.component";
 import { SectionComponent } from "../../../components/section.component";
 import CharacterThumbnailComponent from "../../../components/characterThumbnail.component";
 import { getList } from "../../../utilities/getList";
-import { LoadoutContext } from "../../../state/loadout";
+import { DataContext } from "../../../state/data";
 import { FilterContext } from "../state";
+import { Link } from "react-router-dom";
 
 export const SelectionPaneComponent: React.FC = () => {
-  const { character, updateCharacter } = useContext(LoadoutContext);
+  const { character, updateCharacter } = useContext(DataContext);
   const { toggle, filterStates } = useContext(FilterContext);
 
   const getTypeValue = (type) =>
@@ -19,8 +20,23 @@ export const SelectionPaneComponent: React.FC = () => {
       : getList(type);
 
   return (
-    <Grid centered>
-      <Grid.Row>
+    <Grid
+      centered
+      style={{ height: "max-content", marginTop: 0, backgroundColor: "rgba(79, 76, 76, 0.2)" }}
+    >
+      <Grid.Row stretched>
+        <Grid.Column width={12}>
+          <Segment style={{ borderRadius: 0 }} inverted color="black" raised stacked padded>
+            <p>
+              <Header inverted>Equipment/Loadout Selection</Header>
+              Select your desired character and equipment below to either aid in{" "}
+              <Link to="/planner/craft">creating your own routes</Link> or{" "}
+              <Link to="/planner/route">automatically generating routes</Link>
+            </p>
+          </Segment>
+        </Grid.Column>
+      </Grid.Row>
+      <Grid.Row style={{ paddingTop: 0, marginTop: 0 }}>
         <Grid.Column width={12}>
           <SectionComponent title="Test Subject Selection">
             <div
@@ -62,3 +78,5 @@ export const SelectionPaneComponent: React.FC = () => {
     </Grid>
   );
 };
+
+export default SelectionPaneComponent;

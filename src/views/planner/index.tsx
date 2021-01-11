@@ -1,28 +1,18 @@
-import { Categories, Item, Loadout, Weapons, WeaponsLookup, Route as LoadoutRoute } from "erbs-sdk";
-import React, { PureComponent, useContext, useState } from "react";
-import {
-  Card,
-  Image,
-  List,
-  Label,
-  Grid,
-  Container,
-  Header,
-  Tab,
-  Menu,
-  Dimmer,
-} from "semantic-ui-react";
-import { SelectionPaneComponent } from "./children/selectionPane.component";
-import { RoutePaneComponent } from "./children/routePane.component";
+import { Item, Weapons, Route as LoadoutRoute } from "erbs-sdk";
+import React, { useContext, useState, lazy, Suspense } from "react";
+import { Container, Menu, Dimmer, Loader } from "semantic-ui-react";
+
 import { Types } from "../../utilities/types";
 import { PageComponent } from "../../components/page";
-import { getImageSrc } from "../../utilities/getImageSrc";
-import { LoadoutContext } from "../../state/loadout";
-import { FilterContext, FilterProvider } from "./state";
+import { DataContext } from "../../state/data";
+import { FilterContext } from "./state";
 import { ItemModalContext } from "../../state/itemModal";
-import { Route, Switch, useHistory, useRouteMatch } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import { SidebarContents } from "./children/sidebarContents.component";
-import { RouteCraftingComponent } from "./children/routeCrafting.component";
+
+const RouteCraftingPaneComponent = lazy(() => import("./children/routeCraftingPane.component"));
+const SelectionPaneComponent = lazy(() => import("./children/selectionPane.component"));
+const RoutePaneComponent = lazy(() => import("./children/routePane.component"));
 
 export const initialLoadout = {
   Weapon: null,
@@ -43,7 +33,7 @@ export const loadoutMenu = [
 ];
 
 const PlannerView = () => {
-  const { loadout, character, updateCharacter, setRoutes } = useContext(LoadoutContext);
+  const { loadout, character, updateCharacter, setRoutes } = useContext(DataContext);
   const { setItem } = useContext(ItemModalContext);
   const { massUpdate, filterStates, toggle } = useContext(FilterContext);
   const [activeTab, setActiveTab] = useState(
@@ -134,7 +124,7 @@ const PlannerView = () => {
               borderRadius: 0,
             }}
           >
-            Routes Generation
+            Route Generation
           </Menu.Item>
           <Menu.Item
             active={activeTab === 2}
@@ -151,29 +141,33 @@ const PlannerView = () => {
           </Menu.Item>
         </Menu>
         <Container fluid>
-          <Switch>
-            <Route path={"/planner"} exact>
-              <SelectionPaneComponent />
-            </Route>
-            <Route path={"/planner/selection"} exact>
-              <SelectionPaneComponent />
-            </Route>
-            <Route path="/planner/route" exact>
-              <RoutePaneComponent />
-            </Route>
-            <Route path="/planner/craft" exact>
-              <RouteCraftingComponent />
-            </Route>
-          </Switch>
+          <Suspense
+            fallback={
+              <Dimmer active>
+                <Loader />
+              </Dimmer>
+            }
+          >
+            <Switch>
+              <Route path={"/planner"} exact>
+                <SelectionPaneComponent />
+              </Route>
+              <Route path={"/planner/selection"} exact>
+                <SelectionPaneComponent />
+              </Route>
+              <Route path="/planner/route" exact>
+                <RoutePaneComponent />
+              </Route>
+              <Route path="/planner/craft" exact>
+                <RouteCraftingPaneComponent />
+              </Route>
+            </Switch>
+          </Suspense>
         </Container>
       </Container>
       <Dimmer active={loading} />
     </PageComponent>
   );
 };
-
-// wp ch hea arm leg acc
-
-// q w e r d p
 
 export default PlannerView;

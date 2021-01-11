@@ -1,4 +1,4 @@
-import { Item, Weapons, WeaponsLookup, WeaponType } from "erbs-sdk";
+import { Item, Weapons, WeaponType } from "erbs-sdk";
 import React, { useState } from "react";
 import { Image, Segment, Container, Grid, Menu, Header, Statistic } from "semantic-ui-react";
 import { useHistory, useParams } from "react-router-dom";
@@ -14,10 +14,9 @@ import { getList } from "../../../utilities/getList";
 export const WeaponPage = () => {
   const history = useHistory();
   const { id } = useParams() as any;
-  const weaponType = id ? new WeaponType(Weapons[id]) : null;
+  const weaponType = id ? new WeaponType(id) : null;
 
   const [selectedItem, setSelectedItem] = useState(null);
-  console.log("[test]", weaponType);
   return (
     <Container fluid>
       <Menu

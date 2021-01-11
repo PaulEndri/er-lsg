@@ -1,6 +1,6 @@
 import { Armors, Character, Locations, Weapons, WeaponsLookup } from "erbs-sdk";
-import React, { PureComponent, useState } from "react";
-import { Segment, Menu, Grid, List, Label, Header, Image, Button } from "semantic-ui-react";
+import React, { useState } from "react";
+import { Menu, Grid, List, Label, Header, Image, Button } from "semantic-ui-react";
 import { Link, Route, Switch, useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import { PageComponent } from "../../components/page";
 import { CharacterLandingPage, CharacterPage } from "./children/characterPage.component";
@@ -8,19 +8,18 @@ import { WeaponPage } from "./children/weaponPage.component";
 import { ArmorPage } from "./children/armorPage.component";
 import { ItemPage } from "./children/itemPage.component";
 import { LocationLandingPage, LocationPage } from "./children/locationPage.component";
-import { CharacterPortrait } from "../../components/characterPortrait.component";
 import CharacterThumbnailComponent from "../../components/characterThumbnail.component";
 import { getImageSrc } from "../../utilities/getImageSrc";
-import { BG_HALF, BG_THIRD } from "../../utilities/bgImages";
+import { BG_THIRD } from "../../utilities/bgImages";
 import { MapComponent } from "../../components/map";
 import { AnimalLandingPage, AnimalPage } from "./children/animalPage.component";
 import { MiscListKeys } from "../../utilities/getList";
 
 const menuItems = [
   ["characters", "Characters", Object.keys(Character.SOURCES)],
-  ["weapons", "Weapons", Object.values(Weapons)],
-  ["armors", "Armors", Object.values(Armors)],
-  ["locations", "Locations", Object.values(Locations)],
+  ["weapons", "Weapons", Object.keys(Weapons)],
+  ["armors", "Armors", Object.keys(Armors)],
+  ["locations", "Locations", Object.keys(Locations).filter((type) => !isNaN(Locations[type]))],
   ["items", "Items", MiscListKeys],
   ["animals", "Animals"],
 ];
@@ -144,14 +143,17 @@ const WikiView = () => {
               backgroundPosition: "5px 25px",
             }}
           >
-            <Grid.Row width={16} textAlign="center">
-              <Image size="medium" src={getImageSrc("logo")} centered />
+            <Grid.Row textAlign="center" centered>
+              <Grid.Column width={3}>
+                <Image size="medium" src={getImageSrc("logo")} centered />
+              </Grid.Column>
+              <Grid.Column width={3} verticalAlign="middle">
+                <Header size="huge" inverted>
+                  Survival Guide
+                </Header>
+              </Grid.Column>
             </Grid.Row>
-            <Grid.Row style={{ margin: 0, padding: 0 }}>
-              <Header size="huge" inverted>
-                Survival Guide
-              </Header>
-            </Grid.Row>
+            <Grid.Row style={{ margin: 0, padding: 0 }}></Grid.Row>
             <Grid.Row style={{ marginTop: "2rem" }}>
               <Grid.Column width={4}>
                 <div>
@@ -179,8 +181,10 @@ const WikiView = () => {
                 <Grid style={{ borderLeft: "3px groove rgba(200, 200 , 200, 0.2)" }}>
                   <Grid.Row basic fluid>
                     <HpHeader content="Weapon Types" path={"weapons"} />
+                  </Grid.Row>
+                  <Grid.Row>
                     <div style={{ paddingLeft: "1rem" }}>
-                      {(menuItems[1][2] as string[]).map((wpn) => (
+                      {Object.values(Weapons).map((wpn) => (
                         <Button
                           key={wpn}
                           color="grey"
@@ -208,6 +212,8 @@ const WikiView = () => {
                   </Grid.Row>
                   <Grid.Row basic>
                     <HpHeader content="Armors & Items" path={"items"} />
+                  </Grid.Row>
+                  <Grid.Row>
                     <div style={{ paddingLeft: "1rem" }}>
                       {(menuItems[2][2] as string[]).map((char) => (
                         <Label
@@ -237,14 +243,14 @@ const WikiView = () => {
                       ))}
                     </div>
                   </Grid.Row>
-                  <Grid.Row basic style={{ borderRadius: 0 }}>
-                    <HpHeader content="Lumia Island" path={"locations"} />
-                    <div style={{ paddingLeft: "1rem", display: "flex", flexFlow: "row wrap" }}>
-                      <MapComponent onClick={(e) => history.push(`/wiki/locations/${e}`)} />
-                    </div>
-                  </Grid.Row>
                 </Grid>
               </Grid.Column>
+            </Grid.Row>
+            <Grid.Row basic style={{ borderRadius: 0 }}>
+              <HpHeader content="Lumia Island" path={"locations"} />
+              <div style={{ paddingLeft: "1rem", display: "flex", flexFlow: "row wrap" }}>
+                <MapComponent onClick={(e) => history.push(`/wiki/locations/${e}`)} />
+              </div>
             </Grid.Row>
           </Grid>
         </Route>

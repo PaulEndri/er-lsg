@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { Grid, Input, Segment, Transition, TransitionGroup } from "semantic-ui-react";
 import { ItemCardComponent } from "../../../components/itemCard.component";
 import { ItemModalButton } from "../../../components/itemModalButton.component";
+import { BG_THIRD } from "../../../utilities/bgImages";
 
 type Props = {
   setSelectedItem?: any;
@@ -44,7 +45,7 @@ export const ItemSearchComponent: React.FC<Props> = ({
   const realSelectedItem = selectedItem || localItem;
 
   return (
-    <Grid style={{}}>
+    <Grid>
       <Grid.Row
         style={{
           borderRadius: 0,
@@ -80,6 +81,7 @@ export const ItemSearchComponent: React.FC<Props> = ({
           paddingTop: "10px",
           borderRadius: 0,
           backgroundColor: "rgba(31, 29, 29, 0.9)",
+          backgroundImage: BG_THIRD,
           marginLeft: 0,
         }}
         textAlign="center"
