@@ -11,7 +11,7 @@ import { LocationLandingPage, LocationPage } from "./children/locationPage.compo
 import CharacterThumbnailComponent from "../../components/characterThumbnail.component";
 import { getImageSrc } from "../../utilities/getImageSrc";
 import { BG_THIRD } from "../../utilities/bgImages";
-import { MapComponent } from "../../components/map";
+import { MapComponent } from "../../components/map/index";
 import { AnimalLandingPage, AnimalPage } from "./children/animalPage.component";
 import { MiscListKeys } from "../../utilities/getList";
 
