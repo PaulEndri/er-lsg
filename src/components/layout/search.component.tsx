@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Input } from "semantic-ui-react";
+import { Input, Label } from "semantic-ui-react";
 import { DataContext } from "../../state/data";
 
 export const SearchComponent = () => {
@@ -20,41 +20,49 @@ export const SearchComponent = () => {
     try {
       const results = await getPlayerData(search);
 
-      if (results) {
+      if (!results) {
         history.push(`/players/${search}`);
       } else {
-        setError("Player matched no current results. Try again later or contact the side admin");
+        throw new Error(
+          "Player matched no current results. Try again later or contact the side admin"
+        );
       }
     } catch (e) {
       setError(e.message || "Player could not be found");
     } finally {
       setLoading(false);
+      setTimeout(() => {
+        setError(null);
+      });
     }
   };
 
   return (
-    <Input
-      action={{
-        color: "orange",
-        labelPosition: "left",
-        icon: "search",
-        content: "Search",
-        onClick: handleSearchClick,
-      }}
-      size="small"
-      disabled={loading}
-      loading={loading}
-      error={error}
-      style={{ margin: "auto", paddingRight: "25%" }}
-      onChange={(e) => {
-        updateSearch(e.target.value);
-      }}
-      onKeyPress={(e) => {
-        if (e.key === "Enter") {
-          handleSearchClick();
-        }
-      }}
-      placeholder="search for player"
-    />
+    <>
+      <Input
+        action={{
+          color: "orange",
+          labelPosition: "left",
+          icon: "search",
+          content: "Search",
+          onClick: handleSearchClick,
+        }}
+        size="small"
+        disabled={loading}
+        loading={loading}
+        error={error}
+        style={{ margin: "auto", paddingRight: "25%" }}
+        onChange={(e) => {
+          updateSearch(e.target.value);
+        }}
+        onKeyPress={(e) => {
+          if (e.key === "Enter") {
+            handleSearchClick();
+          }
+        }}
+        placeholder="search for player"
+      />
+      {error && <Label color="red">{error}</Label>}
+    </>
   );
 };
