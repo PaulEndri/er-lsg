@@ -135,17 +135,13 @@ class RedisService {
 
     this.lastKnownRateLimit += value;
 
-    const newValue = await this.json(
+    await this.json(
       value,
       RedisKeys.RATE_LIMIT_KEY,
       RedisJsonActions.NUMINCRBY,
       RedisService.DEFAULT_DOCUMENT_NAME,
       false
     );
-
-    if (newValue) {
-      this.lastKnownRateLimit = +newValue;
-    }
 
     return this.lastKnownRateLimit;
   }
