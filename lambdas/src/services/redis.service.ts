@@ -77,12 +77,11 @@ class RedisService {
   ) {
     await this.waitForLoad();
 
-    const command = `JSON.${action} ${name} ${key}${
-      value ? ` ${stringify ? JSON.stringify(value) : value}` : ""
-    }`;
+    const command = `JSON.${action}`;
+    const args = `${name} ${key}${value ? ` ${stringify ? JSON.stringify(value) : value}` : ""}`;
 
     return new Promise<T>((res, reject) => {
-      this.client.sendCommand(command, (e, r) => {
+      this.client.send_command(command, [args], (e, r) => {
         if (e) {
           return reject(e);
         } else {
