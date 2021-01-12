@@ -49,6 +49,11 @@ export const SearchComponent = () => {
       onChange={(e) => {
         updateSearch(e.target.value);
       }}
+      onKeyPress={(e) => {
+        if (e.key === "Enter") {
+          handleSearchClick();
+        }
+      }}
       placeholder="search for player"
     />
   );

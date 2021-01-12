@@ -8,28 +8,42 @@ import { CharacterPortrait } from "../../components/characterPortrait.component"
 import { GameModes } from "erbs-client";
 import { SeasonModeRankComponent, Seasons } from "./children/seasonModeRank.component";
 import { DataContext } from "../../state/data";
-import { IPlayer } from "../../utilities/player";
 
 const reverseCharLookup = Object.fromEntries(Object.entries(Characters).map(([k, v]) => [v, k]));
 
+const timeSince = (timeStamp) => {
+  var now = new Date(),
+    secondsPast = (now.getTime() - timeStamp) / 1000;
+  if (secondsPast < 60) {
+    return secondsPast + "s";
+  }
+  if (secondsPast < 3600) {
+    return secondsPast / 60 + "m";
+  }
+  if (secondsPast <= 86400) {
+    return secondsPast / 3600 + "h";
+  }
+  if (secondsPast > 86400) {
+    const day = timeStamp.getDate();
+    const month = timeStamp
+      .toDateString()
+      .match(/ [a-zA-Z]*/)[0]
+      .replace(" ", "");
+    const year = timeStamp.getFullYear() == now.getFullYear() ? "" : " " + timeStamp.getFullYear();
+    return day + " " + month + year;
+  }
+};
+
 const PlayerView = () => {
   const { id } = useParams() as any;
-  const [loadedPlayer, setLoadedPlayer] = useState<IPlayer>(null);
   const [activeSeason, setSeason] = useState(0);
-  const { getPlayerData } = useContext(DataContext);
+  const { getPlayerData, activePlayer } = useContext(DataContext);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<any>();
 
   useEffect(() => {
     if (id) {
       getPlayerData(id)
-        .then((results) => {
-          if (results) {
-            setLoadedPlayer(results);
-          } else {
-            setError(results);
-          }
-        })
         .catch((e) => {
           setError(e);
         })
@@ -59,7 +73,7 @@ const PlayerView = () => {
     );
   }
 
-  if (!loading && !loadedPlayer) {
+  if (!loading && !activePlayer) {
     return (
       <PageComponent title="Eternal Return: Black Survival Test Subject Records">
         <Segment
@@ -86,7 +100,7 @@ const PlayerView = () => {
     );
   }
 
-  const charsPlayed = loadedPlayer.seasonRecords
+  const charsPlayed = activePlayer.seasonRecords
     .map((season) => season.info)
     .flat()
     .map(({ characterStats }) =>
@@ -107,7 +121,8 @@ const PlayerView = () => {
     }, [] as any)
     .sort((a, b) => b[1] - a[1]);
 
-  const panes = loadedPlayer.seasonRecords
+  const panes = activePlayer.seasonRecords
+    .filter((season) => season.season === activeSeason)
     .map((season) => season.info)
     .flat()
     .map((data) => ({
@@ -167,8 +182,11 @@ const PlayerView = () => {
                     paddingTop: "8px",
                   }}
                 >
-                  Paul Endri
+                  {activePlayer.name}
                 </Header>
+                <span style={{ marginLeft: "8px", fontSize: "smaller" }}>
+                  Last Updated: {timeSince(new Date(activePlayer.lastUpdated).getTime())}
+                </span>
               </div>
             </Grid.Column>
             <Grid.Column width={2}>

@@ -15,6 +15,7 @@ export const DataProvider: FunctionComponent = ({ children }) => {
   const [routes, setRoutes] = useState(null);
   const [activeRoute, setRoute] = useState<ActiveRouteDetail[]>(initialState.activeRoute);
   const [playerData, setPlayerData] = useState<Record<number, IPlayer>>(initialState.playerData);
+  const [activePlayer, setActivePlayer] = useState<IPlayer>(null);
 
   const updateCharacter = (character: ICharacter | Character | keyof typeof Characters) => {
     if (character instanceof Character) {
@@ -124,14 +125,12 @@ export const DataProvider: FunctionComponent = ({ children }) => {
           [+results.data.id]: results.data,
         });
 
-        return results.data;
+        setActivePlayer(results.data);
       } else {
         console.error(results);
-
-        return null;
       }
     } else {
-      return playerData[id] || null;
+      setActivePlayer(playerData[id] || null);
     }
   };
 

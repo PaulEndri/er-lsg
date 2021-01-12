@@ -31,6 +31,7 @@ export const initialState = {
   setRoute: (routes: ActiveRouteDetail[]) => null,
   updateActiveRoute: (index: number, newLocation: Location) => null,
   playerData: {} as Record<number, IPlayer>,
+  activePlayer: null as IPlayer,
   updatePlayerData: (id: number, data: IPlayer) => null,
   getPlayerData: (id: number) => Promise.resolve({} as IPlayer),
 };
