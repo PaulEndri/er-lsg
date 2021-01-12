@@ -18,7 +18,10 @@ const PlannerView = lazy(() => import("./views/planner"));
 
 function App() {
   return (
-    <div className="App" style={{ backgroundImage: BG_THIRD, minHeight: "100vh" }}>
+    <div
+      className="App"
+      style={{ backgroundPositionX: "16px", backgroundImage: BG_THIRD, minHeight: "100vh" }}
+    >
       <DataProvider>
         <ItemModalProvider>
           <Router>

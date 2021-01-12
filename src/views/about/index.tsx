@@ -75,6 +75,29 @@ const AboutView = () => {
                 </p>
               </Segment>
             </Segment.Group>
+            <Segment inverted color="black" textAlign="center">
+              <Header inverted>Appreciate the work?</Header>
+              <p style={{ width: "300px", margin: "auto" }}>
+                If you appreciate the site and want to say thanks or want to help out, you can feel
+                free to to donate using any of the following ways. All donations will go towards
+                server and maintenance costs
+              </p>
+              <div>
+                <Button
+                  color="blue"
+                  icon="paypal"
+                  as="a"
+                  href="https://paypal.me/paulendri?locale.x=en_US"
+                >
+                  <Icon name="paypal" />
+                  PayPal
+                </Button>
+                <Button color="green" as="a" href="https://cash.app/$paulendri">
+                  <Icon name="dollar sign" />
+                  Cashapp
+                </Button>
+              </div>
+            </Segment>
           </Segment>
         </Segment.Group>
       </Container>

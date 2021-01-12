@@ -17,7 +17,7 @@ const LayoutComponent = ({ children }: any) => {
 
   return (
     <div ref={el}>
-      <Container fluid style={{ marginLeft: "0px !important", marginRight: "0px !important" }}>
+      <Container fluid style={{ marginLeft: "0px", marginRight: "0px" }}>
         <Segment inverted style={{ marginBottom: 0, borderRadius: 0, padding: 0 }} raised={true}>
           <Menu inverted>
             <Menu.Item header as={Link} to="/">
@@ -38,7 +38,7 @@ const LayoutComponent = ({ children }: any) => {
           </Menu>
         </Segment>
 
-        <Segment basic style={{ paddingLeft: 0, paddingTop: 0, paddingRight: 0, margin: 0 }}>
+        <Segment basic style={{ padding: 0, margin: 0 }}>
           {children}
         </Segment>
         <Segment color="black" inverted style={{ border: 0 }} basic attached="bottom">

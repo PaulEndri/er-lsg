@@ -17,11 +17,11 @@ export const SidebarComponent: React.FC<SidebarProps> = ({ title, children }) =>
         border: 0,
         borderRadius: 0,
         marginTop: 0,
-        minHeight: "95vh",
         padding: 0,
         marginRight: 0,
         width: "150px",
-        height: "max-content",
+        minheight: "max-content",
+        height: "95vh",
       }}
     >
       <Menu inverted vertical style={{ border: 0, borderRadius: 0 }} fluid color="black">

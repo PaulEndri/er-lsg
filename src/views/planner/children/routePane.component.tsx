@@ -59,11 +59,13 @@ export const RoutePaneComponent: React.FC = () => {
                 value={startingLocation}
                 onChange={(_e, { value }) => setStartingLocation(value)}
                 options={[{ key: 999, value: null, text: "Automatic" }].concat(
-                  Object.entries(Locations).map(([name, value]: [string, number]) => ({
-                    key: value,
-                    text: name,
-                    value: value,
-                  }))
+                  Object.entries(Locations)
+                    .filter(([x]) => isNaN(x as any))
+                    .map(([name, value]: [string, number]) => ({
+                      key: value,
+                      text: name,
+                      value: value,
+                    }))
                 )}
               />
             </Segment>
