@@ -9,17 +9,19 @@ class ClientService {
 
   async handleNext(value, process: keyof typeof QueueTypes) {
     const count = process === "numbers" ? 2 : 1;
+    let res;
     try {
+      console.log(`[Handling] val:${value} proc:${process}`);
       await Redis.updateRateLimit(-count);
 
       switch (process) {
         case "numbers":
-          await this.processPlayerNumber(+value, true);
+          res = await this.processPlayerNumber(+value, true);
           break;
         case "games":
-          await this.processPlayerGames(+value, true);
+          res = await this.processPlayerGames(+value, true);
         case "names":
-          await this.processPlayerName(value, true);
+          res = await this.processPlayerName(value, true);
           break;
         default:
           throw new Error("Invalid process");
@@ -31,6 +33,8 @@ class ClientService {
     } finally {
       await Redis.updateRateLimit(count);
     }
+
+    return res;
   }
 
   public async getPlayer(name: string) {
