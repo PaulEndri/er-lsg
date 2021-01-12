@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { Container, Image, Input, Menu, Segment } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import { Container, Image, Menu, Segment } from "semantic-ui-react";
 import { getImageSrc } from "../../utilities/getImageSrc";
 import { SearchComponent } from "./search.component";
 
