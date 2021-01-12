@@ -81,7 +81,7 @@ class RedisService {
     const args = `${name} ${key}${value ? ` ${stringify ? JSON.stringify(value) : value}` : ""}`;
 
     return new Promise<T>((res, reject) => {
-      this.client.send_command(command, [args], (e, r) => {
+      this.client.send_command(command, args.split(" "), (e, r) => {
         if (e) {
           return reject(e);
         } else {
