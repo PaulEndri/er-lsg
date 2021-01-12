@@ -42,7 +42,7 @@ const PlayerView = () => {
   const [error, setError] = useState<any>();
 
   useEffect(() => {
-    if (id) {
+    if (!activePlayer || !error) {
       getPlayerData(id)
         .then((e) => {
           if (e) {
@@ -56,7 +56,7 @@ const PlayerView = () => {
         })
         .finally(() => setLoading(false));
     }
-  }, [getPlayerData, id]);
+  }, [id, error, getPlayerData, activePlayer]);
 
   if (loading) {
     return (
