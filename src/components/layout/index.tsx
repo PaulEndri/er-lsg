@@ -1,23 +1,24 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Container, Image, Input, Menu, Segment } from "semantic-ui-react";
 import { getImageSrc } from "../../utilities/getImageSrc";
 
 const LayoutComponent = ({ children }: any) => {
   const [search, updateSearch] = useState(null);
+  const [showPlayValue, updatePlayValue] = useState(false);
   const history = useHistory();
 
   const handleSearchClick = () => {
     history.push(`/players/${search}`);
   };
 
-  let showPlayValue = false;
-  try {
-    showPlayValue =
-      document.getElementById("SHOW_PLAYER_SEARCH").getAttribute("data-enabled") === "true";
-  } catch (e) {
-    console.warn(e);
-  }
+  useCallback(() => {
+    const el = document.getElementById("SHOW_PLAYER_SEARCH");
+
+    if (el) {
+      updatePlayValue(el.getAttribute("data-enabled") === "true");
+    }
+  }, []);
 
   return (
     <Container fluid style={{ marginLeft: "0px !important", marginRight: "0px !important" }}>
