@@ -100,7 +100,7 @@ const PlayerView = () => {
     );
   }
 
-  if (!loading && (!activePlayer.seasonRecords || !activePlayer.seasonRecords.length)) {
+  if (!activePlayer || !activePlayer.seasonRecords || activePlayer.seasonRecords.length === 0) {
     <PageComponent title="Eternal Return: Black Survival Test Subject Records">
       <Segment
         color="yellow"
