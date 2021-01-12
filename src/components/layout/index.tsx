@@ -11,8 +11,12 @@ const LayoutComponent = ({ children }: any) => {
     history.push(`/players/${search}`);
   };
 
-  const showPlayValue =
+  let showPlayValue = false;
+  try {
     document.getElementById("SHOW_PLAYER_SEARCH").getAttribute("data-enabled") === "true";
+  } catch (e) {
+    console.warn(e);
+  }
 
   return (
     <Container fluid style={{ marginLeft: "0px !important", marginRight: "0px !important" }}>
