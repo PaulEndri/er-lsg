@@ -36,7 +36,7 @@ export async function handler(event: APIGatewayEvent) {
     const mongoResults = await Players.findOne(query, null, { lean: true });
 
     if (mongoResults) {
-      await fetch(`/api/handlePlayerName?name=${name}`, {});
+      await fetch(`/.netlify/functions/handlePlayerName?name=${name}`, {});
 
       return generateResponse(mongoResults, 200);
     } else {
@@ -46,7 +46,7 @@ export async function handler(event: APIGatewayEvent) {
         return generateResponse(results, 200);
       } else {
         await Redis.queuePlayer("names", name);
-        await fetch(`/api/handlePlayerName?name=${name}`, {});
+        await fetch(`/.netlify/functions/handlePlayerName?name=${name}`, {});
 
         return generateResponse(
           {
