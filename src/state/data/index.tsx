@@ -127,7 +127,7 @@ export const DataProvider: FunctionComponent = ({ children }) => {
 
         setActivePlayer(results.data);
       } else {
-        console.error(results);
+        return results;
       }
     } else {
       setActivePlayer(playerData[id] || null);

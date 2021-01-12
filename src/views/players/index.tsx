@@ -44,6 +44,13 @@ const PlayerView = () => {
   useEffect(() => {
     if (id) {
       getPlayerData(id)
+        .then((e) => {
+          if (e) {
+            setError(e);
+          } else {
+            setError(null);
+          }
+        })
         .catch((e) => {
           setError(e);
         })
