@@ -10,7 +10,6 @@ const LayoutComponent = ({ children }: any) => {
   const el = useCallback(() => {
     const el = window.document.getElementById("SHOW_PLAYER_SEARCH");
 
-    console.log(el);
     if (el) {
       updatePlayValue(el.getAttribute("data-enabled") === "true");
     }

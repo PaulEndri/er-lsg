@@ -26,7 +26,6 @@ export const ItemSearchComponent: React.FC<Props> = ({
   const [localItem, setLocalItem] = useState(null);
 
   const handleSearchChange = (e, { value }) => {
-    console.log("[search]", e, value);
     if (value && value.length > 3) {
       updateSearchString(value.toLowerCase());
     } else if (!value) {

@@ -32,7 +32,6 @@ export const RouteCraftingColumnComponent: React.FC<RouteCraftingComponentProps>
     craftableSets[type].push(item);
   });
 
-  console.log("test]", craftableSets);
   return (
     <Grid.Column width={3}>
       <Segment
