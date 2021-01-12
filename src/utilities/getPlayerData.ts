@@ -1,6 +1,6 @@
 import { IPlayer } from "./player";
 
-const BASE_URL = "/api/getPlayer?value=";
+const BASE_URL = "/.netlify/functions/getPlayer?name=";
 
 export const getPlayerData = async (
   name: string

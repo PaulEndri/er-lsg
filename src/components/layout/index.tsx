@@ -2,15 +2,10 @@ import React, { useCallback, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Container, Image, Input, Menu, Segment } from "semantic-ui-react";
 import { getImageSrc } from "../../utilities/getImageSrc";
+import { SearchComponent } from "./search.component";
 
 const LayoutComponent = ({ children }: any) => {
-  const [search, updateSearch] = useState(null);
   const [showPlayValue, updatePlayValue] = useState(false);
-  const history = useHistory();
-
-  const handleSearchClick = () => {
-    history.push(`/players/${search}`);
-  };
 
   const el = useCallback(() => {
     const el = window.document.getElementById("SHOW_PLAYER_SEARCH");
@@ -40,23 +35,7 @@ const LayoutComponent = ({ children }: any) => {
             <Menu.Item as={Link} to="/about">
               About
             </Menu.Item>
-            {showPlayValue && (
-              <Input
-                action={{
-                  color: "orange",
-                  labelPosition: "left",
-                  icon: "search",
-                  content: "Search",
-                  onClick: handleSearchClick,
-                }}
-                size="small"
-                style={{ margin: "auto", paddingRight: "25%" }}
-                onChange={(e) => {
-                  updateSearch(e.target.value);
-                }}
-                placeholder="search for player"
-              />
-            )}
+            {showPlayValue && <SearchComponent />}
           </Menu>
         </Segment>
 
