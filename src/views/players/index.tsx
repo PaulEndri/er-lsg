@@ -77,7 +77,7 @@ const PlayerView = () => {
     return (
       <PageComponent title="Eternal Return: Black Survival Test Subject Records">
         <Segment
-          color="red"
+          color="yellow"
           inverted
           placeholder
           style={{
@@ -218,7 +218,7 @@ const PlayerView = () => {
               <Tab
                 menu={{
                   centered: true,
-                  color: "orange",
+                  color: "yellow",
                   tertiary: true,
                   inverted: true,
                   attached: true,
