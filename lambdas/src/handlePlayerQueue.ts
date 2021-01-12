@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 mongoose.connect(process.env.MONGO_STRING, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const call = async (action, value?) => {
-  let base = `/.netlify/functions/handlePlayerQueue?action=${action}`;
+  let base = `https://www.erlsg.net/.netlify/functions/handlePlayerQueue?action=${action}`;
 
   if (value) {
     base = `${base}&value=value`;

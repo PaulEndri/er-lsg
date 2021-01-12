@@ -26,7 +26,7 @@ export const SearchComponent = () => {
         setError("Player matched no current results. Try again later or contact the side admin");
       }
     } catch (e) {
-      setError(e.message);
+      setError(e.message || "Player could not be found");
     } finally {
       setLoading(false);
     }

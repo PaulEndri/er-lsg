@@ -38,7 +38,7 @@ export async function handler(event: APIGatewayEvent) {
     });
 
     if (mongoResults) {
-      await fetch(`/.netlify/functions/handlePlayerName?name=${name}`, {});
+      await fetch(`https://www.erlsg.net/.netlify/functions/handlePlayerName?name=${name}`, {});
 
       return generateResponse(mongoResults, 200);
     } else {
@@ -48,7 +48,7 @@ export async function handler(event: APIGatewayEvent) {
         return generateResponse(results, 200);
       } else {
         await Redis.queuePlayer("names", name);
-        await fetch(`/.netlify/functions/handlePlayerName?name=${name}`, {});
+        await fetch(`https://www.erlsg.net/.netlify/functions/handlePlayerName?name=${name}`, {});
 
         return generateResponse(
           {
