@@ -18,10 +18,10 @@ const timeSince = (timeStamp) => {
     return secondsPast + "s ago";
   }
   if (secondsPast < 3600) {
-    return Math.round(secondsPast) / 60 + "m ago";
+    return Math.round(secondsPast / 60) + "m ago";
   }
   if (secondsPast <= 86400) {
-    return Math.round(secondsPast) / 3600 + "h ago";
+    return Math.round(secondsPast / 3600) + "h ago";
   }
   if (secondsPast > 86400) {
     const day = timeStamp.getDate();

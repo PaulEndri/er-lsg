@@ -5,6 +5,7 @@ import { Item, Items, Locations, Route } from "erbs-sdk";
 import { ItemModalContext } from "../../../state/itemModal";
 import { DataContext } from "../../../state/data";
 import { RouteListComponent } from "./routeList.component";
+import { itemRarityBackground } from "../../../utilities/rarityColor";
 
 export const RoutePaneComponent: React.FC = () => {
   const [startingLocation, setStartingLocation] = useState(null);
@@ -82,22 +83,30 @@ export const RoutePaneComponent: React.FC = () => {
               >
                 {Object.entries(loadout.materials)
                   .filter(([material]) => material && material !== "undefined")
-                  .map(([material, quantity], key) => (
-                    <div key={key + material} style={{ margin: "5px" }}>
-                      <Label
-                        color="teal"
-                        as={Button}
-                        image
-                        onClick={() => setItem(new Item(Items[material]))}
-                      >
-                        <img
-                          alt={material}
-                          src={getImageSrc(Items[material].replace(/([A-Z])/g, " $1").trim())}
-                        />
-                        <Label.Detail style={{ marginLeft: "-.5em" }}>{quantity}</Label.Detail>
-                      </Label>
-                    </div>
-                  ))}
+                  .map(([material, quantity], key) => {
+                    const item = new Item(Items[material]);
+
+                    return (
+                      <div key={key + material} style={{ margin: "5px" }}>
+                        <Label
+                          style={{
+                            padding: 0,
+                            background: itemRarityBackground(item.rarity),
+                            boxShadow: "1px 1px 4px 0px rgba(0, 0, 0, 0.5)",
+                            "&:hover": {
+                              boxShadow: "none",
+                            },
+                          }}
+                          as={Button}
+                          image
+                          onClick={() => setItem(item)}
+                        >
+                          <img alt={material} src={getImageSrc(item.displayName)} />
+                          <Label.Detail style={{ marginLeft: "-.5em" }}>{quantity}</Label.Detail>
+                        </Label>
+                      </div>
+                    );
+                  })}
               </div>
             </Segment>
           </Segment.Group>
