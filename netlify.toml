@@ -8,8 +8,8 @@
   ## Not needed for static site generators.
 
 [[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/*"
+  from = "/api"
+  to = "/.netlify/functions"
   status = 200
 
 [[redirects]]
