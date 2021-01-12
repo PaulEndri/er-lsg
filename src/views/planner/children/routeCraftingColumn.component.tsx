@@ -36,7 +36,7 @@ export const RouteCraftingColumnComponent: React.FC<RouteCraftingComponentProps>
   return (
     <Grid.Column width={3}>
       <Segment
-        style={{ padding: 0, borderRadius: 0, backgroundColor: "rgba(29, 25, 25, 0.65)" }}
+        style={{ padding: 0, borderRadius: 0, backgroundColor: "rgba(29, 25, 25, 1)" }}
         textAlign="center"
         inverted
         raised

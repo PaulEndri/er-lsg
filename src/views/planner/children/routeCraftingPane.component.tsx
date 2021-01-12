@@ -62,7 +62,7 @@ export const RouteCraftingPaneComponent: React.FC = () => {
   };
 
   return (
-    <Grid centered style={{ marginTop: 0, backgroundColor: "rgba(79, 76, 76, 0.2)" }}>
+    <Grid centered style={{ marginTop: 0 }}>
       <Grid.Row stretched>
         <Grid.Column width={15}>
           <Segment style={{ borderRadius: 0 }} inverted color="black" raised stacked padded>

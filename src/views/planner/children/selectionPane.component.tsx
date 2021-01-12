@@ -20,10 +20,7 @@ export const SelectionPaneComponent: React.FC = () => {
       : getList(type);
 
   return (
-    <Grid
-      centered
-      style={{ height: "max-content", marginTop: 0, backgroundColor: "rgba(79, 76, 76, 0.2)" }}
-    >
+    <Grid centered style={{ height: "max-content", marginTop: 0 }}>
       <Grid.Row stretched>
         <Grid.Column width={12}>
           <Segment style={{ borderRadius: 0 }} inverted color="black" raised stacked padded>
