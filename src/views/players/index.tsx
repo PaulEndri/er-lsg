@@ -100,6 +100,29 @@ const PlayerView = () => {
     );
   }
 
+  if (!loading && (!activePlayer.seasonRecords || !activePlayer.seasonRecords.length)) {
+    <PageComponent title="Eternal Return: Black Survival Test Subject Records">
+      <Segment
+        color="yellow"
+        inverted
+        placeholder
+        style={{
+          margin: 0,
+          marginTop: 12,
+          padding: 0,
+          borderRadius: 0,
+        }}
+      >
+        <Header size="huge">Player Data Missing</Header>
+        <p>
+          We have no recorded game information for this player, but they have been queued up for a
+          refresh, check back shortly. The user was last updated{" "}
+          {timeSince(new Date(activePlayer.lastUpdated))}
+        </p>
+      </Segment>
+    </PageComponent>;
+  }
+
   const charsPlayed = activePlayer.seasonRecords
     .map((season) => season.info)
     .flat()
