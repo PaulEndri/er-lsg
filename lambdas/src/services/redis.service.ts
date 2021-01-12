@@ -11,7 +11,7 @@ type RedisDocument = {
 };
 
 class RedisService {
-  static DEFAULT_DOCUMENT_NAME = "[ERBS-LSG]-API-THROTTLE";
+  static DEFAULT_DOCUMENT_NAME = "ERBS-LSG-API-THROTTLE";
 
   private client = createClient({
     port: +process.env.REDIS_PORT,
