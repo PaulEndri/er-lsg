@@ -90,7 +90,12 @@ export const SeasonModeRankComponent = ({ data }) => {
             centered
             style={{ backgroundColor: "rgba(255, 250, 250, 0.1)", borderTop: border }}
           >
-            <Statistic.Group size="tiny" inverted style={{ justifyContent: "center" }} color="red">
+            <Statistic.Group
+              size="tiny"
+              inverted
+              style={{ justifyContent: "center" }}
+              color="yellow"
+            >
               <Statistic>
                 <Statistic.Label>Average Rank</Statistic.Label>
                 <Statistic.Value>{data.averageRank}</Statistic.Value>
@@ -141,7 +146,7 @@ export const SeasonModeRankComponent = ({ data }) => {
                 <Item.Content style={{ alignSelf: "center" }}>
                   <Item.Header style={{ color: "white" }}>{character.name}</Item.Header>
                   <Item.Description>
-                    <Statistic.Group inverted color="brown">
+                    <Statistic.Group inverted color="yellow">
                       <Statistic>
                         <Statistic.Label>Most Kills</Statistic.Label>
                         <Statistic.Value>{charStat.maxKillings}</Statistic.Value>
