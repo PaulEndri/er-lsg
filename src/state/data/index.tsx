@@ -121,7 +121,7 @@ export const DataProvider: FunctionComponent = ({ children }) => {
       if (results.error !== true) {
         setPlayerData({
           ...playerData,
-          [results.data.id]: results.data,
+          [+results.data.id]: results.data,
         });
 
         return results.data;

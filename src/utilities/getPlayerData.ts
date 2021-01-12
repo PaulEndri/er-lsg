@@ -11,7 +11,7 @@ export const getPlayerData = async (
 
     return {
       error: false,
-      data: result.data,
+      data: result,
     };
   } catch (e) {
     console.error(e);
