@@ -26,8 +26,10 @@ const LocationView: React.FC = ({ children }) => {
         className="attached"
         color="red"
         inverted
+        secondary
         style={{
           borderRadius: 0,
+
           marginBottom: 0,
           justifyContent: "center",
         }}
@@ -44,9 +46,16 @@ const LocationView: React.FC = ({ children }) => {
               color="red"
               style={{
                 borderRadius: 0,
+                paddingLeft: 0,
               }}
             >
-              {type}
+              <Label
+                style={{ width: "100%", boxShadow: "2px 2px 2px 2px rgba(0,0,0,0.1)" }}
+                color="yellow"
+                size="large"
+              >
+                {type}
+              </Label>
             </Menu.Item>
           ))}
       </Menu>

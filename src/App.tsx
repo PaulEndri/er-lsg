@@ -10,6 +10,7 @@ import { BG_THIRD } from "./utilities/bgImages";
 import { FilterProvider } from "./views/planner/state";
 import HomeView from "./views/home";
 import { Dimmer, Loader } from "semantic-ui-react";
+import AboutView from "./views/about";
 
 const WikiView = lazy(() => import("./views/wiki"));
 const PlayerView = lazy(() => import("./views/players"));
@@ -41,8 +42,11 @@ function App() {
                   <Route path="/wiki">
                     <WikiView />
                   </Route>
-                  <Route path="/players">
+                  <Route path="/players/:id">
                     <PlayerView />
+                  </Route>
+                  <Route path="/about">
+                    <AboutView />
                   </Route>
                 </Switch>
               </Suspense>
@@ -52,6 +56,11 @@ function App() {
           </Router>
         </ItemModalProvider>
       </DataProvider>
+      <div
+        id="SHOW_PLAYER_SEARCH"
+        style={{ display: "none" }}
+        data-enabled={process.env.REACT_APP_SHOW_PLAYER_SEARCH}
+      />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { Armors } from "erbs-sdk";
 import React from "react";
-import { Container, Menu } from "semantic-ui-react";
+import { Container, Label, Menu } from "semantic-ui-react";
 import { useHistory, useParams } from "react-router-dom";
 import { getList } from "../../../utilities/getList";
 import { ItemSearchComponent } from "./ItemSearch.component";
@@ -15,6 +15,7 @@ export const ArmorPage = () => {
         className="attached"
         color="red"
         inverted
+        secondary
         style={{
           borderRadius: 0,
           marginBottom: 0,
@@ -31,9 +32,16 @@ export const ArmorPage = () => {
             color="red"
             style={{
               borderRadius: 0,
+              paddingLeft: 0,
             }}
           >
-            {armor}
+            <Label
+              style={{ width: "100%", boxShadow: "2px 2px 2px 2px rgba(0,0,0,0.1)" }}
+              color="yellow"
+              size="large"
+            >
+              {armor}
+            </Label>
           </Menu.Item>
         ))}
       </Menu>

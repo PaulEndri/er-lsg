@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Menu } from "semantic-ui-react";
+import { Container, Label, Menu } from "semantic-ui-react";
 import { useHistory, useParams } from "react-router-dom";
 import { getMiscList, MiscListKeys } from "../../../utilities/getList";
 import { ItemSearchComponent } from "./ItemSearch.component";
@@ -13,6 +13,7 @@ export const ItemPage = () => {
       <Menu
         className="attached"
         color="red"
+        secondary
         inverted
         style={{
           borderRadius: 0,
@@ -30,9 +31,16 @@ export const ItemPage = () => {
             color="red"
             style={{
               borderRadius: 0,
+              paddingLeft: 0,
             }}
           >
-            {type}s
+            <Label
+              style={{ width: "100%", boxShadow: "2px 2px 2px 2px rgba(0,0,0,0.1)" }}
+              color="yellow"
+              size="large"
+            >
+              {type}s
+            </Label>
           </Menu.Item>
         ))}
       </Menu>

@@ -4,7 +4,6 @@ import { Segment, Grid, Header, Container, Tab, Dropdown, Dimmer, Loader } from 
 import { useParams } from "react-router-dom";
 import { PageComponent } from "../../components/page";
 import { BG_HALF, BG_THIRD } from "../../utilities/bgImages";
-import { DefaultPlayerData } from "../../utilities/playerData";
 import { CharacterPortrait } from "../../components/characterPortrait.component";
 import { GameModes } from "erbs-client";
 import { SeasonModeRankComponent, Seasons } from "./children/seasonModeRank.component";
@@ -61,33 +60,38 @@ const PlayerView = () => {
   }
 
   if (!loading && !loadedPlayer) {
-    <PageComponent title="Eternal Return: Black Survival Test Subject Records">
-      <Segment
-        color="red"
-        inverted
-        placeholder
-        style={{
-          margin: 0,
-          marginTop: 12,
-          padding: 0,
-          borderRadius: 0,
-        }}
-      >
-        <Header size="huge">Player Unavailable</Header>
-        <p>
-          Data was unable to be found for this player. If this player exists, it's most likely that
-          we just haven't fetched this player before and we've queued up the requested player. Check
-          back again in a short while to see player data here. If problems persist contact the admin
-          on this app on discord: Paul Endri#2569
-        </p>
-        {error && <p>{error}</p>}
-      </Segment>
-    </PageComponent>;
+    return (
+      <PageComponent title="Eternal Return: Black Survival Test Subject Records">
+        <Segment
+          color="red"
+          inverted
+          placeholder
+          style={{
+            margin: 0,
+            marginTop: 12,
+            padding: 0,
+            borderRadius: 0,
+          }}
+        >
+          <Header size="huge">Player Unavailable</Header>
+          <p>
+            Data was unable to be found for this player. If this player exists, it's most likely
+            that we just haven't fetched this player before and we've queued up the requested
+            player. Check back again in a short while to see player data here. If problems persist
+            contact the admin on this app on discord: Paul Endri#2569
+          </p>
+          {error && <p>{error}</p>}
+        </Segment>
+      </PageComponent>
+    );
   }
 
-  const charsPlayed = DefaultPlayerData.map(({ characterStats }) =>
-    characterStats.map(({ characterCode, totalGames }) => [characterCode, totalGames])
-  )
+  const charsPlayed = loadedPlayer.seasonRecords
+    .map((season) => season.info)
+    .flat()
+    .map(({ characterStats }) =>
+      characterStats.map(({ characterCode, totalGames }) => [characterCode, totalGames])
+    )
     .reduce((total, vals) => {
       const data = Object.fromEntries(total);
 
@@ -103,10 +107,13 @@ const PlayerView = () => {
     }, [] as any)
     .sort((a, b) => b[1] - a[1]);
 
-  const panes = DefaultPlayerData.map((data) => ({
-    menuItem: GameModes[data.matchingTeamMode],
-    render: () => <SeasonModeRankComponent data={data} />,
-  }));
+  const panes = loadedPlayer.seasonRecords
+    .map((season) => season.info)
+    .flat()
+    .map((data) => ({
+      menuItem: GameModes[data.matchingTeamMode],
+      render: () => <SeasonModeRankComponent data={data} />,
+    }));
 
   return (
     <PageComponent title="Eternal Return: Black Survival Test Subject Records">

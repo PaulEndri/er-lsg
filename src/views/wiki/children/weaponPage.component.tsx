@@ -22,6 +22,7 @@ export const WeaponPage = () => {
       <Menu
         className="attached"
         color="red"
+        secondary
         inverted
         style={{
           borderRadius: 0,

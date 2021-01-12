@@ -184,7 +184,7 @@ const WikiView = () => {
                   </Grid.Row>
                   <Grid.Row>
                     <div style={{ paddingLeft: "1rem" }}>
-                      {Object.values(Weapons).map((wpn) => (
+                      {Object.entries(Weapons).map(([key, wpn]) => (
                         <Button
                           key={wpn}
                           color="grey"
@@ -195,7 +195,7 @@ const WikiView = () => {
                             border: "1px solid rgba(255, 255, 255, 0.1)",
                           }}
                           compact
-                          onClick={() => history.push(`/wiki/weapons/${wpn}`)}
+                          onClick={() => history.push(`/wiki/weapons/${key}`)}
                         >
                           <Image
                             wrapped

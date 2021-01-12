@@ -24,6 +24,7 @@ const AnimalView: React.FC = ({ children }) => {
       <Menu
         className="attached"
         color="red"
+        secondary
         inverted
         style={{
           borderRadius: 0,
@@ -43,9 +44,17 @@ const AnimalView: React.FC = ({ children }) => {
               color="red"
               style={{
                 borderRadius: 0,
+                paddingLeft: 0,
               }}
             >
-              {type}
+              <Label
+                icon={id === type ? "close" : null}
+                style={{ width: "100%", boxShadow: "2px 2px 2px 2px rgba(0,0,0,0.1)" }}
+                color="yellow"
+                size="large"
+              >
+                {type}
+              </Label>
             </Menu.Item>
           ))}
       </Menu>
@@ -117,6 +126,7 @@ export const AnimalPage = () => {
           marginTop: 12,
           padding: 0,
           borderRadius: 0,
+          border: 0,
         }}
       >
         <Grid
@@ -130,8 +140,6 @@ export const AnimalPage = () => {
             verticalAlign="middle"
             style={{
               backgroundColor: "rgba(76, 70, 70, 1)",
-              borderBottom: "1px groove",
-              borderTop: "1px groove",
             }}
             centered
           >

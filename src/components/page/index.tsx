@@ -23,7 +23,6 @@ export const PageComponent: React.FC<PageProps> = ({
           raised
           color="red"
           textAlign="center"
-          secondary
           padded={false}
           basic
           style={{ marginBottom: 0, padding: 0 }}
