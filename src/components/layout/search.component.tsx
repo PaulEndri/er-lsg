@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Input } from "semantic-ui-react";
-import { DataContext } from "../state/data";
+import { DataContext } from "../../state/data";
 
 export const SearchComponent = () => {
   const [search, updateSearch] = useState(null);
