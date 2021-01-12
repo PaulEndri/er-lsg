@@ -2,13 +2,16 @@ import React from "react";
 import { Grid, Header, Button, Label, Image, Segment } from "semantic-ui-react";
 import { getImageSrc } from "../../../utilities/getImageSrc";
 import { ItemModalButton } from "../../../components/itemModalButton.component";
-import { Item, Location } from "erbs-sdk";
+import { Character, Item, Location } from "erbs-sdk";
+import { SectionComponent } from "../../../components/section.component";
+import { itemRarityBackground } from "../../../utilities/rarityColor";
 
 type RouteCraftingComponentProps = {
   location: Location;
   completed: Item[];
   craftable: Item[];
   setItem: (val) => null;
+  character?: Character;
 };
 
 export const RouteCraftingColumnComponent: React.FC<RouteCraftingComponentProps> = ({
@@ -17,6 +20,19 @@ export const RouteCraftingColumnComponent: React.FC<RouteCraftingComponentProps>
   craftable,
   setItem,
 }) => {
+  const craftableSets = {};
+
+  craftable.forEach((item) => {
+    const type = item.category === "Weapon" ? "Weapon" : item.clientType;
+
+    if (!craftableSets[type]) {
+      craftableSets[type] = [];
+    }
+
+    craftableSets[type].push(item);
+  });
+
+  console.log("test]", craftableSets);
   return (
     <Grid.Column width={3}>
       <Segment
@@ -38,7 +54,7 @@ export const RouteCraftingColumnComponent: React.FC<RouteCraftingComponentProps>
               position: "absolute",
               top: 0,
               width: "100%",
-              background: `linear-gradient(180deg,rgba(255, 50, 50, 1) 0%, rgba(255, 50, 50, 0.4) 40%,rgba(255, 150, 100, 0) 90%)`,
+              background: `linear-gradient(180deg,rgba(245, 196, 102, 1) 0%, rgba(195, 146, 52, 0.6) 40%,rgba(245, 196, 102, 0) 90%)`,
             }}
           >
             <Header inverted>{location.name}</Header>
@@ -59,16 +75,42 @@ export const RouteCraftingColumnComponent: React.FC<RouteCraftingComponentProps>
         <Header inverted style={{ margin: "1rem" }}>
           Items Craftable
         </Header>
-        <div style={{ display: "flex", flexFlow: "row wrap", justifyContent: "center" }}>
-          <div style={{ display: "block" }}></div>
-          {craftable.map((item) => (
-            <div key={item.id} style={{ margin: "5px" }}>
-              <Label style={{ padding: 0 }} color="teal" as={Button} onClick={() => setItem(item)}>
-                <img alt={item.displayName} src={getImageSrc(item.displayName)} />
-              </Label>
+        {Object.entries<Item[]>(craftableSets).map(([name, entries], idx) => (
+          <SectionComponent
+            title={name}
+            key={name + idx}
+            headerStyle={{
+              padding: 4,
+              marginTop: 0,
+              borderTopWidth: 1,
+              textAlign: "left",
+              paddingLeft: "1em",
+            }}
+            contentStyle={{ margin: 0, padding: 0 }}
+          >
+            <div style={{ display: "flex", flexFlow: "row wrap", justifyContent: "center" }}>
+              {entries.map((item) => (
+                <div key={item.id} style={{ margin: "5px" }}>
+                  <Label
+                    style={{
+                      padding: 0,
+                      background: itemRarityBackground(item.rarity),
+                      boxShadow: "1px 1px 4px 0px rgba(0, 0, 0, 0.5)",
+                      "&:hover": {
+                        boxShadow: "none",
+                      },
+                    }}
+                    as={Button}
+                    onClick={() => setItem(item)}
+                  >
+                    <img alt={item.displayName} src={getImageSrc(item.displayName)} />
+                  </Label>
+                </div>
+              ))}
+              <div style={{ display: "block" }}></div>
             </div>
-          ))}
-        </div>
+          </SectionComponent>
+        ))}
       </Segment>
     </Grid.Column>
   );

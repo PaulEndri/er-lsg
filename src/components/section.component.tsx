@@ -5,12 +5,16 @@ type Props = {
   title: string;
   toggleCollapse?: any;
   collapsed?: any;
+  headerStyle?: any;
+  contentStyle?: any;
 };
 export const SectionComponent: React.FC<Props> = ({
   title,
   collapsed,
   toggleCollapse,
   children,
+  headerStyle = {},
+  contentStyle = {},
 }) => {
   const [localCollapsed, setCollapsed] = useState(false);
 
@@ -30,6 +34,7 @@ export const SectionComponent: React.FC<Props> = ({
           border: 0,
           cursor: "pointer",
           borderTop: "3px groove rgba(255, 250, 250, 0.2)",
+          ...headerStyle,
         }}
       >
         <Icon name={showContent ? "plus square outline" : "minus square outline"} />
@@ -43,6 +48,7 @@ export const SectionComponent: React.FC<Props> = ({
           paddingTop: "1rem",
           textAlign: "center",
           display: showContent ? "block" : "none",
+          ...contentStyle,
         }}
       >
         {children}

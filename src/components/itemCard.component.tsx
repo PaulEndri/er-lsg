@@ -5,6 +5,7 @@ import { getImageSrc } from "../utilities/getImageSrc";
 import { itemRarityBackground, rarityColor } from "../utilities/rarityColor";
 import { ItemModalButton } from "./itemModalButton.component";
 import { ItemModalContext } from "../state/itemModal";
+import { getInterpretedString } from "../utilities/interpretStat";
 
 type ItemCardProps = {
   item?: Item<string>;
@@ -52,16 +53,12 @@ export const ItemCardComponent: FunctionComponent<ItemCardProps> = ({ item, show
 
             <div style={{ color: "white", fontStyle: "italic" }}>{item.description}</div>
           </Segment>
-          {item.stats && (
+          {item.stats && Object.keys(item.stats).length > 0 && (
             <Segment inverted raised style={{ backgroundColor: "transparent" }}>
               <Header>Stats</Header>
               <List
-                items={Object.entries(item.stats).map(
-                  ([[first, ...key], val]: any) =>
-                    `${first.toUpperCase()}${key
-                      .join("")
-                      .replace(/([A-Z])/g, " $1")
-                      .trim()}: ${val}`
+                items={Object.entries(item.stats).map(([name, val]: any) =>
+                  getInterpretedString(name, val)
                 )}
               />
             </Segment>

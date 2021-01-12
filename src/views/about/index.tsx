@@ -64,31 +64,17 @@ const AboutView = () => {
               </Segment>
               <Segment inverted>
                 <Header inverted>Roadmap</Header>
-                <p>The following features are still planned to be added</p>
-                <List celled inverted style={{ color: "white", textAlign: "left" }}>
-                  {[
-                    "Freeform loadout generation (not being tied down to the per-slot format)",
-                    "More than six items",
-                    "Mobile functionality",
-                    "Faster Data Updates",
-                    "Match Information",
-                  ].map((x, i) => (
-                    <List.Item key={i}>
-                      <List.Icon name="star outline" />
-                      {x}
-                    </List.Item>
-                  ))}
-                </List>
+                <a href="https://trello.com/b/Ysa0kgGf/erlsg">Official ER:LSG Roadmap</a>
+              </Segment>
+              <Segment color="black" inverted style={{ borderRadius: 0 }}>
+                <Header>Found a bug?</Header>
+                <p>
+                  Feel free to send an email to{" "}
+                  <a href="mailto:jrs.abrecan@gmail.com">the site administrator</a> or contact him
+                  on discord: Paul Endri#2569
+                </p>
               </Segment>
             </Segment.Group>
-          </Segment>
-          <Segment color="black" inverted style={{ borderRadius: 0 }}>
-            <Header>Found a bug?</Header>
-            <p>
-              Feel free to send an email to{" "}
-              <a href="mailto:jrs.abrecan@gmail.com">the site administrator</a> or contact him on
-              discord: Paul Endri#2569
-            </p>
           </Segment>
         </Segment.Group>
       </Container>
