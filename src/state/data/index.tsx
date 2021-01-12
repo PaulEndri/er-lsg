@@ -148,6 +148,7 @@ export const DataProvider: FunctionComponent = ({ children }) => {
     setRoute,
     updatePlayerData,
     getPlayerData: fetchPlayerData,
+    activePlayer,
   };
 
   return <DataContext.Provider value={state as any}>{children}</DataContext.Provider>;

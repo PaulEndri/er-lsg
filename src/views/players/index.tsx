@@ -29,7 +29,7 @@ const timeSince = (timeStamp) => {
       .toDateString()
       .match(/ [a-zA-Z]*/)[0]
       .replace(" ", "");
-    const year = timeStamp.getFullYear() == now.getFullYear() ? "" : " " + timeStamp.getFullYear();
+    const year = timeStamp.getFullYear() === now.getFullYear() ? "" : " " + timeStamp.getFullYear();
     return day + " " + month + year;
   }
 };
