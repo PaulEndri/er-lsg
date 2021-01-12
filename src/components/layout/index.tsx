@@ -13,7 +13,8 @@ const LayoutComponent = ({ children }: any) => {
 
   let showPlayValue = false;
   try {
-    document.getElementById("SHOW_PLAYER_SEARCH").getAttribute("data-enabled") === "true";
+    showPlayValue =
+      document.getElementById("SHOW_PLAYER_SEARCH").getAttribute("data-enabled") === "true";
   } catch (e) {
     console.warn(e);
   }
