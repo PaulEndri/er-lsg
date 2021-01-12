@@ -8,8 +8,9 @@ import mongoose from "mongoose";
 mongoose.connect(process.env.MONGO_STRING, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const generateResponse = (body, status) => {
+  console.log("[Real response]", { body, status });
   return {
-    statusCode: status,
+    statusCode: 200,
     headers: {
       "Content-Type": "application/json",
     },
