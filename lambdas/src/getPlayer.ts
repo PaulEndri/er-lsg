@@ -27,13 +27,15 @@ export async function handler(event: APIGatewayEvent) {
   try {
     const query = {
       name,
-      id: undefined,
     };
 
-    if (id) {
-      query.id = id;
-    }
-    const mongoResults = await Players.findOne(query, null, { lean: true });
+    const mongoResults = await Players.findOne(query, null, {
+      lean: true,
+      collation: {
+        locale: "en",
+        strength: 2,
+      },
+    });
 
     if (mongoResults) {
       await fetch(`/.netlify/functions/handlePlayerName?name=${name}`, {});

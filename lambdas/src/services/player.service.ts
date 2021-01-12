@@ -8,7 +8,13 @@ const PlayerService = {
         name,
       },
       [],
-      { lean: true }
+      {
+        lean: true,
+        collation: {
+          locale: "en",
+          strength: 2,
+        },
+      }
     );
 
     // huzzah we found a player, we can be done here;
