@@ -36,7 +36,7 @@ const timeSince = (timeStamp) => {
 };
 
 type Props = {
-  id: number;
+  id: string;
   activePlayer: IPlayer;
   getPlayerData: (id) => Promise<any>;
 };
