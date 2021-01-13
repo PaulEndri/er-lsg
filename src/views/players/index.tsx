@@ -307,7 +307,7 @@ const PlayerView = () => {
   const { id } = useParams() as any;
   const { getPlayerData, activePlayer } = useContext(DataContext);
 
-  return <PlayerContent id={+id} activePlayer={activePlayer} getPlayerData={getPlayerData} />;
+  return <PlayerContent id={id} activePlayer={activePlayer} getPlayerData={getPlayerData} />;
 };
 
 export default PlayerView;
