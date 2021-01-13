@@ -254,7 +254,7 @@ class PlayerContent extends React.PureComponent<Props, State> {
                     {activePlayer.name}
                   </Header>
                   <span style={{ marginLeft: "8px", fontSize: "smaller" }}>
-                    Last Updated: {timeSince(new Date(activePlayer.lastUpdated).getTime())}
+                    Last Updated: {timeSince(new Date(activePlayer.lastUpdated))}
                   </span>
                 </div>
               </Grid.Column>
