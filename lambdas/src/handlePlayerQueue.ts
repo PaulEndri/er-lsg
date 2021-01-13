@@ -28,7 +28,9 @@ export async function handler(event: APIGatewayEvent) {
   } catch (e) {
     console.warn(e);
 
-    await call(action, value);
+    if (action !== "names") {
+      await call(action, value);
+    }
   }
 
   return {
