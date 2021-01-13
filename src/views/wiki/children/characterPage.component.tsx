@@ -226,7 +226,7 @@ export const CharacterPage = () => {
                         </Table.Cell>
                         <Table.Cell>
                           {getList(attr.mastery as any)
-                            .sort((a, b) => b.rarityWeight - a.rarityWeight)
+                            .sort((a, b) => a.rarityWeight - b.rarityWeight)
                             .map(({ id }) => (
                               <ItemModalButton key={id} id={id} />
                             ))}

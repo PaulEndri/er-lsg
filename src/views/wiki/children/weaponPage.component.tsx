@@ -163,7 +163,7 @@ export const WeaponPage = () => {
               >
                 {weaponType.items
                   .map(({ id }) => new Item(id))
-                  .sort((a, b) => b.rarityWeight - a.rarityWeight)
+                  .sort((a: Item, b: Item) => a.rarityWeight - b.rarityWeight)
                   .map(({ id }) => (
                     <ItemModalButton key={id} id={id} action={() => setSelectedItem(id)} />
                   ))}

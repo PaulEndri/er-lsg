@@ -65,7 +65,7 @@ export const SelectionPaneComponent: React.FC = () => {
                 toggleCollapse={toggle[type]}
               >
                 {getTypeValue(type)
-                  .sort((a, b) => b.rarityWeight - a.rarityWeight)
+                  .sort((a, b) => a.rarityWeight - b.rarityWeight)
                   .map((item, idx) => (
                     <ItemModalButton id={item.id} key={`${item.id}--${idx}`} />
                   ))}
