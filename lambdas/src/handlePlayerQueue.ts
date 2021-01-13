@@ -32,6 +32,7 @@ export async function handler(event: APIGatewayEvent) {
     console.warn(e);
 
     if (action !== "names") {
+      await new Promise((res) => setTimeout(res, 750));
       await call(action, value);
     }
   }
