@@ -4397,10 +4397,10 @@ erbs-client@^1.6.12:
   dependencies:
     node-fetch "^2.6.1"
 
-erbs-data@^1.6.12:
-  version "1.6.12"
-  resolved "https://registry.yarnpkg.com/erbs-data/-/erbs-data-1.6.12.tgz#9a6f235d9ed432b0c3bdb9311f999352a9a9891f"
-  integrity sha512-KYXOQdjQUI6RCfQviKvXFxCoGUZOU2HwAYl4QYP8C/R6xs3/CNIrkM0wIaLI6hf45jlA7uLgj5lkpvppj01M6Q==
+erbs-data@^1.6.14:
+  version "1.6.14"
+  resolved "https://registry.yarnpkg.com/erbs-data/-/erbs-data-1.6.14.tgz#8841ff7cd177fc3dc592e28bb0fc460fcb513e03"
+  integrity sha512-6jyAQD7Ua+A+rlWe5I9HEOKX47ljtYuTNjeFlQ8bvOF/iwUQ3ja9MWJIJ6NJkfVfjseWJkjgtIrpTtArxjAwDA==
   dependencies:
     node-fetch "^2.6.1"
 
