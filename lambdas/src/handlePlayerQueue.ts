@@ -10,20 +10,21 @@ const call = async (action, value?) => {
   let base = `https://www.erlsg.net/.netlify/functions/handlePlayerQueue?action=${action}`;
 
   if (value) {
-    base = `${base}&value=value`;
+    base = `${base}&value=${value}`;
   }
 
   return await fetch(base, {});
 };
 export async function handler(event: APIGatewayEvent) {
   const { value, action = "names" } = event.queryStringParameters;
-
+  console.log(`[Processing] ${action} ${value}`);
   const nextAction = action === "names" ? "numbers" : action === "numbers" ? "games" : null;
   try {
     const results = await Client.handleNext(value, action as any);
     const nextValue = action === "names" ? results : value;
 
     if (nextAction) {
+      console.log(`[Queueing] ${nextAction} ${nextValue}`);
       await Redis.queuePlayer(nextAction, nextValue);
       await call(nextAction, nextValue);
     }
