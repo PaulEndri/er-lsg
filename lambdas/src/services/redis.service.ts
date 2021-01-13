@@ -3,12 +3,12 @@ import { QueueTypes } from "../types/queueTypes";
 import { RedisJsonActions } from "../types/redisJsonActions";
 import { RedisKeys } from "../types/redisKeys";
 
-type RedisDocument = {
-  [RedisKeys.RATE_LIMIT_KEY]: number;
-  [RedisKeys.QUEUED_PLAYER_NAMES_KEY]: string[];
-  [RedisKeys.QUEUED_PLAYER_NUMBERS_KEY]: number[];
-  [RedisKeys.QUEUED_PLAYER_GAMES_KEY]: number[];
-};
+// type RedisDocument = {
+//   [RedisKeys.RATE_LIMIT_KEY]: number;
+//   [RedisKeys.QUEUED_PLAYER_NAMES_KEY]: string[];
+//   [RedisKeys.QUEUED_PLAYER_NUMBERS_KEY]: number[];
+//   [RedisKeys.QUEUED_PLAYER_GAMES_KEY]: number[];
+// };
 
 class RedisService {
   static DEFAULT_DOCUMENT_NAME = "ERBSLSGAPITHROTTLE";
@@ -48,11 +48,7 @@ class RedisService {
     const results = await this.json();
 
     try {
-      const value: RedisDocument = JSON.parse(results);
-
-      this.lastKnownRateLimit = +value[RedisKeys.RATE_LIMIT_KEY];
-
-      return;
+      return JSON.parse(results);
     } catch (e) {
       console.warn(e);
 
