@@ -1,4 +1,4 @@
-import { Categories, Character, ICharacter, Characters, Location, Loadout } from "erbs-sdk";
+import { Categories, Character, ICharacter, Characters, Location, Loadout, Route } from "erbs-sdk";
 import { MaterialList } from "erbs-sdk/dist/libs/MaterialList";
 import React, { FunctionComponent, useState } from "react";
 import { Types } from "../../utilities/types";
@@ -48,6 +48,18 @@ export const DataProvider: FunctionComponent = ({ children }) => {
 
     if (loadout.starterItem) {
       currentMaterialList.set(loadout.starterItem, 1);
+    }
+
+    if (index === 0) {
+      Route.UNIVERSAL_BASE_ITEMS.forEach((item) => {
+        currentMaterialList.add(item, 5);
+      });
+    } else if (index === 1) {
+      Route.UNIVERSAL_UNLOCK_ITEMS.forEach((item) => {
+        currentMaterialList.add(item, 3);
+      });
+    } else if (index === 2) {
+      Route.UNIVERSAL_BOSS_ITEMS.forEach((item) => currentMaterialList.add(item, 1));
     }
 
     const newRouteDetails = newRouteRaw.map(
