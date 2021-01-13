@@ -2,6 +2,7 @@ import { APIGatewayEvent } from "aws-lambda";
 import Client from "./services/client.service";
 import fetch from "node-fetch";
 import mongoose from "mongoose";
+import Redis from "./services/redis.service";
 
 mongoose.connect(process.env.MONGO_STRING, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -23,6 +24,7 @@ export async function handler(event: APIGatewayEvent) {
     const nextValue = action === "names" ? results : value;
 
     if (nextAction) {
+      await Redis.queuePlayer(nextAction, nextValue);
       await call(nextAction, nextValue);
     }
   } catch (e) {
