@@ -1,5 +1,6 @@
-import React, { ReactNode } from "react";
-import { Segment, Header } from "semantic-ui-react";
+import React, { ReactNode, useContext } from "react";
+import { Segment, Header, Sidebar, Menu } from "semantic-ui-react";
+import { NavContext } from "../../state/nav";
 import { SidebarComponent } from "../sidebar";
 
 interface PageProps {
@@ -14,10 +15,20 @@ export const PageComponent: React.FC<PageProps> = ({
   sidebarTitle,
   children,
 }) => {
+  const { visible } = useContext(NavContext);
   return (
-    <Segment basic style={{ padding: 0 }}>
-      {sidebarTitle && <SidebarComponent title={sidebarTitle}>{sidebarItems}</SidebarComponent>}
-      <div style={{ overflow: "auto" }}>
+    <div>
+      <Sidebar.Pushable style={{ border: 0, padding: 0, margin: 0, width: "150px" }}>
+        <Sidebar visible={visible} as={Menu} animation="overlay" inverted vertical>
+          <Menu.Header style={{ padding: "10px" }}>
+            <Header as="h2" color="black" inverted>
+              {sidebarTitle}
+            </Header>
+          </Menu.Header>
+          {sidebarItems}
+        </Sidebar>
+      </Sidebar.Pushable>
+      <Sidebar.Pusher dimmed={visible}>
         <Segment
           inverted
           raised
@@ -33,17 +44,15 @@ export const PageComponent: React.FC<PageProps> = ({
         </Segment>
         <div
           style={{
-            display: "flow-root",
+            maxHeight: "95vh",
             overflow: "auto",
             overflowX: "hidden",
-            maxHeight: "95vh",
-
             minHeight: "85vh",
           }}
         >
           {children}
         </div>
-      </div>
-    </Segment>
+      </Sidebar.Pusher>
+    </div>
   );
 };

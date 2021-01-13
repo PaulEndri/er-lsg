@@ -11,6 +11,7 @@ import { FilterProvider } from "./views/planner/state";
 import HomeView from "./views/home";
 import { Dimmer, Loader } from "semantic-ui-react";
 import AboutView from "./views/about";
+import { NavProvider } from "./state/nav";
 
 const WikiView = lazy(() => import("./views/wiki"));
 const PlayerView = lazy(() => import("./views/players"));
@@ -25,37 +26,39 @@ function App() {
       <DataProvider>
         <ItemModalProvider>
           <Router>
-            <LayoutComponent>
-              <Suspense
-                fallback={
-                  <Dimmer active>
-                    <Loader />
-                  </Dimmer>
-                }
-              >
-                <Switch>
-                  <Route exact path="/">
-                    <HomeView />
-                  </Route>
-                  <Route path="/planner">
-                    <FilterProvider>
-                      <PlannerView />
-                    </FilterProvider>
-                  </Route>
-                  <Route path="/wiki">
-                    <WikiView />
-                  </Route>
-                  <Route path="/players/:id">
-                    <PlayerView />
-                  </Route>
-                  <Route path="/about">
-                    <AboutView />
-                  </Route>
-                </Switch>
-              </Suspense>
-            </LayoutComponent>
+            <NavProvider>
+              <LayoutComponent>
+                <Suspense
+                  fallback={
+                    <Dimmer active>
+                      <Loader />
+                    </Dimmer>
+                  }
+                >
+                  <Switch>
+                    <Route exact path="/">
+                      <HomeView />
+                    </Route>
+                    <Route path="/planner">
+                      <FilterProvider>
+                        <PlannerView />
+                      </FilterProvider>
+                    </Route>
+                    <Route path="/wiki">
+                      <WikiView />
+                    </Route>
+                    <Route path="/players/:id">
+                      <PlayerView />
+                    </Route>
+                    <Route path="/about">
+                      <AboutView />
+                    </Route>
+                  </Switch>
+                </Suspense>
+              </LayoutComponent>
 
-            <ItemModalComponent />
+              <ItemModalComponent />
+            </NavProvider>
           </Router>
         </ItemModalProvider>
       </DataProvider>

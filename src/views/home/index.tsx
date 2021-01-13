@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Container, Header, Segment } from "semantic-ui-react";
+import { IS_DESKTOP } from "../../components/isDesktop";
 import { PageComponent } from "../../components/page";
 
 const HomeView = () => {
@@ -15,7 +16,7 @@ const HomeView = () => {
         <div
           style={{
             display: "flex",
-            flexDirection: "row",
+            flexDirection: IS_DESKTOP ? "row" : "column",
             justifyContent: "center",
             paddingTop: "10%",
           }}
@@ -32,7 +33,8 @@ const HomeView = () => {
               backgroundColor: "rgba(51, 51, 51, 0.7)",
               padding: "8% 5% 8% 5%",
               border: "2px inset rgba(255, 255, 255, 0.1)",
-              borderRight: "3px groove rgba(200, 200, 200, 0.4)",
+              borderRight: IS_DESKTOP ? "3px groove rgba(200, 200, 200, 0.4)" : "",
+              borderLeft: IS_DESKTOP ? "" : "3px groove rgba(200, 200, 200, 0.4)",
               textShadow: "0px 1px 4px rgba(255, 255, 255, 0.9)",
               background: "radial-gradient(rgba(51, 51,51,1), rgba(11, 11, 11, 0.5))",
             }}
@@ -51,7 +53,7 @@ const HomeView = () => {
               height: "100%",
               backgroundColor: "rgba(51, 51, 51, 0.7)",
               padding: "8% 5% 8% 5%",
-              marginTop: "-4px",
+              marginTop: IS_DESKTOP ? "-4px" : "4px",
               border: "2px inset rgba(255, 255, 255, 0.1)",
               borderLeft: "3px groove rgba(200, 200, 200, 0.4)",
               textShadow: "0px 1px 4px rgba(255, 255, 255, 0.9)",

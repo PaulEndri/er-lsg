@@ -1,11 +1,15 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { Container, Image, Menu, Segment } from "semantic-ui-react";
+import { Container, Icon, Image, Menu, Segment } from "semantic-ui-react";
+import { NavContext } from "../../state/nav";
 import { getImageSrc } from "../../utilities/getImageSrc";
+import IsDesktop from "../isDesktop";
+import IsMobile, { IS_MOBILE } from "../isMobile";
 import { SearchComponent } from "./search.component";
 
 const LayoutComponent = ({ children }: any) => {
   const [showPlayValue, updatePlayValue] = useState(false);
+  const { toggleVisible, visible } = useContext(NavContext);
 
   const el = useCallback(() => {
     const el = window.document.getElementById("SHOW_PLAYER_SEARCH");
@@ -17,24 +21,36 @@ const LayoutComponent = ({ children }: any) => {
 
   return (
     <div ref={el}>
-      <Container fluid style={{ marginLeft: "0px", marginRight: "0px" }}>
-        <Segment inverted style={{ marginBottom: 0, borderRadius: 0, padding: 0 }} raised={true}>
+      <Container fluid style={{ margin: "0px" }}>
+        <Segment
+          inverted
+          style={{
+            marginBottom: 0,
+            borderRadius: 0,
+            padding: 0,
+          }}
+          raised={true}
+        >
           <Menu inverted>
-            <Menu.Item header as={Link} to="/">
+            <Menu.Item onClick={() => toggleVisible()}>
+              <Icon name="bars"></Icon>
+            </Menu.Item>
+            <IsDesktop>
+              <Menu.Item as={Link} to="/wiki/*">
+                Wiki
+              </Menu.Item>
+              <Menu.Item as={Link} to="/planner">
+                Planner
+              </Menu.Item>
+              <Menu.Item as={Link} to="/about">
+                About
+              </Menu.Item>
+              {showPlayValue && <SearchComponent />}
+            </IsDesktop>
+            <Menu.Item header as={Link} to="/" floated="right">
               <Image src={getImageSrc("icon")} size="mini" />
-              Surival Guide
+              {+visible} Surival Guide
             </Menu.Item>
-
-            <Menu.Item as={Link} to="/wiki/*">
-              Wiki
-            </Menu.Item>
-            <Menu.Item as={Link} to="/planner">
-              Planner
-            </Menu.Item>
-            <Menu.Item as={Link} to="/about">
-              About
-            </Menu.Item>
-            {showPlayValue && <SearchComponent />}
           </Menu>
         </Segment>
 
