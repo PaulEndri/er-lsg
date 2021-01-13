@@ -28,6 +28,8 @@ class RedisService {
 
       this.initializeDocument().then(() => console.log("[Doc Loaded]"));
     });
+
+    process.on("beforeExit", () => this.client.end(true));
   }
 
   private async waitForLoad() {
