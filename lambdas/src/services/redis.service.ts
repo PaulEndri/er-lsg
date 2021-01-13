@@ -19,7 +19,6 @@ class RedisService {
     password: process.env.REDIS_AUTH,
   });
   private loaded = false;
-  private lastKnownRateLimit = 0;
 
   constructor() {
     this.client.once("ready", () => {
@@ -131,11 +130,11 @@ class RedisService {
   }
 
   public async updateRateLimit(value: number) {
-    if (this.lastKnownRateLimit <= 0 && value < 0) {
+    const rateLimit = await this.json(null, RedisKeys.RATE_LIMIT_KEY, "GET");
+
+    if (+rateLimit <= 0 && value < 0) {
       throw new Error("Rate Limit is Still in Effect");
     }
-
-    this.lastKnownRateLimit += value;
 
     await this.json(
       value,
@@ -144,8 +143,6 @@ class RedisService {
       RedisService.DEFAULT_DOCUMENT_NAME,
       false
     );
-
-    return this.lastKnownRateLimit;
   }
 }
 
