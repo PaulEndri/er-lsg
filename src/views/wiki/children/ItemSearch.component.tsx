@@ -112,6 +112,7 @@ export const ItemSearchComponent: React.FC<Props> = ({
                   item.displayName.toLowerCase().includes(searchString)
                 );
               })
+              .sort((a, b) => b.rarityWeight - a.rarityWeight)
               .map((item) => (
                 <ItemModalButton
                   key={item.id}

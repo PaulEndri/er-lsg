@@ -64,9 +64,11 @@ export const SelectionPaneComponent: React.FC = () => {
                 collapsed={filterStates[type]}
                 toggleCollapse={toggle[type]}
               >
-                {getTypeValue(type).map((item, idx) => (
-                  <ItemModalButton id={item.id} key={`${item.id}--${idx}`} />
-                ))}
+                {getTypeValue(type)
+                  .sort((a, b) => b.rarityWeight - a.rarityWeight)
+                  .map((item, idx) => (
+                    <ItemModalButton id={item.id} key={`${item.id}--${idx}`} />
+                  ))}
               </SectionComponent>
             </Grid.Column>
           );

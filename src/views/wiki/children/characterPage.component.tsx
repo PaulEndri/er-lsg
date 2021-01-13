@@ -225,9 +225,11 @@ export const CharacterPage = () => {
                           <AttributeChartComponent key={id} attributeBlock={attr} />
                         </Table.Cell>
                         <Table.Cell>
-                          {getList(attr.mastery as any).map(({ id }) => (
-                            <ItemModalButton key={id} id={id} />
-                          ))}
+                          {getList(attr.mastery as any)
+                            .sort((a, b) => b.rarityWeight - a.rarityWeight)
+                            .map(({ id }) => (
+                              <ItemModalButton key={id} id={id} />
+                            ))}
                         </Table.Cell>
                       </Table.Row>
                     ))}

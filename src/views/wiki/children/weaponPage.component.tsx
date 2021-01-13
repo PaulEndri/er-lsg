@@ -161,9 +161,12 @@ export const WeaponPage = () => {
                 }}
                 textAlign="center"
               >
-                {weaponType.items.map(({ id }) => (
-                  <ItemModalButton key={id} id={id} action={() => setSelectedItem(id)} />
-                ))}
+                {weaponType.items
+                  .map(({ id }) => new Item(id))
+                  .sort((a, b) => b.rarityWeight - a.rarityWeight)
+                  .map(({ id }) => (
+                    <ItemModalButton key={id} id={id} action={() => setSelectedItem(id)} />
+                  ))}
               </Grid.Column>
             </Grid.Row>
           </Grid>
