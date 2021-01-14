@@ -1,5 +1,5 @@
 import { Characters } from "erbs-sdk";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { Segment, Grid, Header, Container, Tab, Dropdown, Dimmer, Loader } from "semantic-ui-react";
 import { useParams } from "react-router-dom";
 import { PageComponent } from "../../components/page";
@@ -254,7 +254,7 @@ class PlayerContent extends React.PureComponent<Props, State> {
                     {activePlayer.name}
                   </Header>
                   <span style={{ marginLeft: "8px", fontSize: "smaller" }}>
-                    Last Updated: {timeSince(new Date(activePlayer.lastUpdated).getTime())}
+                    Last Updated: {timeSince(new Date(activePlayer.lastUpdated))}
                   </span>
                 </div>
               </Grid.Column>

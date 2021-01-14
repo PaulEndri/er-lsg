@@ -3,12 +3,12 @@ import { QueueTypes } from "../types/queueTypes";
 import { RedisJsonActions } from "../types/redisJsonActions";
 import { RedisKeys } from "../types/redisKeys";
 
-type RedisDocument = {
-  [RedisKeys.RATE_LIMIT_KEY]: number;
-  [RedisKeys.QUEUED_PLAYER_NAMES_KEY]: string[];
-  [RedisKeys.QUEUED_PLAYER_NUMBERS_KEY]: number[];
-  [RedisKeys.QUEUED_PLAYER_GAMES_KEY]: number[];
-};
+// type RedisDocument = {
+//   [RedisKeys.RATE_LIMIT_KEY]: number;
+//   [RedisKeys.QUEUED_PLAYER_NAMES_KEY]: string[];
+//   [RedisKeys.QUEUED_PLAYER_NUMBERS_KEY]: number[];
+//   [RedisKeys.QUEUED_PLAYER_GAMES_KEY]: number[];
+// };
 
 class RedisService {
   static DEFAULT_DOCUMENT_NAME = "ERBSLSGAPITHROTTLE";
@@ -19,7 +19,6 @@ class RedisService {
     password: process.env.REDIS_AUTH,
   });
   private loaded = false;
-  private lastKnownRateLimit = 0;
 
   constructor() {
     this.client.once("ready", () => {
@@ -49,11 +48,7 @@ class RedisService {
     const results = await this.json();
 
     try {
-      const value: RedisDocument = JSON.parse(results);
-
-      this.lastKnownRateLimit = +value[RedisKeys.RATE_LIMIT_KEY];
-
-      return;
+      return JSON.parse(results);
     } catch (e) {
       console.warn(e);
 
@@ -131,11 +126,11 @@ class RedisService {
   }
 
   public async updateRateLimit(value: number) {
-    if (this.lastKnownRateLimit <= 0 && value < 0) {
+    const rateLimit = await this.json(null, RedisKeys.RATE_LIMIT_KEY, "GET");
+
+    if (+rateLimit <= 0 && value < 0) {
       throw new Error("Rate Limit is Still in Effect");
     }
-
-    this.lastKnownRateLimit += value;
 
     await this.json(
       value,
@@ -144,8 +139,6 @@ class RedisService {
       RedisService.DEFAULT_DOCUMENT_NAME,
       false
     );
-
-    return this.lastKnownRateLimit;
   }
 }
 

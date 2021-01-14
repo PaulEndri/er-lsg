@@ -9,8 +9,16 @@ const LoadedItems = Object.fromEntries(
     const vals = Object.entries(values)
       .filter(([key, val]) => typeof key === "string" && typeof val === "number")
       .map(([, val]) => {
-        return Item.Generate(val);
-      });
+        try {
+          const attempt = Item.Generate(val);
+          return attempt;
+        } catch (e) {
+          console.log("Failed", val);
+          console.warn(e);
+          return null;
+        }
+      })
+      .filter((item) => item);
 
     if (Weapons[name] || WeaponsLookup[name]) {
       LoadedWeapons.push(...vals);

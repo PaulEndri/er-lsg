@@ -39,8 +39,10 @@ export async function handler(event: APIGatewayEvent) {
     });
 
     if (mongoResults) {
+      await Redis.queuePlayer("numbers", mongoResults.id);
+
       await fetch(
-        `https://www.erlsg.net/.netlify/functions/handlePlayerQueue?value=${name}&action=names`,
+        `https://www.erlsg.net/.netlify/functions/handlePlayerQueue?value=${mongoResults.id}&action=numbers`,
         { method: "GET" }
       );
 
@@ -49,6 +51,11 @@ export async function handler(event: APIGatewayEvent) {
       const results = await Client.getPlayer(name);
 
       if (results) {
+        await Redis.queuePlayer("numbers", results.id);
+        await fetch(
+          `https://www.erlsg.net/.netlify/functions/handlePlayerQueue?value=${results.id}&action=numbers`,
+          { method: "GET" }
+        );
         return generateResponse(results, 200);
       } else {
         await Redis.queuePlayer("names", name);
