@@ -9,6 +9,7 @@ import { FilterContext } from "./state";
 import { ItemModalContext } from "../../state/itemModal";
 import { Route, Switch, useHistory } from "react-router-dom";
 import { SidebarContents } from "./children/sidebarContents.component";
+import { IS_DESKTOP } from "../../components/isDesktop";
 
 const RouteCraftingPaneComponent = lazy(() => import("./children/routeCraftingPane.component"));
 const SelectionPaneComponent = lazy(() => import("./children/selectionPane.component"));
@@ -78,21 +79,24 @@ const PlannerView = () => {
   return (
     <PageComponent
       title="Eternal Return: Black Survival Route & Loadout Planner"
-      sidebarTitle="Loadout"
-      staticMenu={true}
+      sidebarTitle={IS_DESKTOP ? "Loadout" : ""}
+      staticMenu={IS_DESKTOP}
       sidebarItems={
-        <SidebarContents
-          loadout={loadout}
-          selectedCharacter={character}
-          onLoadoutItemClick={onLoadoutItemClick}
-          generateRoute={generateRoute}
-        />
+        IS_DESKTOP ? (
+          <SidebarContents
+            loadout={loadout}
+            selectedCharacter={character}
+            onLoadoutItemClick={onLoadoutItemClick}
+            generateRoute={generateRoute}
+          />
+        ) : null
       }
     >
       <Container fluid>
         <Menu
           className="attached"
           color="red"
+          attached="top"
           inverted
           style={{
             borderRadius: 0,
@@ -112,7 +116,7 @@ const PlannerView = () => {
               borderRadius: 0,
             }}
           >
-            Equipment Selection
+            Selection
           </Menu.Item>
           <Menu.Item
             active={activeTab === 1}
@@ -125,7 +129,7 @@ const PlannerView = () => {
               borderRadius: 0,
             }}
           >
-            Route Generation
+            Generation
           </Menu.Item>
           <Menu.Item
             active={activeTab === 2}
@@ -138,7 +142,7 @@ const PlannerView = () => {
               borderRadius: 0,
             }}
           >
-            Route Crafting
+            Crafting
           </Menu.Item>
         </Menu>
         <Container fluid>

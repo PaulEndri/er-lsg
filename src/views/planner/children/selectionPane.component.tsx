@@ -9,6 +9,7 @@ import { getList } from "../../../utilities/getList";
 import { DataContext } from "../../../state/data";
 import { FilterContext } from "../state";
 import { Link } from "react-router-dom";
+import { IS_MOBILE } from "../../../components/isMobile";
 
 export const SelectionPaneComponent: React.FC = () => {
   const { character, updateCharacter } = useContext(DataContext);
@@ -22,7 +23,7 @@ export const SelectionPaneComponent: React.FC = () => {
   return (
     <Grid centered style={{ height: "max-content", marginTop: 0 }}>
       <Grid.Row stretched>
-        <Grid.Column width={12}>
+        <Grid.Column width={IS_MOBILE ? 14 : 12}>
           <Segment style={{ borderRadius: 0 }} inverted color="black" raised stacked padded>
             <p>
               <Header inverted>Equipment/Loadout Selection</Header>
@@ -34,7 +35,7 @@ export const SelectionPaneComponent: React.FC = () => {
         </Grid.Column>
       </Grid.Row>
       <Grid.Row style={{ paddingTop: 0, marginTop: 0 }}>
-        <Grid.Column width={12}>
+        <Grid.Column width={IS_MOBILE ? 14 : 12}>
           <SectionComponent title="Test Subject Selection">
             <div
               style={{
@@ -58,7 +59,7 @@ export const SelectionPaneComponent: React.FC = () => {
         </Grid.Column>
         {Object.keys(Types).map((type: Types) => {
           return (
-            <Grid.Column width={12} key={type}>
+            <Grid.Column width={IS_MOBILE ? 14 : 12} key={type}>
               <SectionComponent
                 title={`${type} Selection`}
                 collapsed={filterStates[type]}

@@ -9,6 +9,7 @@ import { GameModes } from "erbs-client";
 import { SeasonModeRankComponent, Seasons } from "./children/seasonModeRank.component";
 import { DataContext } from "../../state/data";
 import { IPlayer } from "../../utilities/player";
+import { IS_MOBILE } from "../../components/isMobile";
 
 const reverseCharLookup = Object.fromEntries(Object.entries(Characters).map(([k, v]) => [v, k]));
 
@@ -221,7 +222,7 @@ class PlayerContent extends React.PureComponent<Props, State> {
               }}
               centered
             >
-              <Grid.Column width={3}>
+              <Grid.Column width={IS_MOBILE ? 14 : 3}>
                 <div style={{ display: "flex", justifyContent: "flex-start" }}>
                   <CharacterPortrait
                     type="mini"
@@ -238,7 +239,7 @@ class PlayerContent extends React.PureComponent<Props, State> {
                     ))}
                 </div>
               </Grid.Column>
-              <Grid.Column width={3}>
+              <Grid.Column width={IS_MOBILE ? 7 : 3}>
                 <div>
                   <Header
                     inverted
@@ -258,7 +259,7 @@ class PlayerContent extends React.PureComponent<Props, State> {
                   </span>
                 </div>
               </Grid.Column>
-              <Grid.Column width={2}>
+              <Grid.Column width={IS_MOBILE ? 7 : 3}>
                 <Segment compact style={{ alignSelf: "end", marginTop: "2.5em" }}>
                   <Dropdown
                     value={activeSeason}
@@ -274,7 +275,7 @@ class PlayerContent extends React.PureComponent<Props, State> {
         </Segment>
         <Container fluid>
           <Grid centered>
-            <Grid.Column width={8} style={{ paddingLeft: 0, paddingRight: 0 }}>
+            <Grid.Column width={IS_MOBILE ? 14 : 8} style={{ paddingLeft: 0, paddingRight: 0 }}>
               <Segment
                 style={{
                   padding: 1,

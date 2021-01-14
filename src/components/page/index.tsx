@@ -2,7 +2,7 @@ import React, { ReactNode, useContext } from "react";
 import { Segment, Header, Container, Dimmer } from "semantic-ui-react";
 import { NavContext } from "../../state/nav";
 import { IS_DESKTOP } from "../isDesktop";
-import { SidebarComponent } from "../sidebar";
+import { SidebarComponent } from "./sidebar.component";
 
 interface PageProps {
   sidebarItems?: ReactNode;
@@ -20,6 +20,16 @@ export const PageComponent: React.FC<PageProps> = ({
 }) => {
   const { visible, toggleVisible } = useContext(NavContext);
 
+  const divStyle = IS_DESKTOP
+    ? {
+        maxHeight: "95vh",
+        overflow: "auto",
+        overflowX: "hidden",
+        minHeight: "85vh",
+        transform: "* 2s",
+        marginLeft: visible || staticMenu ? "150px" : "auto",
+      }
+    : {};
   return (
     <div>
       <SidebarComponent staticMenu={staticMenu} title={sidebarTitle}>
@@ -44,21 +54,10 @@ export const PageComponent: React.FC<PageProps> = ({
           {title}
         </Header>
       </Segment>
-      <Container fluid>
+      <Container fluid style={{ borderTop: "0.5px ridge rgba(200, 200, 200, 1)" }}>
         <Dimmer active={!staticMenu && visible} onClick={() => toggleVisible()}></Dimmer>
 
-        <div
-          style={{
-            maxHeight: "95vh",
-            overflow: "auto",
-            overflowX: "hidden",
-            minHeight: "85vh",
-            transform: "* 2s",
-            marginLeft: (IS_DESKTOP && visible) || staticMenu ? "150px" : "auto",
-          }}
-        >
-          {children}
-        </div>
+        <div style={divStyle as any}>{children}</div>
       </Container>
     </div>
   );

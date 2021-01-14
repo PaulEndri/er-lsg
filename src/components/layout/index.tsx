@@ -61,7 +61,7 @@ const LayoutComponent = ({ children }: any) => {
         <Segment basic style={{ padding: 0, margin: 0 }}>
           {children}
         </Segment>
-        <Segment color="black" inverted style={{ border: 0 }} basic attached="bottom">
+        <Segment color="black" inverted basic attached="bottom" size="tiny">
           Lumia Survival Guide and co. are in no way affiliated with Nimble Neuron, Eternal Return:
           Black Survival, or any related entity. For questions and support email the
           <a href="mailto:jrs.abrecan@gmail.com"> the site administrator.</a>

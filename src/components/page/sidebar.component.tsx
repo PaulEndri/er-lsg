@@ -13,11 +13,8 @@ export const SidebarComponent: React.FC<SidebarProps> = ({
   children,
   staticMenu = false,
 }) => {
-  const { visible } = useContext(NavContext);
+  const { visible, toggleVisible } = useContext(NavContext);
 
-  if (!title || !children) {
-    return null;
-  }
   return (
     <Menu
       style={{
@@ -26,22 +23,23 @@ export const SidebarComponent: React.FC<SidebarProps> = ({
         height: "100%",
         position: "absolute",
         zIndex: 1001,
+        maxWidth: "150px",
       }}
       animation="overlay"
       inverted
       vertical
     >
       <IsMobile>
-        <Menu.Item as={Link} to="/" exact>
+        <Menu.Item onClick={() => toggleVisible()} as={Link} to="/" exact>
           Home
         </Menu.Item>
-        <Menu.Item as={Link} to="/wiki/*">
+        <Menu.Item onClick={() => toggleVisible()} as={Link} to="/wiki/*">
           Wiki
         </Menu.Item>
-        <Menu.Item as={Link} to="/planner">
+        <Menu.Item onClick={() => toggleVisible()} as={Link} to="/planner">
           Planner
         </Menu.Item>
-        <Menu.Item as={Link} to="/about">
+        <Menu.Item onClick={() => toggleVisible()} as={Link} to="/about">
           About
         </Menu.Item>
       </IsMobile>
