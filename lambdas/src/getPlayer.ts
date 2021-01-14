@@ -1,7 +1,6 @@
 import { APIGatewayEvent } from "aws-lambda";
 import Client from "./services/client.service";
 import Redis from "./services/redis.service";
-import fetch from "node-fetch";
 import { Players } from "./models/player.model";
 import mongoose from "mongoose";
 
@@ -41,29 +40,15 @@ export async function handler(event: APIGatewayEvent) {
     if (mongoResults) {
       await Redis.queuePlayer("numbers", mongoResults.id);
 
-      await fetch(
-        `https://www.erlsg.net/.netlify/functions/handlePlayerQueue?value=${mongoResults.id}&action=numbers`,
-        { method: "GET" }
-      );
-
       return generateResponse(mongoResults, 200);
     } else {
       const results = await Client.getPlayer(name);
 
       if (results) {
         await Redis.queuePlayer("numbers", results.id);
-        await fetch(
-          `https://www.erlsg.net/.netlify/functions/handlePlayerQueue?value=${results.id}&action=numbers`,
-          { method: "GET" }
-        );
         return generateResponse(results, 200);
       } else {
         await Redis.queuePlayer("names", name);
-        await fetch(
-          `https://www.erlsg.net/.netlify/functions/handlePlayerQueue?value=${name}&action=names`,
-          { method: "GET" }
-        );
-
         return generateResponse(
           {
             message:
