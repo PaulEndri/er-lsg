@@ -1,18 +1,17 @@
 import React from "react";
-import { Segment, Header, Button, Label, Icon, Item as SemItem, Image } from "semantic-ui-react";
+import { Segment, Header, Button, Icon, Image, Table } from "semantic-ui-react";
 import { getImageSrc } from "../../../utilities/getImageSrc";
-import { Item, Items, Location, Locations, RouteNode, MaterialList } from "erbs-sdk";
-import { useHistory } from "react-router-dom";
+import { Item, Location, Locations, RouteNode, MaterialList } from "erbs-sdk";
+import { itemRarityBackground } from "../../../utilities/rarityColor";
 
 type Props = {
   root: RouteNode;
   setRoute: (routes) => null;
   routes: RouteNode[];
+  moveToCrafting: () => null;
 };
 
-export const RouteListComponent: React.FC<Props> = ({ root, setRoute, routes }) => {
-  const history = useHistory();
-
+export const RouteListComponent: React.FC<Props> = ({ root, setRoute, routes, moveToCrafting }) => {
   if (!routes || routes.length === 0) {
     return (
       <Segment color="red" inverted style={{ borderRadius: 0 }}>
@@ -43,75 +42,88 @@ export const RouteListComponent: React.FC<Props> = ({ root, setRoute, routes }) 
     });
 
     setRoute(newActiveRoute);
-    history.push("/planner/craft");
+    moveToCrafting();
   };
 
   return (
-    <SemItem.Group style={{ padding: 0 }}>
-      {routes.slice(0, 20).map((route, idx) => (
-        <SemItem
-          style={{
-            backgroundColor: "rgba(129, 128, 127, 0.2)",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
-            boxShadow: "0px 0px 2px 2px rgba(29, 28, 27, 0.3)",
-          }}
-        >
-          {route.traversed.map((location, locIndex) => {
-            let traversedRoot = root;
+    <Table inverted celled striped collapsing>
+      <Table.Header>
+        <Table.Row>
+          <Table.HeaderCell textAlign="center" colSpan="6">
+            Generated Routes
+          </Table.HeaderCell>
+        </Table.Row>
+      </Table.Header>
+      {routes.slice(0, 20).map((route, idx) => {
+        const getTraversedRoot = (index) => {
+          let traversedRoot = root;
 
-            route.traversed.slice(0, locIndex + 1).forEach((loc) => {
-              traversedRoot = traversedRoot.next[loc];
-            });
+          route.traversed.slice(0, index + 1).forEach((loc) => {
+            traversedRoot = traversedRoot.next[loc];
+          });
 
-            return (
-              <div
-                key={locIndex}
-                style={{ borderRight: "1px solid rgba(255, 255, 255, 0.5)", width: "150px" }}
-              >
-                <Label
-                  color="yellow"
-                  style={{
-                    display: "block",
-                    borderRadius: 0,
-                    paddingRight: 0,
-                    paddingLeft: 0,
-                    marginBottom: "4px",
-                  }}
-                >
-                  {Locations[location]}
-                </Label>
-                <div style={{ textAlign: "center" }}>
-                  {traversedRoot.completed.map((id) => (
-                    <Image
-                      inline
-                      centered
-                      src={getImageSrc(Items[id].replace(/([A-Z])/g, " $1").trim())}
-                      width={50}
-                      height={30}
-                      circular
-                      style={{ backgroundColor: "rgba(255, 255, 255, 0.2)", margin: "4px" }}
-                    />
-                  ))}
-                </div>
-              </div>
-            );
-          })}
-
-          <Button
-            compact
-            color="green"
-            onClick={() => handleClick(route)}
-            attached="right"
-            style={{ borderRadius: 0, display: "flex" }}
-          >
-            <div style={{ textAlign: "center", alignSelf: "center" }}>
-              See Route Details
-              <br />
-              <Icon size="large" name="chevron circle right" style={{ marginTop: "12px" }} />
-            </div>
-          </Button>
-        </SemItem>
-      ))}
-    </SemItem.Group>
+          return traversedRoot;
+        };
+        return (
+          <>
+            <Table.Header>
+              <Table.Row>
+                {route.traversed.map((location) => (
+                  <Table.HeaderCell textAlign="center" key={location}>
+                    {Locations[location]}
+                  </Table.HeaderCell>
+                ))}
+                <Table.HeaderCell></Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              <Table.Row>
+                {route.traversed.map((loc, index) => (
+                  <Table.Cell key={loc}>
+                    {getTraversedRoot(index).completed.map((id) => {
+                      const item = new Item(id);
+                      return (
+                        <Image
+                          inline
+                          centered
+                          src={getImageSrc(item.displayName)}
+                          width={50}
+                          height={30}
+                          circular
+                          style={{
+                            background: itemRarityBackground(item.rarity),
+                            boxShadow: "1px 1px 4px 1px rgba(0, 0, 0, 0.5)",
+                            margin: "4px",
+                          }}
+                        />
+                      );
+                    })}
+                  </Table.Cell>
+                ))}
+                <Table.Cell>
+                  <Button
+                    compact
+                    color="green"
+                    onClick={() => handleClick(route)}
+                    attached="right"
+                    style={{ borderRadius: 0 }}
+                  >
+                    <div style={{ textAlign: "center", alignSelf: "center" }}>
+                      See Route Details
+                      <br />
+                      <Icon
+                        size="large"
+                        name="chevron circle right"
+                        style={{ marginTop: "12px" }}
+                      />
+                    </div>
+                  </Button>
+                </Table.Cell>
+              </Table.Row>
+            </Table.Body>
+          </>
+        );
+      })}
+    </Table>
   );
 };

@@ -29,7 +29,9 @@ export const PageComponent: React.FC<PageProps> = ({
         transform: "* 2s",
         marginLeft: visible || staticMenu ? "150px" : "auto",
       }
-    : {};
+    : {
+        overflowY: "hidden",
+      };
   return (
     <div>
       <SidebarComponent staticMenu={staticMenu} title={sidebarTitle}>

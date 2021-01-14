@@ -1,6 +1,6 @@
 import { Item, Weapons, Route as LoadoutRoute } from "erbs-sdk";
-import React, { useContext, useState, lazy, Suspense } from "react";
-import { Container, Menu, Dimmer, Loader } from "semantic-ui-react";
+import React, { useContext, useState, lazy, Suspense, createRef } from "react";
+import { Container, Menu, Dimmer, Loader, Grid, Ref } from "semantic-ui-react";
 
 import { Types } from "../../utilities/types";
 import { PageComponent } from "../../components/page";
@@ -10,6 +10,8 @@ import { ItemModalContext } from "../../state/itemModal";
 import { Route, Switch, useHistory } from "react-router-dom";
 import { SidebarContents } from "./children/sidebarContents.component";
 import { IS_DESKTOP } from "../../components/isDesktop";
+import IsMobile from "../../components/isMobile";
+import { MobileLoadoutComponent } from "./children/mobileLoadoutComponent";
 
 const RouteCraftingPaneComponent = lazy(() => import("./children/routeCraftingPane.component"));
 const SelectionPaneComponent = lazy(() => import("./children/selectionPane.component"));
@@ -67,7 +69,7 @@ const PlannerView = () => {
       const route = new LoadoutRoute(loadout);
       setRoutes(route.generate());
 
-      setActiveTab(2);
+      setActiveTab(1);
       history.push("/planner/route");
     } catch (e) {
       console.log(e);
@@ -76,102 +78,128 @@ const PlannerView = () => {
     }
   };
 
+  const moveToCrafting = () => {
+    setLoading(true);
+    try {
+      setActiveTab(2);
+      history.push("/planner/craft");
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const contextRef = createRef() as any;
   return (
-    <PageComponent
-      title="Eternal Return: Black Survival Route & Loadout Planner"
-      sidebarTitle={IS_DESKTOP ? "Loadout" : ""}
-      staticMenu={IS_DESKTOP}
-      sidebarItems={
-        IS_DESKTOP ? (
-          <SidebarContents
-            loadout={loadout}
-            selectedCharacter={character}
-            onLoadoutItemClick={onLoadoutItemClick}
-            generateRoute={generateRoute}
-          />
-        ) : null
-      }
-    >
-      <Container fluid>
-        <Menu
-          className="attached"
-          color="red"
-          attached="top"
-          inverted
-          style={{
-            borderRadius: 0,
-            marginBottom: 0,
-            justifyContent: "center",
-            flexWrap: "wrap",
-          }}
-        >
-          <Menu.Item
-            active={activeTab === 0}
-            onClick={() => {
-              setActiveTab(0);
-              history.push(`/planner/selection`);
-            }}
-            color="red"
-            style={{
-              borderRadius: 0,
-            }}
-          >
-            Selection
-          </Menu.Item>
-          <Menu.Item
-            active={activeTab === 1}
-            onClick={() => {
-              setActiveTab(1);
-              history.push(`/planner/route`);
-            }}
-            color="red"
-            style={{
-              borderRadius: 0,
-            }}
-          >
-            Generation
-          </Menu.Item>
-          <Menu.Item
-            active={activeTab === 2}
-            onClick={() => {
-              setActiveTab(2);
-              history.push(`/planner/craft`);
-            }}
-            color="red"
-            style={{
-              borderRadius: 0,
-            }}
-          >
-            Crafting
-          </Menu.Item>
-        </Menu>
-        <Container fluid>
-          <Suspense
-            fallback={
-              <Dimmer active>
-                <Loader />
-              </Dimmer>
-            }
-          >
-            <Switch>
-              <Route path={"/planner"} exact>
-                <SelectionPaneComponent />
-              </Route>
-              <Route path={"/planner/selection"} exact>
-                <SelectionPaneComponent />
-              </Route>
-              <Route path="/planner/route" exact>
-                <RoutePaneComponent />
-              </Route>
-              <Route path="/planner/craft" exact>
-                <RouteCraftingPaneComponent />
-              </Route>
-            </Switch>
-          </Suspense>
-        </Container>
-      </Container>
-      <Dimmer active={loading} />
-    </PageComponent>
+    <>
+      <PageComponent
+        title="Eternal Return: Black Survival Route & Loadout Planner"
+        sidebarTitle={IS_DESKTOP ? "Loadout" : ""}
+        staticMenu={IS_DESKTOP}
+        sidebarItems={
+          IS_DESKTOP ? (
+            <SidebarContents
+              loadout={loadout}
+              selectedCharacter={character}
+              onLoadoutItemClick={onLoadoutItemClick}
+              generateRoute={generateRoute}
+            />
+          ) : null
+        }
+      >
+        <Ref innerRef={contextRef}>
+          <Container fluid>
+            <Menu
+              className="attached"
+              color="red"
+              attached="top"
+              inverted
+              style={{
+                borderRadius: 0,
+                marginBottom: 0,
+                justifyContent: "center",
+                flexWrap: "wrap",
+              }}
+            >
+              <Menu.Item
+                active={activeTab === 0}
+                onClick={() => {
+                  setActiveTab(0);
+                  history.push(`/planner/selection`);
+                }}
+                color="red"
+                style={{
+                  borderRadius: 0,
+                }}
+              >
+                Selection
+              </Menu.Item>
+              <Menu.Item
+                active={activeTab === 1}
+                onClick={() => {
+                  setActiveTab(1);
+                  history.push(`/planner/route`);
+                }}
+                color="red"
+                style={{
+                  borderRadius: 0,
+                }}
+              >
+                Generation
+              </Menu.Item>
+              <Menu.Item
+                active={activeTab === 2}
+                onClick={() => {
+                  setActiveTab(2);
+                  history.push(`/planner/craft`);
+                }}
+                color="red"
+                style={{
+                  borderRadius: 0,
+                }}
+              >
+                Crafting
+              </Menu.Item>
+            </Menu>
+            <Container fluid>
+              <Suspense
+                fallback={
+                  <Dimmer active>
+                    <Loader />
+                  </Dimmer>
+                }
+              >
+                <Switch>
+                  <Route path={"/planner"} exact>
+                    <Grid centered style={{ height: "max-content", marginTop: 0 }}>
+                      <SelectionPaneComponent />
+                    </Grid>
+                  </Route>
+                  <Route path={"/planner/selection"} exact>
+                    <Grid centered style={{ height: "max-content", marginTop: 0 }}>
+                      <SelectionPaneComponent />
+                    </Grid>
+                  </Route>
+                  <Route path="/planner/route" exact>
+                    <RoutePaneComponent moveToCrafting={moveToCrafting} />
+                  </Route>
+                  <Route path="/planner/craft" exact>
+                    <RouteCraftingPaneComponent />
+                  </Route>
+                </Switch>
+              </Suspense>
+            </Container>
+          </Container>
+        </Ref>
+        <Dimmer active={loading} />
+      </PageComponent>
+      <IsMobile>
+        <div style={{ position: "fixed", bottom: 0, zIndex: 1002, width: "100vw" }}>
+          <MobileLoadoutComponent />
+        </div>
+      </IsMobile>
+    </>
   );
 };
 

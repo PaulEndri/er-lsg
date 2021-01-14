@@ -113,6 +113,11 @@ export const AnimalPage = () => {
 
   const animal: Animal = id ? (Animal.Generate(id) as any) : null;
 
+  const totalPercent =
+    animal && animal.items.length
+      ? animal.items.reduce((total, current) => (total += current.percentage), 0)
+      : 1;
+
   return (
     <AnimalView>
       <Segment
@@ -195,7 +200,11 @@ export const AnimalPage = () => {
             textAlign="center"
           >
             {animal.items.map(({ id, percentage }: any) => (
-              <ItemModalButton id={id} key={id} label={percentage + "%"} />
+              <ItemModalButton
+                id={id}
+                key={id}
+                label={Math.round((+percentage / totalPercent) * 100) + "%"}
+              />
             ))}
           </Grid.Row>
         </Grid>
