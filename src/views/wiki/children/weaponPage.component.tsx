@@ -184,8 +184,8 @@ export const WeaponPage = () => {
                       return new Item(id);
                     } catch (e) {
                       console.warn(e);
+                      return null;
                     }
-                    return null;
                   })
                   .filter((x) => x)
                   .sort((a: Item, b: Item) => a.rarityWeight - b.rarityWeight)
