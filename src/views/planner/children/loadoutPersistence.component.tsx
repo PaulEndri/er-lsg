@@ -14,6 +14,9 @@ import {
 } from "semantic-ui-react";
 import { DataContext } from "../../../state/data";
 
+/* eslint-disable react-hooks/exhaustive-deps */
+/* tslint-disable react-hooks/exhaustive-deps */
+
 const SimpleLoadoutLookup = ({ getLoadout }) => {
   const [lookup, setLookup] = useState();
   const [error, setError] = useState();
@@ -69,7 +72,7 @@ export const LoadoutPersistenceComponent = () => {
         })
         .finally(() => setLoading(false));
     }
-  }, [getLoadout, user, setSavedLoadouts]);
+  }, []);
 
   if (!user) {
     return <SimpleLoadoutLookup getLoadout={getLoadout} />;
