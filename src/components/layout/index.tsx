@@ -57,7 +57,7 @@ const LayoutComponent = ({ children }: any) => {
               </Menu.Item>
               {showPlayValue && <SearchComponent />}
               <Menu.Item position="right">
-                <span style={{ marginLeft: "1em" }}>{user && "Welcome Back!"}</span>
+                <span style={{ marginRight: "1em" }}>{user && "Welcome Back!"}</span>
                 <Button
                   color="brown"
                   style={{ borderRadius: 0 }}

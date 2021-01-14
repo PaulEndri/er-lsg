@@ -189,24 +189,24 @@ export const LoadoutPersistenceComponent = () => {
                 header="Copied ID"
                 content={`Copied the loadout id to Clipboard: ${context.currentSavedLoadoutId}`}
               />
-              <Input fluid type="text" placeholder="New Loadout Name">
-                <input value={newName} onChange={(e) => setNewName(e.target.value)} />
-                <Button
-                  style={{ borderRadius: 0 }}
-                  color="green"
-                  onClick={() => {
-                    setLoading(true);
-                    context
-                      .saveLoadout(newName)
-                      .catch((e) => setError(e.message))
-                      .finally(() => setLoading(false));
-                  }}
-                >
-                  Save New Loadout
-                </Button>
-              </Input>
             </>
           )}
+          <Input fluid type="text" placeholder="New Loadout Name">
+            <input value={newName} onChange={(e) => setNewName(e.target.value)} />
+            <Button
+              style={{ borderRadius: 0 }}
+              color="green"
+              onClick={() => {
+                setLoading(true);
+                context
+                  .saveLoadout(newName)
+                  .catch((e) => setError(e.message))
+                  .finally(() => setLoading(false));
+              }}
+            >
+              Save New Loadout
+            </Button>
+          </Input>
         </Segment>
       </Segment.Group>
     </>
