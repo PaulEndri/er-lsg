@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import {
   Button,
   Dimmer,
-  Dropdown,
   Form,
   Header,
   Icon,

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Grid, Header, Segment, Button, Label, Dropdown, Form, Radio } from "semantic-ui-react";
-import { Character, Characters, Item, Items, Locations, Route } from "erbs-sdk";
+import { Character, Characters, Item, Items, Locations } from "erbs-sdk";
 import { Types } from "../../../utilities/types";
 import { getImageSrc } from "../../../utilities/getImageSrc";
 import { ItemModalButton } from "../../../components/itemModalButton.component";
