@@ -15,9 +15,9 @@ const generateResponse = (body, status) => {
   };
 };
 
-export async function handler(event: APIGatewayEvent, context: any) {
+export async function handler(event: APIGatewayEvent) {
   try {
-    if (!context.user) {
+    if (!event.headers["netlify-user"]) {
       throw new Error("Unauthorized");
     }
 
@@ -26,7 +26,7 @@ export async function handler(event: APIGatewayEvent, context: any) {
       throw new Error("User ID or Loadout Name are missing");
     }
 
-    if (context.user.id !== body.userId) {
+    if (event.headers["netlify-user"] !== body.userId) {
       throw new Error("Unauthorized");
     }
 

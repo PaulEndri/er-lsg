@@ -13,6 +13,8 @@ import { getSavedLoadout } from "../../utilities/getSavedLoadouts";
 
 NetlifyIdentityWidget.init();
 
+const defaultUser = NetlifyIdentityWidget.currentUser();
+
 const netlifyIdentifySetup = (setUser) => {
   NetlifyIdentityWidget.on("init", (user) => {
     if (user && user.id) {
@@ -38,7 +40,7 @@ export const DataProvider: FunctionComponent = ({ children }) => {
   const [activeRoute, setRoute] = useState<ActiveRouteDetail[]>(initialState.activeRoute);
   const [playerData, setPlayerData] = useState<Record<number, IPlayer>>(initialState.playerData);
   const [activePlayer, setActivePlayer] = useState<IPlayer>(null);
-  const [user, setUser] = useState<NetlifyIdentityWidget.User>(initialState.user);
+  const [user, setUser] = useState<NetlifyIdentityWidget.User>(defaultUser || null);
   const [savedLoadouts, setSavedLoadouts] = useState<ISavedLoadout[]>([]);
   const [loadoutName, setLoadoutName] = useState<string>();
   const [currentSavedLoadoutId, setCurrentSavedLoadoutId] = useState<string>();
@@ -82,7 +84,11 @@ export const DataProvider: FunctionComponent = ({ children }) => {
     if (!response.error) {
       if (loadoutId) {
         const newLoadout = response.data[0];
-        injectLoadout(newLoadout);
+        if (newLoadout) {
+          injectLoadout(newLoadout);
+        } else {
+          throw new Error("Loadout not found");
+        }
       }
 
       setSavedLoadouts([...savedLoadouts, ...response.data]);
@@ -115,6 +121,8 @@ export const DataProvider: FunctionComponent = ({ children }) => {
       setLoadoutName(name);
       setSavedLoadouts([...savedLoadouts, response.data]);
       setCurrentSavedLoadoutId(response.data.id);
+    } else {
+      throw new Error(response.message);
     }
 
     return response;
