@@ -108,7 +108,11 @@ class ClientService {
 
     player.matchHistory = [...totalMatchHistory];
 
-    await player.save();
+    if (player.save) {
+      await player.save();
+    } else {
+      await Players.create(player);
+    }
   }
 
   private async processPlayerName(name: string, queued = false) {
