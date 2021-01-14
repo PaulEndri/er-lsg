@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Container, Header, Icon, List, Segment } from "semantic-ui-react";
+import { IS_DESKTOP } from "../../components/isDesktop";
 import { PageComponent } from "../../components/page";
 
 const AboutView = () => {
@@ -15,9 +16,15 @@ const AboutView = () => {
             </p>
           </Segment>
           <Segment color="black" inverted style={{ borderRadius: 0 }}>
-            <Segment.Group horizontal style={{ border: 0, background: "transparent" }}>
-              <Segment textAlign="center" basic inverted vertical style={{ maxWidth: "250px" }}>
-                <Header inverted>Roadmap</Header>
+            <Segment.Group horizontal={IS_DESKTOP} style={{ border: 0, background: "transparent" }}>
+              <Segment
+                textAlign="center"
+                basic
+                inverted
+                vertical
+                style={{ maxWidth: "250px", margin: "auto" }}
+              >
+                <Header inverted>Thanks To</Header>
                 <p>This app could not have been made without the following tools</p>
                 <List
                   inverted
@@ -44,7 +51,13 @@ const AboutView = () => {
                   ]}
                 />
               </Segment>
-              <Segment inverted basic compact textAlign="center" style={{ maxWidth: "350px" }}>
+              <Segment
+                inverted
+                basic
+                compact
+                textAlign="center"
+                style={{ maxWidth: "350px", margin: "auto" }}
+              >
                 <Header inverted size="large">
                   <Icon size="huge" name="discord" /> Discord Bot
                 </Header>

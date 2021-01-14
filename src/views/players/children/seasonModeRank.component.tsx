@@ -2,6 +2,7 @@ import { Character } from "erbs-sdk";
 import React from "react";
 import { Segment, Grid, Header, Statistic, Item } from "semantic-ui-react";
 import { CharacterPortrait } from "../../../components/characterPortrait.component";
+import { IS_MOBILE } from "../../../components/isMobile";
 import { getRankLabel, RankComponent } from "../../../components/rank.component";
 import { WinRateChartComponent } from "./winRateChart.component";
 
@@ -66,7 +67,7 @@ export const SeasonModeRankComponent = ({ data }) => {
                       </Grid.Row>
                     </Grid>
                   </Grid.Column>
-                  <Grid.Column width={7}>
+                  <Grid.Column width={IS_MOBILE ? 9 : 7}>
                     <WinRateChartComponent
                       totalGames={data.totalGames}
                       totalWins={data.totalWins}

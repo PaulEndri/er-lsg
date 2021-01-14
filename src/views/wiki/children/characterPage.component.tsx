@@ -25,6 +25,8 @@ import { ReverseWeaponsLookupKeyed } from "../../../utilities/reverseWeaponLooku
 import { ItemModalButton } from "../../../components/itemModalButton.component";
 import { BG_THIRD } from "../../../utilities/bgImages";
 import { getList } from "../../../utilities/getList";
+import IsDesktop, { IS_DESKTOP } from "../../../components/isDesktop";
+import IsMobile, { IS_MOBILE } from "../../../components/isMobile";
 
 const CharacterAttrStatistic = ({ attr }) => (
   <Statistic inverted>
@@ -105,8 +107,14 @@ export const CharacterPage = () => {
         {
           menuItem: "Lore",
           render: () => (
-            <Grid centered>
-              <Grid.Column width={6} style={{ marginRight: 0, paddingRight: 0 }}>
+            <Grid centered={IS_DESKTOP}>
+              <Grid.Column
+                mobile={14}
+                desktop={6}
+                widescreen={6}
+                tablet={6}
+                style={{ marginRight: 0, paddingRight: 0 }}
+              >
                 <Segment style={{ margin: 0, borderRadius: 0 }} inverted>
                   <Header>{character.description}</Header>
                   {Object.entries(character.details).map(([key, val]) => (
@@ -123,9 +131,11 @@ export const CharacterPage = () => {
                   />
                 </Segment>
               </Grid.Column>
-              <Grid.Column width={3} style={{ marginLeft: 0, paddingLeft: 0 }}>
-                <CharacterPortrait name={character.name} type="full" width={250} />
-              </Grid.Column>
+              <IsDesktop>
+                <Grid.Column width={3} style={{ marginLeft: 0, paddingLeft: 0 }}>
+                  <CharacterPortrait name={character.name} type="full" width={250} />
+                </Grid.Column>
+              </IsDesktop>
             </Grid>
           ),
         },
@@ -133,7 +143,7 @@ export const CharacterPage = () => {
           menuItem: "Skills",
           render: () => (
             <Grid centered>
-              <Grid.Column width={12}>
+              <Grid.Column width={IS_MOBILE ? 16 : 12}>
                 <Table inverted collapsing style={{ borderRadius: 0 }} structured celled>
                   <Table.Header>
                     <Table.Row>
@@ -177,7 +187,7 @@ export const CharacterPage = () => {
           menuItem: "Stats",
           render: () => (
             <Grid centered>
-              <Grid.Column width={8}>
+              <Grid.Column width={IS_MOBILE ? 16 : 8}>
                 <CharacterStatTable character={character} />
               </Grid.Column>
             </Grid>
@@ -188,53 +198,60 @@ export const CharacterPage = () => {
           render: () => (
             <Grid centered>
               <Grid.Column width={12}>
-                <Table collapsing style={{ borderRadius: 0 }} structured celled striped inverted>
-                  <Table.Header>
-                    <Table.HeaderCell>Weapon Type</Table.HeaderCell>
-                    <Table.HeaderCell>Difficulty</Table.HeaderCell>
-                    <Table.HeaderCell>Information</Table.HeaderCell>
-                    <Table.HeaderCell>Weapons</Table.HeaderCell>
-                  </Table.Header>
-                  <Table.Body>
-                    {character.attributes.map((attr, id) => (
-                      <Table.Row key={id}>
-                        <Table.Cell textAlign="center">
-                          <Link to={`/wiki/weapons/${ReverseWeaponsLookupKeyed[attr.mastery]}`}>
-                            <Image
-                              centered
-                              bordered
-                              size="small"
-                              style={{
-                                maxHeight: "auto",
-                                width: "100px",
-                              }}
-                              src={getImageSrc(`/weaponSkills/${attr.mastery}`)}
+                <IsDesktop>
+                  <Table collapsing style={{ borderRadius: 0 }} structured celled striped inverted>
+                    <Table.Header>
+                      <Table.HeaderCell>Weapon Type</Table.HeaderCell>
+                      <Table.HeaderCell>Difficulty</Table.HeaderCell>
+                      <Table.HeaderCell>Information</Table.HeaderCell>
+                      <Table.HeaderCell>Weapons</Table.HeaderCell>
+                    </Table.Header>
+                    <Table.Body>
+                      {character.attributes.map((attr, id) => (
+                        <Table.Row key={id}>
+                          <Table.Cell textAlign="center">
+                            <Link to={`/wiki/weapons/${ReverseWeaponsLookupKeyed[attr.mastery]}`}>
+                              <Image
+                                centered
+                                bordered
+                                size="small"
+                                style={{
+                                  maxHeight: "auto",
+                                  width: "100px",
+                                }}
+                                src={getImageSrc(`/weaponSkills/${attr.mastery}`)}
+                              />
+                              {ReverseWeaponsLookupKeyed[attr.mastery]}
+                            </Link>
+                          </Table.Cell>
+                          <Table.Cell>
+                            <Rating
+                              icon="star"
+                              disabled
+                              defaultRating={attr.controlDifficulty}
+                              maxRating={3}
                             />
-                            {ReverseWeaponsLookupKeyed[attr.mastery]}
-                          </Link>
-                        </Table.Cell>
-                        <Table.Cell>
-                          <Rating
-                            icon="star"
-                            disabled
-                            defaultRating={attr.controlDifficulty}
-                            maxRating={3}
-                          />
-                        </Table.Cell>
-                        <Table.Cell>
-                          <AttributeChartComponent key={id} attributeBlock={attr} />
-                        </Table.Cell>
-                        <Table.Cell>
-                          {getList(attr.mastery as any)
-                            .sort((a, b) => a.rarityWeight - b.rarityWeight)
-                            .map(({ id }) => (
-                              <ItemModalButton key={id} id={id} />
-                            ))}
-                        </Table.Cell>
-                      </Table.Row>
-                    ))}
-                  </Table.Body>
-                </Table>
+                          </Table.Cell>
+                          <Table.Cell>
+                            <AttributeChartComponent key={id} attributeBlock={attr} />
+                          </Table.Cell>
+                          <Table.Cell>
+                            {getList(attr.mastery as any)
+                              .sort((a, b) => a.rarityWeight - b.rarityWeight)
+                              .map(({ id }) => (
+                                <ItemModalButton key={id} id={id} />
+                              ))}
+                          </Table.Cell>
+                        </Table.Row>
+                      ))}
+                    </Table.Body>
+                  </Table>
+                </IsDesktop>
+                <IsMobile>
+                  <Segment color="red" centered style={{ borderRadius: 0 }} inverted>
+                    Not currently available for Mobile
+                  </Segment>
+                </IsMobile>
               </Grid.Column>
             </Grid>
           ),
@@ -266,11 +283,14 @@ export const CharacterPage = () => {
             centered
           >
             <Grid centered style={{ margin: 0, padding: 0 }}>
-              <Grid.Column width={2}>
+              <Grid.Column mobile={8} desktop={2} widescreen={2} tablet={3}>
                 <CharacterPortrait type="mini" width={100} name={character.name} />
               </Grid.Column>
               <Grid.Column
-                width={2}
+                mobile={8}
+                desktop={2}
+                widescreen={1}
+                tablet={3}
                 textAlign="center"
                 style={{ paddingLeft: 0 }}
                 verticalAlign="middle"
@@ -290,7 +310,14 @@ export const CharacterPage = () => {
                 </Statistic>
               </Grid.Column>
               {character.attributes.map((attr, id) => (
-                <Grid.Column width={2} key={id} verticalAlign="middle">
+                <Grid.Column
+                  mobile={3}
+                  desktop={2}
+                  widescreen={2}
+                  tablet={3}
+                  key={id}
+                  verticalAlign="middle"
+                >
                   <CharacterAttrStatistic attr={attr} />
                 </Grid.Column>
               ))}
@@ -324,99 +351,104 @@ export const CharacterLandingPage = () => {
   const history = useHistory();
 
   return (
-    <CharacterView>
-      <Segment
-        style={{
-          backgroundColor: "rgba(31, 29, 29, 0.9)",
+    <div style={{ marginTop: IS_MOBILE ? "2em" : "0" }}>
+      <CharacterView>
+        <IsDesktop>
+          <Segment
+            style={{
+              backgroundColor: "rgba(31, 29, 29, 0.9)",
 
-          backgroundImage: BG_THIRD,
-          marginTop: 0,
-          borderRadius: 0,
-        }}
-        textAlign="center"
-      >
-        <Table selectable striped collapsing style={{ margin: "auto" }} inverted>
-          <Table.Header>
-            <Table.HeaderCell />
-            <Table.HeaderCell>Name</Table.HeaderCell>
-            <Table.HeaderCell>Weapons</Table.HeaderCell>
-            <Table.HeaderCell>Q</Table.HeaderCell>
-            <Table.HeaderCell>W</Table.HeaderCell>
-            <Table.HeaderCell>E</Table.HeaderCell>
-            <Table.HeaderCell>R</Table.HeaderCell>
-            <Table.HeaderCell>Passive</Table.HeaderCell>
-          </Table.Header>
-          <Table.Body>
-            {Object.entries(Character.SOURCES as Record<string, ICharacter>).map(
-              ([character, characterObject]) => (
-                <Table.Row
-                  key={character}
-                  onClick={() => history.push(`/wiki/characters/${character}`)}
-                >
-                  <Table.Cell>
-                    <CharacterThumbnailComponent width={60} name={character} isActive={false} />
-                  </Table.Cell>
-                  <Table.Cell>{character}</Table.Cell>
-                  <Table.Cell>
-                    {characterObject.attributes.map((attr, id) => (
-                      <Image
-                        key={attr.mastery}
-                        inline
-                        style={{
-                          maxHeight: "auto",
-                          width: "50px",
-                        }}
-                        src={getImageSrc(`Weapon${attr.mastery}`)}
-                      />
-                    ))}
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Image
-                      bordered
-                      size="mini"
-                      src={getImageSrc(characterObject.abilities?.Q.name)}
-                    />
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Image
-                      bordered
-                      size="mini"
-                      src={getImageSrc(characterObject.abilities?.W.name)}
-                    />
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Image
-                      bordered
-                      size="mini"
-                      src={getImageSrc(characterObject.abilities?.E.name)}
-                    />
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Image
-                      bordered
-                      size="mini"
-                      src={getImageSrc(characterObject.abilities?.R.name)}
-                    />
-                  </Table.Cell>
-                  <Table.Cell>
-                    {characterObject.abilities && (
-                      <Image
-                        bordered
-                        size="mini"
-                        src={getImageSrc(
-                          Object.values(characterObject.abilities).find(
-                            ({ type, slot }) => type.includes("Passive") || slot.includes("Passive")
-                          ).name
+              backgroundImage: BG_THIRD,
+              marginTop: 0,
+              borderRadius: 0,
+            }}
+            textAlign="center"
+          >
+            <Table selectable striped collapsing style={{ margin: "auto" }} inverted>
+              <Table.Header>
+                <Table.HeaderCell />
+                <Table.HeaderCell>Name</Table.HeaderCell>
+                <Table.HeaderCell>Weapons</Table.HeaderCell>
+                <Table.HeaderCell>Q</Table.HeaderCell>
+                <Table.HeaderCell>W</Table.HeaderCell>
+                <Table.HeaderCell>E</Table.HeaderCell>
+                <Table.HeaderCell>R</Table.HeaderCell>
+                <Table.HeaderCell>Passive</Table.HeaderCell>
+              </Table.Header>
+              <Table.Body>
+                {Object.entries(Character.SOURCES as Record<string, ICharacter>).map(
+                  ([character, characterObject]) => (
+                    <Table.Row
+                      key={character}
+                      onClick={() => history.push(`/wiki/characters/${character}`)}
+                    >
+                      <Table.Cell>
+                        <CharacterThumbnailComponent width={60} name={character} isActive={false} />
+                      </Table.Cell>
+                      <Table.Cell>{character}</Table.Cell>
+                      <Table.Cell>
+                        {characterObject.attributes.map((attr, id) => (
+                          <Image
+                            key={attr.mastery}
+                            inline
+                            style={{
+                              maxHeight: "auto",
+                              width: "50px",
+                            }}
+                            src={getImageSrc(`Weapon${attr.mastery}`)}
+                          />
+                        ))}
+                      </Table.Cell>
+                      <Table.Cell>
+                        <Image
+                          bordered
+                          size="mini"
+                          src={getImageSrc(characterObject.abilities?.Q.name)}
+                        />
+                      </Table.Cell>
+                      <Table.Cell>
+                        <Image
+                          bordered
+                          size="mini"
+                          src={getImageSrc(characterObject.abilities?.W.name)}
+                        />
+                      </Table.Cell>
+                      <Table.Cell>
+                        <Image
+                          bordered
+                          size="mini"
+                          src={getImageSrc(characterObject.abilities?.E.name)}
+                        />
+                      </Table.Cell>
+                      <Table.Cell>
+                        <Image
+                          bordered
+                          size="mini"
+                          src={getImageSrc(characterObject.abilities?.R.name)}
+                        />
+                      </Table.Cell>
+                      <Table.Cell>
+                        {characterObject.abilities && (
+                          <Image
+                            bordered
+                            size="mini"
+                            src={getImageSrc(
+                              Object.values(characterObject.abilities).find(
+                                ({ type, slot }) =>
+                                  type.includes("Passive") || slot.includes("Passive")
+                              ).name
+                            )}
+                          />
                         )}
-                      />
-                    )}
-                  </Table.Cell>
-                </Table.Row>
-              )
-            )}
-          </Table.Body>
-        </Table>
-      </Segment>
-    </CharacterView>
+                      </Table.Cell>
+                    </Table.Row>
+                  )
+                )}
+              </Table.Body>
+            </Table>
+          </Segment>
+        </IsDesktop>
+      </CharacterView>
+    </div>
   );
 };

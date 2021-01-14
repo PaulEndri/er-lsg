@@ -5,6 +5,7 @@ import { ItemModalButton } from "../../../components/itemModalButton.component";
 import { Character, Item, Location } from "erbs-sdk";
 import { SectionComponent } from "../../../components/section.component";
 import { itemRarityBackground } from "../../../utilities/rarityColor";
+import { IS_MOBILE } from "../../../components/isMobile";
 
 type RouteCraftingComponentProps = {
   location: Location;
@@ -33,7 +34,7 @@ export const RouteCraftingColumnComponent: React.FC<RouteCraftingComponentProps>
   });
 
   return (
-    <Grid.Column width={3}>
+    <Grid.Column width={IS_MOBILE ? 14 : 3}>
       <Segment
         style={{ padding: 0, borderRadius: 0, backgroundColor: "rgba(29, 25, 25, 1)" }}
         textAlign="center"

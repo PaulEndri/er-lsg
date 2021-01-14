@@ -1,11 +1,16 @@
-import React, { useCallback, useState } from "react";
-import { Link } from "react-router-dom";
-import { Container, Image, Menu, Segment } from "semantic-ui-react";
+import React, { useCallback, useContext, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Container, Icon, Image, Menu, Segment } from "semantic-ui-react";
+import { NavContext } from "../../state/nav";
 import { getImageSrc } from "../../utilities/getImageSrc";
+import IsDesktop, { IS_DESKTOP } from "../isDesktop";
 import { SearchComponent } from "./search.component";
 
 const LayoutComponent = ({ children }: any) => {
   const [showPlayValue, updatePlayValue] = useState(false);
+  const { toggleVisible, visible } = useContext(NavContext);
+  const location = useLocation();
+  const showBars = IS_DESKTOP ? location.pathname === "" : true;
 
   const el = useCallback(() => {
     const el = window.document.getElementById("SHOW_PLAYER_SEARCH");
@@ -17,31 +22,46 @@ const LayoutComponent = ({ children }: any) => {
 
   return (
     <div ref={el}>
-      <Container fluid style={{ marginLeft: "0px", marginRight: "0px" }}>
-        <Segment inverted style={{ marginBottom: 0, borderRadius: 0, padding: 0 }} raised={true}>
+      <Container fluid style={{ margin: "0px" }}>
+        <Segment
+          inverted
+          style={{
+            marginBottom: 0,
+            borderRadius: 0,
+            padding: 0,
+          }}
+          raised={true}
+        >
           <Menu inverted>
-            <Menu.Item header as={Link} to="/">
+            <Menu.Item onClick={() => toggleVisible()}>
+              <Icon name="bars"></Icon>
+            </Menu.Item>
+            <IsDesktop>
+              <Menu.Item as={Link} to="/" exact>
+                Home
+              </Menu.Item>
+              <Menu.Item as={Link} to="/wiki/*">
+                Wiki
+              </Menu.Item>
+              <Menu.Item as={Link} to="/planner">
+                Planner
+              </Menu.Item>
+              <Menu.Item as={Link} to="/about">
+                About
+              </Menu.Item>
+              {showPlayValue && <SearchComponent />}
+            </IsDesktop>
+            <Menu.Item header as={Link} to="/" position="right">
               <Image src={getImageSrc("icon")} size="mini" />
               Surival Guide
             </Menu.Item>
-
-            <Menu.Item as={Link} to="/wiki/*">
-              Wiki
-            </Menu.Item>
-            <Menu.Item as={Link} to="/planner">
-              Planner
-            </Menu.Item>
-            <Menu.Item as={Link} to="/about">
-              About
-            </Menu.Item>
-            {showPlayValue && <SearchComponent />}
           </Menu>
         </Segment>
 
         <Segment basic style={{ padding: 0, margin: 0 }}>
           {children}
         </Segment>
-        <Segment color="black" inverted style={{ border: 0 }} basic attached="bottom">
+        <Segment color="black" inverted basic attached="bottom" size="tiny">
           Lumia Survival Guide and co. are in no way affiliated with Nimble Neuron, Eternal Return:
           Black Survival, or any related entity. For questions and support email the
           <a href="mailto:jrs.abrecan@gmail.com"> the site administrator.</a>

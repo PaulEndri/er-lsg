@@ -2,6 +2,7 @@ import { Item } from "erbs-sdk";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Grid, Input, Segment, Transition, TransitionGroup } from "semantic-ui-react";
+import { IS_DESKTOP } from "../../../components/isDesktop";
 import { ItemCardComponent } from "../../../components/itemCard.component";
 import { ItemModalButton } from "../../../components/itemModalButton.component";
 import { BG_THIRD } from "../../../utilities/bgImages";
@@ -76,7 +77,7 @@ export const ItemSearchComponent: React.FC<Props> = ({
       <Grid.Row
         fluid
         style={{
-          padding: "5rem",
+          padding: IS_DESKTOP ? "5rem" : "1rem",
           paddingTop: "10px",
           borderRadius: 0,
           backgroundColor: "rgba(31, 29, 29, 0.9)",

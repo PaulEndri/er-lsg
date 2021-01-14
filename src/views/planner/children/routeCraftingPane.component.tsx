@@ -1,9 +1,12 @@
 import React, { useContext } from "react";
-import { Segment, Grid, Dropdown, Header } from "semantic-ui-react";
+import { Segment, Grid, Header } from "semantic-ui-react";
 import { Location, Locations } from "erbs-sdk";
 import { ItemModalContext } from "../../../state/itemModal";
 import { DataContext } from "../../../state/data";
-import { RouteCraftingColumnComponent } from "./routeCraftingColumn.component";
+import IsDesktop from "../../../components/isDesktop";
+import { DesktopCraftingContentComponent } from "./desktopCraftingContent.component";
+import IsMobile from "../../../components/isMobile";
+import { MobileCraftingContentComponent } from "./mobileCraftingContent.component";
 
 const LoadedLocations: Record<number, Location> = Object.fromEntries(
   Object.values(Locations).map((loc) => {
@@ -77,46 +80,22 @@ export const RouteCraftingPaneComponent: React.FC = () => {
           </Segment>
         </Grid.Column>
       </Grid.Row>
-      <Grid.Row style={{ marginBottom: 0, paddingBottom: 0, marginTop: 0, paddingTop: 0 }}>
-        {activeRoute.map((route, index) => (
-          <Grid.Column width={3} key={index}>
-            <Segment style={{ padding: "1rem", borderRadius: 0 }}>
-              <Dropdown
-                fluid
-                search={true}
-                header="Select a Location"
-                placeholder="Select a Location"
-                value={route.location ? route.location.id.toString() : null}
-                options={[{ value: null, text: "None" } as any].concat(getOptions(index))}
-                onChange={optionChangeHandler(index)}
-              />
-            </Segment>
-          </Grid.Column>
-        ))}
-      </Grid.Row>
-      <Grid.Row style={{ marginTop: 0, paddingTop: 0 }}>
-        {activeRoute.map((selectedRoute, index) => {
-          if (!selectedRoute || !selectedRoute.location) {
-            return (
-              <Grid.Column width={3} key={index}>
-                <Segment raised placeholder textAlign={"center"} color="black" inverted secondary>
-                  Select a location above
-                </Segment>
-              </Grid.Column>
-            );
-          }
-          const { location, completed, craftableItems } = selectedRoute;
-          return (
-            <RouteCraftingColumnComponent
-              key={index}
-              location={location}
-              completed={completed}
-              craftable={craftableItems}
-              setItem={setItem}
-            />
-          );
-        })}
-      </Grid.Row>
+      <IsDesktop>
+        <DesktopCraftingContentComponent
+          setItem={setItem}
+          optionChangeHandler={optionChangeHandler}
+          activeRoute={activeRoute}
+          getOptions={getOptions}
+        />
+      </IsDesktop>
+      <IsMobile>
+        <MobileCraftingContentComponent
+          setItem={setItem}
+          optionChangeHandler={optionChangeHandler}
+          activeRoute={activeRoute}
+          getOptions={getOptions}
+        />
+      </IsMobile>
     </Grid>
   );
 };

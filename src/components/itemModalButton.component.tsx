@@ -15,6 +15,7 @@ type ItemModalButtonProps = {
 const InnerButton = React.memo<ItemModalButtonProps>(({ item, action, label }) => (
   <Button
     compact
+    title={item.displayName}
     label={label}
     content={<Image centered rounded size="tiny" src={getImageSrc(item.displayName)} />}
     onClick={action}

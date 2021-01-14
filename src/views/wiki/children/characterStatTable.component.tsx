@@ -17,7 +17,16 @@ export const CharacterStatTable: FunctionComponent<CharacterStatTableProps> = ({
   const { initial, perLevel } = character.stats;
 
   return (
-    <Table celled definition compact structured striped inverted style={{ borderRadius: 0 }}>
+    <Table
+      celled
+      definition
+      compact
+      structured
+      striped
+      inverted
+      style={{ borderRadius: 0 }}
+      unstackable
+    >
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell

@@ -40,12 +40,17 @@ export const RoutePaneComponent: React.FC = () => {
         </Grid.Column>
       </Grid.Row>
       <Grid.Row style={{ paddingTop: 0, marginTop: 0 }}>
-        <Grid.Column mobile={10} tablet={5} computer={4} widescreen={3}>
+        <Grid.Column
+          mobile={12}
+          tablet={5}
+          computer={4}
+          widescreen={3}
+          style={{ backgroundColor: "rgba(74, 64, 62, 0.5)" }}
+        >
           <Segment.Group
             style={{
               borderRadius: 0,
               border: 0,
-              backgroundColor: "rgba(74, 64, 62, 0.6)",
               marginTop: 14,
             }}
           >
@@ -111,6 +116,24 @@ export const RoutePaneComponent: React.FC = () => {
                   })}
               </div>
             </Segment>
+            <Segment
+              style={{
+                border: 0,
+                borderRadius: 0,
+                background: "transparent",
+                padding: 0,
+              }}
+              inverted
+              raised
+            >
+              <Button
+                style={{ borderRadius: 0 }}
+                fluid
+                onClick={generateRoute}
+                content="Generate Routes"
+                color="green"
+              />
+            </Segment>
           </Segment.Group>
         </Grid.Column>
         <Grid.Column width={10}>
@@ -125,17 +148,6 @@ export const RoutePaneComponent: React.FC = () => {
                   border: 0,
                 }}
               >
-                <Segment
-                  style={{
-                    border: 0,
-                    borderRadius: 0,
-                  }}
-                  color="black"
-                  inverted
-                  raised
-                >
-                  <Button fluid onClick={generateRoute} content="Generate Routes" color="green" />
-                </Segment>
                 <Segment raised basic compact style={{}}>
                   {!routes && (
                     <Segment secondary inverted placeholder textAlign="center">
