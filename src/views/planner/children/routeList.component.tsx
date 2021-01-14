@@ -46,7 +46,7 @@ export const RouteListComponent: React.FC<Props> = ({ root, setRoute, routes, mo
   };
 
   return (
-    <Table inverted celled striped collapsing>
+    <Table inverted celled striped collapsing style={{ margin: "auto" }}>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell textAlign="center" colSpan="6">

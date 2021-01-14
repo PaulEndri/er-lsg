@@ -15,7 +15,7 @@ import { ItemModalContext } from "../../../state/itemModal";
 import { itemRarityBackground } from "../../../utilities/rarityColor";
 import { LoadoutStats } from "./loadoutStats.component";
 
-export const SelectionPaneComponent: React.FC<any> = ({ full = true }) => {
+export const SelectionPaneComponent: React.FC<any> = ({ generateRoute, full = true }) => {
   const [startingLocation, setStartingLocation] = useState(null);
   const { toggle, filterStates } = useContext(FilterContext);
 
@@ -30,18 +30,6 @@ export const SelectionPaneComponent: React.FC<any> = ({ full = true }) => {
   const mobileWidth = 14;
   const desktopWidth = 9;
 
-  const generateRoute = () => {
-    try {
-      const route = new Route(loadout);
-
-      const routes = route.generate(startingLocation);
-
-      setRoutes(routes);
-    } catch (e) {
-      console.error(e);
-      setRoutes([]);
-    }
-  };
   return (
     <Grid
       centered
