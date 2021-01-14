@@ -78,15 +78,32 @@ export const WeaponPage = () => {
                     }}
                     centered
                   >
-                    <Grid.Column width={3} textAlign="center">
+                    <Grid.Column
+                      mobile={6}
+                      desktop={3}
+                      widescreen={2}
+                      tablet={4}
+                      textAlign="center"
+                    >
                       <Image centered bordered src={getImageSrc(`/weaponSkills/${Weapons[id]}`)} />
                     </Grid.Column>
-                    <Grid.Column width={2} textAlign="center">
+                    <Grid.Column
+                      mobile={6}
+                      desktop={2}
+                      widescreen={1}
+                      tablet={3}
+                      textAlign="center"
+                    >
                       <Header inverted textAlign="center">
                         {weaponType.name}
                       </Header>
                     </Grid.Column>
-                    <Grid.Column width={Math.min(weaponType.usableBy.length + 4, 8) as any}>
+                    <Grid.Column
+                      mobile={16}
+                      tablet={8}
+                      widescreen={Math.min(weaponType.usableBy.length + 2, 8) as any}
+                      desktop={Math.min(weaponType.usableBy.length + 3, 8) as any}
+                    >
                       <div style={{ display: "flex", flexFlow: "row wrap" }}>
                         {weaponType.usableBy.map((char) => (
                           <div key={char}>
@@ -162,7 +179,15 @@ export const WeaponPage = () => {
                 textAlign="center"
               >
                 {weaponType.items
-                  .map(({ id }) => new Item(id))
+                  .map(({ id }) => {
+                    try {
+                      return new Item(id);
+                    } catch (e) {
+                      console.warn(e);
+                    }
+                    return null;
+                  })
+                  .filter((x) => x)
                   .sort((a: Item, b: Item) => a.rarityWeight - b.rarityWeight)
                   .map(({ id }) => (
                     <ItemModalButton key={id} id={id} action={() => setSelectedItem(id)} />

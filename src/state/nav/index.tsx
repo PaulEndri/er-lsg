@@ -8,7 +8,7 @@ const initialState = {
 export const NavContext = React.createContext(initialState);
 export const NavConsumer = NavContext.Consumer;
 export const NavProvider: React.FC<any> = ({ children }) => {
-  const [visible, updateVisible] = useState<boolean>(true);
+  const [visible, updateVisible] = useState<boolean>(false);
 
   const toggleVisible = () => updateVisible(!visible);
 

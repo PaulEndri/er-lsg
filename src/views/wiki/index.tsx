@@ -14,6 +14,8 @@ import { BG_THIRD } from "../../utilities/bgImages";
 import { MapComponent } from "../../components/map/index";
 import { AnimalLandingPage, AnimalPage } from "./children/animalPage.component";
 import { MiscListKeys } from "../../utilities/getList";
+import IsMobile, { IS_MOBILE } from "../../components/isMobile";
+import IsDesktop from "../../components/isDesktop";
 
 const menuItems = [
   ["characters", "Characters", Object.keys(Character.SOURCES)],
@@ -144,18 +146,18 @@ const WikiView = () => {
             }}
           >
             <Grid.Row textAlign="center" centered>
-              <Grid.Column width={3}>
+              <Grid.Column mobile={16} desktop={3} tablet={4} widescreen={3}>
                 <Image size="medium" src={getImageSrc("logo")} centered />
               </Grid.Column>
-              <Grid.Column width={3} verticalAlign="middle">
-                <Header size="huge" inverted>
+              <Grid.Column mobile={16} desktop={3} tablet={4} widescreen={3}>
+                <Header size="huge" inverted style={{ textAlign: "center" }}>
                   Survival Guide
                 </Header>
               </Grid.Column>
             </Grid.Row>
             <Grid.Row style={{ margin: 0, padding: 0 }}></Grid.Row>
             <Grid.Row style={{ marginTop: "2rem" }}>
-              <Grid.Column width={4}>
+              <Grid.Column mobile={16} desktop={4} widescreen={4} tablet={8}>
                 <div>
                   <HpHeader content={"Test Subjects"} path={"characters"} />
                   <div
@@ -177,8 +179,20 @@ const WikiView = () => {
                   </div>
                 </div>
               </Grid.Column>
-              <Grid.Column width={8} style={{ paddingLeft: "0" }}>
-                <Grid style={{ borderLeft: "3px groove rgba(200, 200 , 200, 0.2)" }}>
+              <Grid.Column
+                mobile={16}
+                desktop={8}
+                widescreen={8}
+                tablet={8}
+                style={{ paddingLeft: IS_MOBILE ? "auto" : "0" }}
+              >
+                <Grid
+                  style={{
+                    borderLeft: IS_MOBILE ? "" : "3px groove rgba(200, 200 , 200, 0.2)",
+                    paddingLeft: IS_MOBILE ? "0.5em" : "inherit",
+                    paddingTop: IS_MOBILE ? "1em" : "inherit",
+                  }}
+                >
                   <Grid.Row basic fluid>
                     <HpHeader content="Weapon Types" path={"weapons"} />
                   </Grid.Row>
@@ -248,10 +262,31 @@ const WikiView = () => {
             </Grid.Row>
             <Grid.Row basic style={{ borderRadius: 0 }}>
               <HpHeader content="Lumia Island" path={"locations"} />
-              <div style={{ paddingLeft: "1rem", display: "flex", flexFlow: "row wrap" }}>
-                <MapComponent onClick={(e) => history.push(`/wiki/locations/${e}`)} />
-              </div>
+              <IsDesktop>
+                <div style={{ paddingLeft: "1rem", display: "flex", flexFlow: "row wrap" }}>
+                  <MapComponent onClick={(e) => history.push(`/wiki/locations/${e}`)} />
+                </div>
+              </IsDesktop>
             </Grid.Row>
+            <IsMobile>
+              <Grid.Row>
+                <div style={{ paddingLeft: "1rem" }}>
+                  {(menuItems[3][2] as string[]).map((char) => (
+                    <Label
+                      size="large"
+                      color="yellow"
+                      style={{ margin: 4 }}
+                      key={char}
+                      icon="user"
+                      as={Link}
+                      to={`/wiki/locations/${char}`}
+                    >
+                      {char}
+                    </Label>
+                  ))}
+                </div>
+              </Grid.Row>
+            </IsMobile>
           </Grid>
         </Route>
       </Switch>

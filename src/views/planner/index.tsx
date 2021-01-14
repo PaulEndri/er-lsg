@@ -79,6 +79,7 @@ const PlannerView = () => {
     <PageComponent
       title="Eternal Return: Black Survival Route & Loadout Planner"
       sidebarTitle="Loadout"
+      staticMenu={true}
       sidebarItems={
         <SidebarContents
           loadout={loadout}

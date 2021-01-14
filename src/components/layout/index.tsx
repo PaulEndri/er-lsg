@@ -1,15 +1,16 @@
 import React, { useCallback, useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Container, Icon, Image, Menu, Segment } from "semantic-ui-react";
 import { NavContext } from "../../state/nav";
 import { getImageSrc } from "../../utilities/getImageSrc";
-import IsDesktop from "../isDesktop";
-import IsMobile, { IS_MOBILE } from "../isMobile";
+import IsDesktop, { IS_DESKTOP } from "../isDesktop";
 import { SearchComponent } from "./search.component";
 
 const LayoutComponent = ({ children }: any) => {
   const [showPlayValue, updatePlayValue] = useState(false);
   const { toggleVisible, visible } = useContext(NavContext);
+  const location = useLocation();
+  const showBars = IS_DESKTOP ? location.pathname === "" : true;
 
   const el = useCallback(() => {
     const el = window.document.getElementById("SHOW_PLAYER_SEARCH");
@@ -36,6 +37,9 @@ const LayoutComponent = ({ children }: any) => {
               <Icon name="bars"></Icon>
             </Menu.Item>
             <IsDesktop>
+              <Menu.Item as={Link} to="/" exact>
+                Home
+              </Menu.Item>
               <Menu.Item as={Link} to="/wiki/*">
                 Wiki
               </Menu.Item>
@@ -47,9 +51,9 @@ const LayoutComponent = ({ children }: any) => {
               </Menu.Item>
               {showPlayValue && <SearchComponent />}
             </IsDesktop>
-            <Menu.Item header as={Link} to="/" floated="right">
+            <Menu.Item header as={Link} to="/" position="right">
               <Image src={getImageSrc("icon")} size="mini" />
-              {+visible} Surival Guide
+              Surival Guide
             </Menu.Item>
           </Menu>
         </Segment>
