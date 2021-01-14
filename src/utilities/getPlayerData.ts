@@ -9,6 +9,10 @@ export const getPlayerData = async (
     const response = await fetch(`${BASE_URL}${name}`);
     const result = await response.json();
 
+    if (result.message) {
+      throw new Error(result.message);
+    }
+
     return {
       error: false,
       data: result,

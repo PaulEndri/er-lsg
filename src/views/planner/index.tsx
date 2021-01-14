@@ -1,7 +1,6 @@
 import { Item, Weapons, Route as LoadoutRoute } from "erbs-sdk";
 import React, { useContext, useState, lazy, Suspense, createRef } from "react";
 import { Container, Menu, Dimmer, Loader, Grid, Ref } from "semantic-ui-react";
-
 import { Types } from "../../utilities/types";
 import { PageComponent } from "../../components/page";
 import { DataContext } from "../../state/data";

@@ -1,7 +1,11 @@
 import { Character, ICharacter, Characters, Location, Loadout, setStaticCache } from "erbs-sdk";
-import { IPlayer } from "../../utilities//player";
+import { IPlayer } from "../../utilities/player";
+import { ISavedLoadout } from "../../utilities/savedLoadout";
+
 import { ActiveRouteDetail } from "../../utilities/activeRouteDetail";
+
 setStaticCache();
+
 export const initialLoadout = {
   Weapon: null,
   Chest: null,
@@ -34,4 +38,13 @@ export const initialState = {
   activePlayer: null as IPlayer,
   updatePlayerData: (id: number, data: IPlayer) => null,
   getPlayerData: (id: number) => Promise.resolve({} as IPlayer),
+  user: null,
+  loadoutName: null,
+  currentSavedLoadoutId: null,
+  savedLoadouts: [] as ISavedLoadout[],
+  saveLoadout: (name: string) => Promise.resolve({} as ISavedLoadout),
+  getLoadout: (loadoutId?: string) => Promise.resolve([] as ISavedLoadout[]),
+  loadLoadout: (loadoutId: string) => null,
+  deleteLoadout: (loadoutId: string) => Promise.resolve(),
+  setSavedLoadouts: (loadouts: any) => null,
 };

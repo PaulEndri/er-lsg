@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Grid, Header, Segment, Button, Label, Dropdown, Form, Radio } from "semantic-ui-react";
-import { Character, Characters, Item, Items, Locations, Route } from "erbs-sdk";
+import { Character, Characters, Item, Items, Locations } from "erbs-sdk";
 import { Types } from "../../../utilities/types";
 import { getImageSrc } from "../../../utilities/getImageSrc";
 import { ItemModalButton } from "../../../components/itemModalButton.component";
@@ -14,6 +14,7 @@ import { IS_MOBILE } from "../../../components/isMobile";
 import { ItemModalContext } from "../../../state/itemModal";
 import { itemRarityBackground } from "../../../utilities/rarityColor";
 import { LoadoutStats } from "./loadoutStats.component";
+import { LoadoutPersistenceComponent } from "./loadoutPersistence.component";
 
 export const SelectionPaneComponent: React.FC<any> = ({ generateRoute, full = true }) => {
   const [startingLocation, setStartingLocation] = useState(null);
@@ -46,6 +47,10 @@ export const SelectionPaneComponent: React.FC<any> = ({ generateRoute, full = tr
                 automatically or proceed with
                 <Link to="/planner/craft"> creating your own route.</Link> For automatic route
                 generation, you can also choose your desired starting location if you have one.
+              </p>
+              <p>
+                If you register and log in, you can save and share your loadouts freely and come
+                back to them, complete with all generated route information
               </p>
             </Segment>
           </Grid.Column>
@@ -103,6 +108,7 @@ export const SelectionPaneComponent: React.FC<any> = ({ generateRoute, full = tr
           })}
         </Grid.Column>
         <Grid.Column width={IS_MOBILE ? mobileWidth : 4} style={{ padding: 0 }}>
+          <LoadoutPersistenceComponent />
           <Segment.Group
             style={{
               borderRadius: 0,
