@@ -4404,10 +4404,10 @@ erbs-data@^1.6.17:
   dependencies:
     node-fetch "^2.6.1"
 
-erbs-sdk@^1.6.17:
-  version "1.6.17"
-  resolved "https://registry.yarnpkg.com/erbs-sdk/-/erbs-sdk-1.6.17.tgz#8106272256455a16856ffc119354913a38e6877d"
-  integrity sha512-3C2lugNVDEF0Rh3Tw/zQF/9DAN3s5rv/Il7UmAvHVRMUMqsaMzXFAa3haO8+qouIiwdnLc/meKCSKSUYaD1Qmw==
+erbs-sdk@^1.6.18:
+  version "1.6.18"
+  resolved "https://registry.yarnpkg.com/erbs-sdk/-/erbs-sdk-1.6.18.tgz#695c73858a916cbba3c019775911cf01bfd73308"
+  integrity sha512-FYEXbkx/u2ggKy7ZWOOlHMLVqmGkJ7Wm0XoOUhvoCkO6CncsF89n9DofjLFjcbuZNqnqc9eFdlvoz+OeCsTCXA==
   dependencies:
     erbs-client "^1.6.12"
 

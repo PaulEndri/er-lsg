@@ -15,8 +15,10 @@ const LoadedItems = Object.fromEntries(
         } catch (e) {
           console.log("Failed", val);
           console.warn(e);
+          return null;
         }
-      });
+      })
+      .filter((item) => item);
 
     if (Weapons[name] || WeaponsLookup[name]) {
       LoadedWeapons.push(...vals);

@@ -37,7 +37,7 @@ export const SectionComponent: React.FC<Props> = ({
           ...headerStyle,
         }}
       >
-        <Icon name={showContent ? "plus square outline" : "minus square outline"} />
+        <Icon name={!showContent ? "plus square outline" : "minus square outline"} />
         <h3 className="header inverted" style={{ display: "inline", paddingLeft: "8px" }}>
           {title}
         </h3>

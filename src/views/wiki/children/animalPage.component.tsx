@@ -94,11 +94,8 @@ export const AnimalLandingPage = () => {
                   ))}
                 </Table.Cell>
                 <Table.Cell>
-                  {aniObject.items.map(({ name, percentage }) => (
-                    <Label key={name}>
-                      {`${name}`.replace(/([A-Z])/g, " $1").trim()}
-                      <Label.Detail>{percentage}</Label.Detail>
-                    </Label>
+                  {aniObject.items.map(({ id, percentage }: any) => (
+                    <ItemModalButton id={id} key={id} label={percentage + "%"} />
                   ))}
                 </Table.Cell>
               </Table.Row>
@@ -197,8 +194,8 @@ export const AnimalPage = () => {
             }}
             textAlign="center"
           >
-            {animal.items.map(({ name, percentage }) => (
-              <ItemModalButton id={name} key={id} label={percentage + "%"} />
+            {animal.items.map(({ id, percentage }: any) => (
+              <ItemModalButton id={id} key={id} label={percentage + "%"} />
             ))}
           </Grid.Row>
         </Grid>

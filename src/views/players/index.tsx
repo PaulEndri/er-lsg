@@ -1,5 +1,5 @@
 import { Characters } from "erbs-sdk";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { Segment, Grid, Header, Container, Tab, Dropdown, Dimmer, Loader } from "semantic-ui-react";
 import { useParams } from "react-router-dom";
 import { PageComponent } from "../../components/page";
