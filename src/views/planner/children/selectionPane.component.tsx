@@ -48,6 +48,10 @@ export const SelectionPaneComponent: React.FC<any> = ({ generateRoute, full = tr
                 <Link to="/planner/craft"> creating your own route.</Link> For automatic route
                 generation, you can also choose your desired starting location if you have one.
               </p>
+              <p>
+                If you register and log in, you can save and share your loadouts freely and come
+                back to them, complete with all generated route information
+              </p>
             </Segment>
           </Grid.Column>
         </Grid.Row>
