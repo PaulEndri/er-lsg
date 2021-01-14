@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Grid, Header, Segment, Button, Label, Dropdown } from "semantic-ui-react";
+import { Grid, Header, Segment, Button, Label, Dropdown, Form, Radio } from "semantic-ui-react";
 import { Character, Characters, Item, Items, Locations, Route } from "erbs-sdk";
 import { Types } from "../../../utilities/types";
 import { getImageSrc } from "../../../utilities/getImageSrc";
@@ -17,6 +17,7 @@ import { LoadoutStats } from "./loadoutStats.component";
 
 export const SelectionPaneComponent: React.FC<any> = ({ generateRoute, full = true }) => {
   const [startingLocation, setStartingLocation] = useState(null);
+  const [quickAdd, toggleQuickAdd] = useState(false);
   const { toggle, filterStates } = useContext(FilterContext);
   const { setItem } = useContext(ItemModalContext);
   const { character, updateCharacter, updateLoadout, loadout } = useContext(DataContext);
@@ -28,7 +29,8 @@ export const SelectionPaneComponent: React.FC<any> = ({ generateRoute, full = tr
 
   const mobileWidth = 14;
   const desktopWidth = 9;
-
+  const sectionItemAction = (item) =>
+    !quickAdd ? setItem(item, true) : updateLoadout(item.clientType, item);
   return (
     <Grid
       centered
@@ -42,7 +44,7 @@ export const SelectionPaneComponent: React.FC<any> = ({ generateRoute, full = tr
                 <Header inverted>Equipment/Loadout Selection</Header>
                 Select your desired character and equipment below than either generate a route
                 automatically or proceed with
-                <Link to="/planner/craft">creating your own route.</Link> For automatic route
+                <Link to="/planner/craft"> creating your own route.</Link> For automatic route
                 generation, you can also choose your desired starting location if you have one.
               </p>
             </Segment>
@@ -89,7 +91,11 @@ export const SelectionPaneComponent: React.FC<any> = ({ generateRoute, full = tr
                     .filter((item) => item)
                     .sort((a, b) => a.rarityWeight - b.rarityWeight)
                     .map((item, idx) => (
-                      <ItemModalButton id={item.id} key={`${item.id}--${idx}`} />
+                      <ItemModalButton
+                        id={item.id}
+                        key={`${item.id}--${idx}`}
+                        action={sectionItemAction}
+                      />
                     ))}
                 </SectionComponent>
               </Grid.Column>
@@ -104,6 +110,53 @@ export const SelectionPaneComponent: React.FC<any> = ({ generateRoute, full = tr
               padding: 0,
             }}
           >
+            <Segment textAlign="center" basic inverted style={{ padding: 8, margin: 0 }}>
+              <Header>Options</Header>
+            </Segment>
+            <Segment
+              style={{
+                border: 0,
+                borderRadius: 0,
+              }}
+              color="black"
+              inverted
+              secondary
+              raised
+            >
+              <div
+                style={{
+                  textAlign: "center",
+                  padding: "1em",
+                  backgroundColor: "rgba(255, 255, 255, 0.25)",
+                }}
+              >
+                <Form inverted>
+                  <Form.Field>
+                    <Radio
+                      style={{ color: "white" }}
+                      label="Automatically add items to loadout on click"
+                      checked={quickAdd}
+                      slider
+                      onChange={() => toggleQuickAdd(!quickAdd)}
+                    />
+                  </Form.Field>
+                </Form>
+              </div>
+              <Button.Group fluid>
+                <Button
+                  style={{ borderRadius: 0 }}
+                  onClick={generateRoute}
+                  content="Generate Routes"
+                  color="green"
+                />
+                <Button
+                  style={{ borderRadius: 0 }}
+                  onClick={() => updateLoadout(null, null)}
+                  content="Clear Loadout"
+                  color="red"
+                />
+              </Button.Group>
+            </Segment>
             <Segment textAlign="center" basic inverted style={{ padding: 8, margin: 0 }}>
               <Header>Desired Starting Location</Header>
             </Segment>
@@ -165,31 +218,7 @@ export const SelectionPaneComponent: React.FC<any> = ({ generateRoute, full = tr
                   })}
               </div>
             </Segment>
-            <Segment
-              style={{
-                border: 0,
-                borderRadius: 0,
-                background: "transparent",
-                padding: 0,
-              }}
-              inverted
-              raised
-            >
-              <Button.Group fluid>
-                <Button
-                  style={{ borderRadius: 0 }}
-                  onClick={generateRoute}
-                  content="Generate Routes"
-                  color="green"
-                />
-                <Button
-                  style={{ borderRadius: 0 }}
-                  onClick={() => updateLoadout(null, null)}
-                  content="Clear Loadout"
-                  color="red"
-                />
-              </Button.Group>
-            </Segment>
+
             <Segment textAlign="center" basic inverted style={{ padding: 8, margin: 0 }}>
               <Header>Loadout Stats</Header>{" "}
             </Segment>
