@@ -4,6 +4,7 @@ import {
   Dimmer,
   Dropdown,
   Form,
+  Header,
   Icon,
   Input,
   Label,
@@ -53,37 +54,37 @@ export const LoadoutPersistenceComponent = () => {
   const [selectedDropdown, updateSelectedDropdown] = useState(null);
   const [newName, setNewName] = useState(null);
 
-  //   useEffect(() => {
-  //     setLoading(true);
-  //     if (!user) {
-  //       setSavedLoadouts([]);
-  //       setLoading(false);
-  //     } else {
-  //       getLoadout()
-  //         .then(() => {
-  //           console.log("Loaded");
-  //         })
-  //         .catch((e) => {
-  //           setError(e);
-  //           console.warn("[Ruh Ruh Shaggy]", e);
-  //         })
-  //         .finally(() => setLoading(false));
-  //     }
-  //   }, [getLoadout, user, setSavedLoadouts]);
+  useEffect(() => {
+    setLoading(true);
+    if (!user) {
+      setSavedLoadouts([]);
+      setLoading(false);
+    } else {
+      getLoadout()
+        .then(() => {
+          console.log("Loaded");
+        })
+        .catch((e) => {
+          setError(e);
+          console.warn("[Ruh Ruh Shaggy]", e);
+        })
+        .finally(() => setLoading(false));
+    }
+  }, [getLoadout, user, setSavedLoadouts]);
 
-  //   if (!user) {
-  //     return <SimpleLoadoutLookup getLoadout={getLoadout} />;
-  //   }
+  if (!user) {
+    return <SimpleLoadoutLookup getLoadout={getLoadout} />;
+  }
 
-  //   if (loading) {
-  //     return (
-  //       <Segment placeholder>
-  //         <Dimmer active={true}>
-  //           <Loader />
-  //         </Dimmer>
-  //       </Segment>
-  //     );
-  //   }
+  if (loading) {
+    return (
+      <Segment placeholder>
+        <Dimmer active={true}>
+          <Loader />
+        </Dimmer>
+      </Segment>
+    );
+  }
 
   const dropDownOptions = [{ text: null, value: null }].concat(
     context.savedLoadouts.map((sl) => ({
@@ -94,6 +95,9 @@ export const LoadoutPersistenceComponent = () => {
   return (
     <>
       <Segment.Group>
+        <Segment textAlign="center" basic inverted style={{ padding: 8, margin: 0 }}>
+          <Header>Loadout Management</Header>
+        </Segment>
         {error && (
           <Segment basic style={{ borderRadius: 0 }} color="red" inverted>
             {error}
