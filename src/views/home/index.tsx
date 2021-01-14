@@ -7,11 +7,6 @@ const HomeView = () => {
   return (
     <PageComponent title="Eternal Return Lumia Survival Guide">
       <Container textAlign="center">
-        <Segment color="red" inverted style={{ maxWidth: "700px", margin: "auto" }}>
-          <Header inverted>Notice</Header>
-          Player Search Functionality is still extremely volatile as we work around the current api
-          limits
-        </Segment>
         <div
           style={{
             display: "flex",
