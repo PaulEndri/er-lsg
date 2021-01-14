@@ -14,6 +14,7 @@ import { IS_MOBILE } from "../../../components/isMobile";
 import { ItemModalContext } from "../../../state/itemModal";
 import { itemRarityBackground } from "../../../utilities/rarityColor";
 import { LoadoutStats } from "./loadoutStats.component";
+import { LoadoutPersistenceComponent } from "./loadoutPersistence.component";
 
 export const SelectionPaneComponent: React.FC<any> = ({ generateRoute, full = true }) => {
   const [startingLocation, setStartingLocation] = useState(null);
@@ -103,6 +104,7 @@ export const SelectionPaneComponent: React.FC<any> = ({ generateRoute, full = tr
           })}
         </Grid.Column>
         <Grid.Column width={IS_MOBILE ? mobileWidth : 4} style={{ padding: 0 }}>
+          <LoadoutPersistenceComponent />
           <Segment.Group
             style={{
               borderRadius: 0,

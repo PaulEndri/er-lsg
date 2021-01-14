@@ -6,6 +6,28 @@ import { initialState, initialLoadout, generateEmptyDetail } from "./state";
 import { ActiveRouteDetail } from "../../utilities/activeRouteDetail";
 import { IPlayer } from "../../utilities/player";
 import { getPlayerData } from "../../utilities/getPlayerData";
+import * as NetlifyIdentityWidget from "netlify-identity-widget";
+import { ISavedLoadout } from "../../utilities/savedLoadout";
+import { saveUserLoadout } from "../../utilities/saveUserLoadout";
+import { getSavedLoadout } from "../../utilities/getSavedLoadouts";
+
+NetlifyIdentityWidget.init();
+
+const netlifyIdentifySetup = (setUser) => {
+  NetlifyIdentityWidget.on("init", (user) => {
+    if (user && user.id) {
+      setUser(user);
+    }
+  });
+
+  NetlifyIdentityWidget.on("login", (user) => {
+    setUser(user);
+  });
+
+  NetlifyIdentityWidget.on("logout", () => {
+    setUser(null);
+  });
+};
 
 export const DataContext = React.createContext(initialState);
 export const DataConsumer = DataContext.Consumer;
@@ -16,6 +38,87 @@ export const DataProvider: FunctionComponent = ({ children }) => {
   const [activeRoute, setRoute] = useState<ActiveRouteDetail[]>(initialState.activeRoute);
   const [playerData, setPlayerData] = useState<Record<number, IPlayer>>(initialState.playerData);
   const [activePlayer, setActivePlayer] = useState<IPlayer>(null);
+  const [user, setUser] = useState<NetlifyIdentityWidget.User>(initialState.user);
+  const [savedLoadouts, setSavedLoadouts] = useState<ISavedLoadout[]>([]);
+  const [loadoutName, setLoadoutName] = useState<string>();
+  const [currentSavedLoadoutId, setCurrentSavedLoadoutId] = useState<string>();
+
+  netlifyIdentifySetup(setUser);
+
+  const injectLoadout = (savedLoadout: ISavedLoadout) => {
+    setLoadout(Loadout.GenerateLoadout(savedLoadout.loadout));
+    setLoadoutName(savedLoadout.name);
+    setCurrentSavedLoadoutId(savedLoadout.id);
+    setRoutes(savedLoadout.routeData);
+  };
+
+  const deleteLoadout = async (loadoutId: string) => {
+    const deleting = savedLoadouts.find((l) => l.id === loadoutId);
+
+    const hackedLoadout: any = {
+      ...deleting,
+      delete: true,
+    };
+
+    const results = await saveUserLoadout(hackedLoadout);
+
+    if (!results.error) {
+      setSavedLoadouts(savedLoadouts.filter((sl) => sl.id !== loadoutId));
+    } else {
+      throw results.message;
+    }
+  };
+  const loadLoadout = (loadoutId: string) => {
+    const loadingLoadout = savedLoadouts.find((l) => l.id === loadoutId);
+
+    if (loadingLoadout) {
+      injectLoadout(loadingLoadout);
+    }
+  };
+
+  const getLoadout = async (loadoutId?: string) => {
+    let response = await getSavedLoadout(loadoutId ? null : user.id, loadoutId);
+
+    if (!response.error) {
+      if (loadoutId) {
+        const newLoadout = response.data[0];
+        injectLoadout(newLoadout);
+      }
+
+      setSavedLoadouts([...savedLoadouts, ...response.data]);
+    }
+  };
+
+  const saveLoadout = async (name: string) => {
+    if (!user || !user.id) {
+      throw new Error("Please Sign In");
+    }
+
+    const payload: ISavedLoadout = {
+      name,
+      id: currentSavedLoadoutId,
+      userId: user.id,
+      loadout: {
+        Weapon: loadout.Weapon?.name,
+        Arm: loadout.Arm?.name,
+        Leg: loadout.Leg?.name,
+        Chest: loadout.Chest?.name,
+        Accessory: loadout.Accessory?.name,
+        Head: loadout.Head?.name,
+      },
+      routeData: routes,
+    };
+
+    const response = await saveUserLoadout(payload);
+
+    if (!response.error) {
+      setLoadoutName(name);
+      setSavedLoadouts([...savedLoadouts, response.data]);
+      setCurrentSavedLoadoutId(response.data.id);
+    }
+
+    return response;
+  };
 
   const updateCharacter = (character: ICharacter | Character | keyof typeof Characters) => {
     if (character instanceof Character) {
@@ -161,6 +264,15 @@ export const DataProvider: FunctionComponent = ({ children }) => {
     updatePlayerData,
     getPlayerData: fetchPlayerData,
     activePlayer,
+    user,
+    loadLoadout,
+    getLoadout,
+    saveLoadout,
+    savedLoadouts,
+    loadoutName,
+    deleteLoadout,
+    setSavedLoadouts,
+    currentSavedLoadoutId,
   };
 
   return <DataContext.Provider value={state as any}>{children}</DataContext.Provider>;

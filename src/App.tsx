@@ -67,6 +67,7 @@ function App() {
         style={{ display: "none" }}
         data-enabled={process.env.REACT_APP_SHOW_PLAYER_SEARCH}
       />
+      <div id="netlify-modal" />
     </div>
   );
 }
