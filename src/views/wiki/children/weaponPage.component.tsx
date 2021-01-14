@@ -162,7 +162,15 @@ export const WeaponPage = () => {
                 textAlign="center"
               >
                 {weaponType.items
-                  .map(({ id }) => new Item(id))
+                  .map(({ id }) => {
+                    try {
+                      return new Item(id);
+                    } catch (e) {
+                      console.warn(e);
+                      return null;
+                    }
+                  })
+                  .filter((x) => x)
                   .sort((a: Item, b: Item) => a.rarityWeight - b.rarityWeight)
                   .map(({ id }) => (
                     <ItemModalButton key={id} id={id} action={() => setSelectedItem(id)} />
