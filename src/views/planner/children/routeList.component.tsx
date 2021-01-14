@@ -2,7 +2,6 @@ import React from "react";
 import { Segment, Header, Button, Icon, Image, Table } from "semantic-ui-react";
 import { getImageSrc } from "../../../utilities/getImageSrc";
 import { Item, Location, Locations, RouteNode, MaterialList } from "erbs-sdk";
-import { useHistory } from "react-router-dom";
 import { itemRarityBackground } from "../../../utilities/rarityColor";
 
 type Props = {
@@ -13,8 +12,6 @@ type Props = {
 };
 
 export const RouteListComponent: React.FC<Props> = ({ root, setRoute, routes, moveToCrafting }) => {
-  const history = useHistory();
-
   if (!routes || routes.length === 0) {
     return (
       <Segment color="red" inverted style={{ borderRadius: 0 }}>

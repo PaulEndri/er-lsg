@@ -4,7 +4,7 @@ import { DataContext } from "../../../state/data";
 import { RouteListComponent } from "./routeList.component";
 
 export const RoutePaneComponent: React.FC<any> = ({ moveToCrafting }) => {
-  const { routes, setRoutes, loadout, setRoute } = useContext(DataContext);
+  const { routes, setRoute } = useContext(DataContext);
 
   return (
     <Segment

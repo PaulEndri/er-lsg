@@ -1,7 +1,6 @@
 import React from "react";
 import { Segment, Grid, Dropdown } from "semantic-ui-react";
 import { RouteCraftingColumnComponent } from "./routeCraftingColumn.component";
-import { IS_MOBILE } from "../../../components/isMobile";
 
 export const MobileCraftingContentComponent = ({
   activeRoute,

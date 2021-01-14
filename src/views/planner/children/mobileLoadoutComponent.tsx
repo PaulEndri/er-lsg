@@ -1,15 +1,10 @@
 import React, { FunctionComponent, useContext } from "react";
-import { Button, Segment, Header, Icon, Image } from "semantic-ui-react";
-import { LoadOutItemComponent } from "./loadOutItem.component";
-import { ICharacter, Loadout } from "erbs-sdk";
-import { Types } from "../../../utilities/types";
+import { Button, Segment, Icon, Image } from "semantic-ui-react";
 import { getImageSrc } from "../../../utilities/getImageSrc";
 import { DataContext } from "../../../state/data";
 import { itemRarityBackground } from "../../../utilities/rarityColor";
 
-export interface LoadoutProps {}
-
-export const MobileLoadoutComponent: FunctionComponent<LoadoutProps> = ({}) => {
+export const MobileLoadoutComponent: FunctionComponent = () => {
   const { character, loadout } = useContext(DataContext);
 
   const slots = [
@@ -67,7 +62,11 @@ export const MobileLoadoutComponent: FunctionComponent<LoadoutProps> = ({}) => {
         }}
       >
         {character && character.name && (
-          <img width="50px" src={getImageSrc(`characters/mini/${character.name}`)} />
+          <img
+            alt={character.name}
+            width="50px"
+            src={getImageSrc(`characters/mini/${character.name}`)}
+          />
         )}
         {(!character || !character.name) && <Icon name="ban" />}
       </div>

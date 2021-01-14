@@ -4,7 +4,7 @@ import { Button, Icon, Modal, Segment } from "semantic-ui-react";
 import { ItemModalContext } from "../state/itemModal";
 import { DataContext } from "../state/data";
 import { ItemCardComponent } from "./itemCard.component";
-import IsMobile, { IS_MOBILE } from "./isMobile";
+import IsMobile from "./isMobile";
 import IsDesktop from "./isDesktop";
 
 export const ItemModalComponent = () => {

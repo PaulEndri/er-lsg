@@ -58,12 +58,6 @@ export const SelectionPaneComponent: React.FC<any> = ({ full = true }) => {
                 <Link to="/planner/craft">creating your own route.</Link> For automatic route
                 generation, you can also choose your desired starting location if you have one.
               </p>
-              <p>
-                <Header inverted>Route Generator</Header>
-                Here you can select starting location (optional) and automatically generate routes.
-                Route optimization is based on connectivity, item availability vs items needed, and
-                more.
-              </p>
             </Segment>
           </Grid.Column>
         </Grid.Row>

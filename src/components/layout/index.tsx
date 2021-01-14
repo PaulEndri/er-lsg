@@ -1,16 +1,14 @@
 import React, { useCallback, useContext, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Container, Icon, Image, Menu, Segment } from "semantic-ui-react";
 import { NavContext } from "../../state/nav";
 import { getImageSrc } from "../../utilities/getImageSrc";
-import IsDesktop, { IS_DESKTOP } from "../isDesktop";
+import IsDesktop from "../isDesktop";
 import { SearchComponent } from "./search.component";
 
 const LayoutComponent = ({ children }: any) => {
   const [showPlayValue, updatePlayValue] = useState(false);
-  const { toggleVisible, visible } = useContext(NavContext);
-  const location = useLocation();
-  const showBars = IS_DESKTOP ? location.pathname === "" : true;
+  const { toggleVisible } = useContext(NavContext);
 
   const el = useCallback(() => {
     const el = window.document.getElementById("SHOW_PLAYER_SEARCH");
