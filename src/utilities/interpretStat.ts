@@ -14,11 +14,11 @@ const uniqueStatMaps = {
 };
 
 const uniqueValueMaps = {
-  preventsSkillDamagedRatio: (v) => "-40%",
+  preventsSkillDamagedRatio: (v) => `-${Math.round(+v * 40)}%`,
   criticalStrikeChance: (v) => `${Math.round(+v * 100)}`,
   criticalChance: (v) => `${Math.round(+v * 100)}`,
   cooldownReduction: (v) => `${Math.round(+v * 100)}`,
-  decreateRecoveryToSkill: (v) => "-40%",
+  decreateRecoveryToSkill: (v) => `-${Math.round(+v * 40)}%`,
 };
 
 export const interpretStat = (name, value) => {

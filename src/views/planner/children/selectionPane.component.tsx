@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { IS_MOBILE } from "../../../components/isMobile";
 import { ItemModalContext } from "../../../state/itemModal";
 import { itemRarityBackground } from "../../../utilities/rarityColor";
+import { LoadoutStats } from "./loadoutStats.component";
 
 export const SelectionPaneComponent: React.FC<any> = ({ full = true }) => {
   const [startingLocation, setStartingLocation] = useState(null);
@@ -52,9 +53,10 @@ export const SelectionPaneComponent: React.FC<any> = ({ full = true }) => {
             <Segment style={{ borderRadius: 0 }} inverted color="black" raised stacked padded>
               <p>
                 <Header inverted>Equipment/Loadout Selection</Header>
-                Select your desired character and equipment below to either aid in{" "}
-                <Link to="/planner/craft">creating your own routes</Link> or{" "}
-                <Link to="/planner/route">automatically generating routes</Link>
+                Select your desired character and equipment below than either generate a route
+                automatically or proceed with
+                <Link to="/planner/craft">creating your own route.</Link> For automatic route
+                generation, you can also choose your desired starting location if you have one.
               </p>
               <p>
                 <Header inverted>Route Generator</Header>
@@ -199,6 +201,12 @@ export const SelectionPaneComponent: React.FC<any> = ({ full = true }) => {
                 content="Generate Routes"
                 color="green"
               />
+            </Segment>
+            <Segment textAlign="center" basic inverted style={{ padding: 8, margin: 0 }}>
+              <Header>Loadout Stats</Header>{" "}
+            </Segment>
+            <Segment raised color="black" inverted secondary>
+              <LoadoutStats loadout={loadout} />
             </Segment>
           </Segment.Group>
         </Grid.Column>
