@@ -60,7 +60,13 @@ class PlayerContent extends React.PureComponent<Props, State> {
 
     if (id && !activePlayer) {
       this.setState({ loading: true });
-      getPlayerData(id).then(() => this.setState({ loading: false }));
+      getPlayerData(id)
+        .then(() => this.setState({ loading: false }))
+        .catch((e) => {
+          this.setState({ error: e, loading: false });
+        });
+    } else if (id) {
+      this.setState({ loading: false });
     }
   }
 
