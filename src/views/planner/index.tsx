@@ -173,12 +173,12 @@ const PlannerView = () => {
                 <Switch>
                   <Route path={"/planner"} exact>
                     <Grid centered style={{ height: "max-content", marginTop: 0 }}>
-                      <SelectionPaneComponent />
+                      <SelectionPaneComponent generateRoute={generateRoute} />
                     </Grid>
                   </Route>
                   <Route path={"/planner/selection"} exact>
                     <Grid centered style={{ height: "max-content", marginTop: 0 }}>
-                      <SelectionPaneComponent />
+                      <SelectionPaneComponent generateRoute={generateRoute} />
                     </Grid>
                   </Route>
                   <Route path="/planner/route" exact>

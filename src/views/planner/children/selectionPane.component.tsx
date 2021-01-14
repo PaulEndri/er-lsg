@@ -18,9 +18,8 @@ import { LoadoutStats } from "./loadoutStats.component";
 export const SelectionPaneComponent: React.FC<any> = ({ generateRoute, full = true }) => {
   const [startingLocation, setStartingLocation] = useState(null);
   const { toggle, filterStates } = useContext(FilterContext);
-
   const { setItem } = useContext(ItemModalContext);
-  const { character, updateCharacter, setRoutes, loadout } = useContext(DataContext);
+  const { character, updateCharacter, updateLoadout, loadout } = useContext(DataContext);
 
   const getTypeValue = (type) =>
     type === Types.Weapon && character && character.attributes
@@ -176,13 +175,20 @@ export const SelectionPaneComponent: React.FC<any> = ({ generateRoute, full = tr
               inverted
               raised
             >
-              <Button
-                style={{ borderRadius: 0 }}
-                fluid
-                onClick={generateRoute}
-                content="Generate Routes"
-                color="green"
-              />
+              <Button.Group fluid>
+                <Button
+                  style={{ borderRadius: 0 }}
+                  onClick={generateRoute}
+                  content="Generate Routes"
+                  color="green"
+                />
+                <Button
+                  style={{ borderRadius: 0 }}
+                  onClick={() => updateLoadout(null, null)}
+                  content="Clear Loadout"
+                  color="red"
+                />
+              </Button.Group>
             </Segment>
             <Segment textAlign="center" basic inverted style={{ padding: 8, margin: 0 }}>
               <Header>Loadout Stats</Header>{" "}

@@ -27,7 +27,7 @@ export const DataProvider: FunctionComponent = ({ children }) => {
     }
   };
 
-  const updateLoadout = (slot, item) => {
+  const updateLoadout = (slot?, item?) => {
     if (!slot) {
       setLoadout(Loadout.GenerateLoadout(initialLoadout));
     } else {
