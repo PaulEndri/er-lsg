@@ -12,6 +12,7 @@ import { saveUserLoadout } from "../../utilities/saveUserLoadout";
 import { getSavedLoadout } from "../../utilities/getSavedLoadouts";
 import { getRouteOptions } from "../../utilities/getRouteOptions";
 
+
 NetlifyIdentityWidget.init();
 
 const defaultUser = NetlifyIdentityWidget.currentUser();
