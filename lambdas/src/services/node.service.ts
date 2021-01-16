@@ -37,13 +37,15 @@ export class NodeService {
   }
   private generateOrQuery(items: number[], max = 5) {
     const perms: number[][] = [...new Permutation(items), max];
-    return {
-      itemsCompleted: {
-        $or: perms.map((partialItems) => ({
-          $all: partialItems,
-        })),
-      },
+    const query = {
+      $or: perms.map((partialItems) => ({
+        itemsCompleted: { $all: partialItems },
+      })),
     };
+
+    console.log(query);
+
+    return query;
   }
 
   public async getCompleteItems() {
