@@ -30,7 +30,7 @@ export const initialState = {
   updateCharacter: (character: ICharacter | Character | keyof typeof Characters) => null,
   updateLoadout: (slot, item) => null,
   routes: null,
-  setRoutes: (routes: any) => null,
+  fetchRoutes: () => Promise.resolve(null),
   activeRoute: new Array(5).fill(generateEmptyDetail()) as ActiveRouteDetail[],
   setRoute: (routes: ActiveRouteDetail[]) => null,
   updateActiveRoute: (index: number, newLocation: Location) => null,

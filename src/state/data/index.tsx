@@ -10,6 +10,7 @@ import * as NetlifyIdentityWidget from "netlify-identity-widget";
 import { ISavedLoadout } from "../../utilities/savedLoadout";
 import { saveUserLoadout } from "../../utilities/saveUserLoadout";
 import { getSavedLoadout } from "../../utilities/getSavedLoadouts";
+import { getRouteOptions } from "../../utilities/getRouteOptions";
 
 NetlifyIdentityWidget.init();
 
@@ -231,6 +232,23 @@ export const DataProvider: FunctionComponent = ({ children }) => {
     });
   };
 
+  const fetchRoutes = async (startingLocation?: number) => {
+    const sendingLoadout = {
+      Weapon: loadout.Weapon?.id,
+      Arm: loadout.Arm?.id,
+      Chest: loadout.Chest?.id,
+      Leg: loadout.Leg?.id,
+      Head: loadout.Head?.id,
+      Accessory: loadout.Accessory?.id,
+    };
+
+    const results = await getRouteOptions(sendingLoadout as any, startingLocation);
+
+    if (results.data) {
+      setRoutes(results.data);
+    }
+  };
+
   const fetchPlayerData = async (id: number | string) => {
     if (typeof id === "string") {
       // search local first
@@ -260,7 +278,7 @@ export const DataProvider: FunctionComponent = ({ children }) => {
   const state = {
     character,
     routes,
-    setRoutes,
+    fetchRoutes,
     loadout,
     updateCharacter,
     updateLoadout,
