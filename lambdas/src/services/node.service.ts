@@ -57,10 +57,10 @@ export class NodeService {
     if (this.startingLocation) {
       query["locations.0"] = this.startingLocation;
     }
-
+    console.log("[test]", query);
     const results = await Nodes.find(query, [], { lean: true });
 
-    if (results) {
+    if (results && results.length) {
       response = {
         results,
         partial: false,
@@ -82,7 +82,7 @@ export class NodeService {
         }
         const newResults = await Nodes.find(newQuery as any, [], { lean: true });
 
-        if (newResults.length) {
+        if (newResults.length && newResults.length) {
           partialResults.results = newResults;
           partialResults.message = `Found ${items} items`;
         }
