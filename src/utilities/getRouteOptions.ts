@@ -1,6 +1,6 @@
 import { RouteNode } from "erbs-sdk";
 
-const BASE_URL = "/.netlify/functions/getRouteOptions?";
+const BASE_URL = "/.netlify/functions/getRouteOptions";
 
 export const getRouteOptions = async (
   data: Record<string, number>,
@@ -11,7 +11,7 @@ export const getRouteOptions = async (
   message?: string;
 }> => {
   try {
-    const response = await fetch(`${BASE_URL}${name}`, {
+    const response = await fetch(`${BASE_URL}`, {
       method: "POST",
       body: JSON.stringify({
         loadout: data,

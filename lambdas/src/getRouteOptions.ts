@@ -11,7 +11,6 @@ export async function handler(event: APIGatewayEvent) {
     if (!loadout) {
       throw new Error("Loadout must be provided");
     }
-
     const service = new NodeService(loadout, startingLocation);
 
     const results = await service.getCompleteItems();
