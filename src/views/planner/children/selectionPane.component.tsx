@@ -201,31 +201,32 @@ export const SelectionPaneComponent: React.FC<any> = ({ generateRoute, full = tr
                   justifyContent: "center",
                 }}
               >
-                {Object.entries(loadout.materials)
-                  .filter(([material]) => material && material !== "undefined")
-                  .map(([material, quantity], key) => {
-                    const item = new Item(Items[material]);
+                {loadout.materials &&
+                  Object.entries(loadout.materials)
+                    .filter(([material]) => material && material !== "undefined")
+                    .map(([material, quantity], key) => {
+                      const item = new Item(Items[material]);
 
-                    return (
-                      <div key={key + material} style={{ margin: "5px" }}>
-                        <Label
-                          style={{
-                            background: itemRarityBackground(item.rarity),
-                            boxShadow: "1px 1px 4px 0px rgba(0, 0, 0, 0.5)",
-                            "&:hover": {
-                              boxShadow: "none",
-                            },
-                          }}
-                          as={Button}
-                          image
-                          onClick={() => setItem(item)}
-                        >
-                          <img alt={material} src={getImageSrc(item.displayName)} />
-                          <Label.Detail style={{ marginLeft: "-.5em" }}>{quantity}</Label.Detail>
-                        </Label>
-                      </div>
-                    );
-                  })}
+                      return (
+                        <div key={key + material} style={{ margin: "5px" }}>
+                          <Label
+                            style={{
+                              background: itemRarityBackground(item.rarity),
+                              boxShadow: "1px 1px 4px 0px rgba(0, 0, 0, 0.5)",
+                              "&:hover": {
+                                boxShadow: "none",
+                              },
+                            }}
+                            as={Button}
+                            image
+                            onClick={() => setItem(item)}
+                          >
+                            <img alt={material} src={getImageSrc(item.displayName)} />
+                            <Label.Detail style={{ marginLeft: "-.5em" }}>{quantity}</Label.Detail>
+                          </Label>
+                        </div>
+                      );
+                    })}
               </div>
             </Segment>
           </Segment.Group>
