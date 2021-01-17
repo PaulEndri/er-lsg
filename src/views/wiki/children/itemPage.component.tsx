@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Label, Menu } from "semantic-ui-react";
+import { Container, Menu } from "semantic-ui-react";
 import { useHistory, useParams } from "react-router-dom";
 import { getMiscList, MiscListKeys } from "../../../utilities/getList";
 import { ItemSearchComponent } from "./ItemSearch.component";
@@ -29,18 +29,8 @@ export const ItemPage = () => {
               history.push(`/wiki/items/${type}`);
             }}
             color="red"
-            style={{
-              borderRadius: 0,
-              paddingLeft: 0,
-            }}
           >
-            <Label
-              style={{ width: "100%", boxShadow: "2px 2px 2px 2px rgba(0,0,0,0.1)" }}
-              color="yellow"
-              size="large"
-            >
-              {type}s
-            </Label>
+            {type}s
           </Menu.Item>
         ))}
       </Menu>

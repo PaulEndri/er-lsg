@@ -49,63 +49,39 @@ export class NodeService {
   }
 
   public async getCompleteItems() {
-    const itemIds = this.loadout.items.map(({ id }) => +id);
-    const query = {
-      itemsCompleted: { $all: itemIds },
-    };
+    const query = { $and: [] };
+
+    Object.entries(this.loadout.materials).forEach(([key, val]) => {
+      query.$and.push({ [`materials.${key}`]: +val });
+    });
 
     let response;
 
     if (this.startingLocation) {
       query["locations.0"] = this.startingLocation;
     }
-    console.log("[test]", query);
+    console.log("[test]", JSON.stringify(query));
     const results = await Nodes.find(query, [], { lean: true });
 
     if (results && results.length) {
       response = {
-        results,
-        partial: false,
+        results: {
+          root: response.results.map(({ locations }) => this.transform(locations)),
+          routes: response.results.map(({ locations, completedItems }) => ({
+            id: locations[locations.length - 1],
+            traversed: locations,
+            materials: new MaterialList(),
+            completed: completedItems.filter((id) =>
+              this.loadout.items.some((item) => item.id === id)
+            ),
+          })),
+        },
         message: "Found all six",
       };
     } else {
-      let partialResults = {
-        partial: true,
-        results: [],
+      response = {
+        results: this.route.generate(this.startingLocation),
         message: "Bad loadout",
-      };
-
-      let items = 5;
-      while (items >= 3 && partialResults.results.length === 0) {
-        const newQuery = this.generateOrQuery(itemIds, items);
-
-        if (this.startingLocation) {
-          newQuery["locations.0"] = this.startingLocation;
-        }
-        const newResults = await Nodes.find(newQuery as any, [], { lean: true });
-
-        if (newResults.length && newResults.length) {
-          partialResults.results = newResults;
-          partialResults.message = `Found ${items} items`;
-        }
-
-        items--;
-      }
-
-      response = partialResults;
-    }
-
-    if (response.results) {
-      response.results = {
-        root: response.results.map(({ locations }) => this.transform(locations)),
-        routes: response.results.map(({ locations, completedItems }) => ({
-          id: locations[locations.length - 1],
-          traversed: locations,
-          materials: new MaterialList(),
-          completed: completedItems.filter((id) =>
-            this.loadout.items.some((item) => item.id === id)
-          ),
-        })),
       };
     }
 

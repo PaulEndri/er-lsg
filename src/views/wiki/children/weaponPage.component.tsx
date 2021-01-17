@@ -153,7 +153,6 @@ export const WeaponPage = () => {
             </Grid.Row>
             <Grid.Row
               style={{
-                paddingTop: 0,
                 backgroundColor: "rgba(32, 29, 29, 0.2)",
                 background: BG_THIRD,
               }}

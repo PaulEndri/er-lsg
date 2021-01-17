@@ -44,18 +44,8 @@ const LocationView: React.FC = ({ children }) => {
                 history.push(`/wiki/locations/${type}`);
               }}
               color="red"
-              style={{
-                borderRadius: 0,
-                paddingLeft: 0,
-              }}
             >
-              <Label
-                style={{ width: "100%", boxShadow: "2px 2px 2px 2px rgba(0,0,0,0.1)" }}
-                color="yellow"
-                size="large"
-              >
-                {type}
-              </Label>
+              {type}
             </Menu.Item>
           ))}
       </Menu>

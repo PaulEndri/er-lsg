@@ -6,7 +6,6 @@ export const getRouteOptions = async (
   data: Record<string, number>,
   startingLocation?: number
 ): Promise<{
-  partial: boolean;
   data: { root: RouteNode; routes: RouteNode[] };
   message?: string;
 }> => {
@@ -24,7 +23,6 @@ export const getRouteOptions = async (
   } catch (e) {
     console.error(e);
     return {
-      partial: true,
       message: e.message,
       data: null,
     };
