@@ -33,7 +33,7 @@ export const SectionComponent: React.FC<Props> = ({
           marginBottom: 0,
           border: 0,
           cursor: "pointer",
-          borderTop: "3px groove rgba(255, 250, 250, 0.2)",
+          borderTop: "2px groove rgba(255, 250, 250, 0.2)",
           ...headerStyle,
         }}
       >

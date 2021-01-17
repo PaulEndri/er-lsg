@@ -149,6 +149,7 @@ const WikiView = () => {
               <Grid.Column mobile={16} desktop={3} tablet={4} widescreen={3}>
                 <Image size="medium" src={getImageSrc("logo")} centered />
               </Grid.Column>
+              <br />
               <Grid.Column mobile={16} desktop={3} tablet={4} widescreen={3}>
                 <Header size="huge" inverted style={{ textAlign: "center" }}>
                   Survival Guide

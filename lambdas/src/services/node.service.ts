@@ -1,6 +1,6 @@
 import { Loadout, Location, MaterialList, RouteNode, Route, setStaticCache } from "erbs-sdk";
 import { BasicLoadout } from "erbs-sdk/dist/types/loadout";
-import { Nodes } from "../models/node.model";
+import { DataNode, Nodes } from "../models/node.model";
 import { Permutation } from "js-combinatorics/umd/combinatorics";
 
 setStaticCache();
@@ -14,27 +14,39 @@ export class NodeService {
     this.route = new Route(this.loadout);
   }
 
-  private transform(locations: number[]) {
+  private transform(results: DataNode[]) {
     const base: RouteNode = {
       id: 0,
       traversed: [],
       completed: [],
       materials: new MaterialList(),
-      next: null,
+      next: {},
     };
 
-    let currentNode = base;
-    locations.forEach((locationId, i) => {
-      const location = new Location(locationId);
-      const newNode = this.route.generateNewNode(currentNode, location, i);
+    results.forEach(({ locations, materials }) => {
+      let currentNode = base;
+      locations.forEach((locationId, i) => {
+        const location = new Location(locationId);
 
-      currentNode.next = { [locationId]: newNode };
+        if (!currentNode.next || currentNode.next[locationId]) {
+          const newNode = this.route.generateNewNode(currentNode, location, i);
 
-      currentNode = newNode;
+          if (currentNode.next) {
+            currentNode.next[locationId] = newNode;
+          } else {
+            currentNode.next = { [locationId]: newNode };
+          }
+
+          currentNode = newNode;
+        } else {
+          currentNode = currentNode.next[locationId];
+        }
+      });
     });
 
     return base;
   }
+
   public generateOrQuery(items: number[], max = 5) {
     const perms: number[][] = [...new Permutation(items), max];
     const query = {
@@ -66,12 +78,12 @@ export class NodeService {
     if (results && results.length) {
       response = {
         results: {
-          root: results.map(({ locations }) => this.transform(locations)),
+          root: this.transform(results),
           routes: results
             .map(({ locations, materials }) => ({
-              id: locations[locations.length - 1],
+              id: locations.join("-"),
               traversed: locations,
-              materials: new MaterialList().addFromList(materials),
+              materials: null,
               completed: this.loadout.checkCompletedItems(materials),
             }))
             .sort((a, b) => b.completed.length - a.completed.length),
