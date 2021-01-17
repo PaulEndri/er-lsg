@@ -35,7 +35,7 @@ export class NodeService {
 
     return base;
   }
-  private generateOrQuery(items: number[], max = 5) {
+  public generateOrQuery(items: number[], max = 5) {
     const perms: number[][] = [...new Permutation(items), max];
     const query = {
       $or: perms.map((partialItems) => ({
