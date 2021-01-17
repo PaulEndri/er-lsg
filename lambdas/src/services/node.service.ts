@@ -28,7 +28,7 @@ export class NodeService {
       locations.forEach((locationId, i) => {
         const location = new Location(locationId);
 
-        if (!currentNode.next || currentNode.next[locationId]) {
+        if (!currentNode.next || !currentNode.next[locationId]) {
           const newNode = this.route.generateNewNode(currentNode, location, i);
 
           if (currentNode.next) {
