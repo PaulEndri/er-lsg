@@ -66,15 +66,15 @@ export class NodeService {
     if (results && results.length) {
       response = {
         results: {
-          root: response.results.map(({ locations }) => this.transform(locations)),
-          routes: response.results.map(({ locations, completedItems }) => ({
-            id: locations[locations.length - 1],
-            traversed: locations,
-            materials: new MaterialList(),
-            completed: completedItems.filter((id) =>
-              this.loadout.items.some((item) => item.id === id)
-            ),
-          })),
+          root: results.map(({ locations }) => this.transform(locations)),
+          routes: results
+            .map(({ locations, materials }) => ({
+              id: locations[locations.length - 1],
+              traversed: locations,
+              materials: new MaterialList().addFromList(materials),
+              completed: this.loadout.checkCompletedItems(materials),
+            }))
+            .sort((a, b) => b.completed.length - a.completed.length),
         },
         message: "Found all six",
       };
