@@ -52,7 +52,7 @@ export class NodeService {
     const query = { $and: [] };
 
     Object.entries(this.loadout.materials).forEach(([key, val]) => {
-      query.$and.push({ [`materials.${key}`]: +val });
+      query.$and.push({ [`materials.${key}`]: { $gte: +val } });
     });
 
     let response;
