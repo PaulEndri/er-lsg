@@ -1,6 +1,6 @@
 import { Categories, Character, ICharacter, Characters, Location, Loadout, Route } from "erbs-sdk";
 import { MaterialList } from "erbs-sdk/dist/libs/MaterialList";
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { Types } from "../../utilities/types";
 import { initialState, initialLoadout, generateEmptyDetail } from "./state";
 import { ActiveRouteDetail } from "../../utilities/activeRouteDetail";
@@ -300,6 +300,25 @@ export const DataProvider: FunctionComponent = ({ children }) => {
     setSavedLoadouts,
     currentSavedLoadoutId,
   };
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(
+        "dataCache",
+        JSON.stringify({
+          character,
+          routes,
+          loadout,
+          playerData,
+          activeRoute,
+          activePlayer,
+          savedLoadouts,
+        })
+      );
+    } catch (e) {
+      console.log("[Local Storage Unavailable]", e);
+    }
+  }, [character, routes, loadout, playerData, activeRoute, activePlayer, savedLoadouts]);
 
   return <DataContext.Provider value={state as any}>{children}</DataContext.Provider>;
 };
