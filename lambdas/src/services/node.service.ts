@@ -23,7 +23,7 @@ export class NodeService {
       next: {},
     };
 
-    results.forEach(({ locations, materials }) => {
+    results.forEach(({ locations }) => {
       let currentNode = base;
       locations.forEach((locationId, i) => {
         const location = new Location(locationId);
