@@ -6,7 +6,7 @@ export const getRouteOptions = async (
   data: Record<string, number>,
   startingLocation?: number
 ): Promise<{
-  data: { root: RouteNode; routes: RouteNode[] };
+  results: { root: RouteNode; routes: RouteNode[] };
   message?: string;
 }> => {
   try {
@@ -24,7 +24,7 @@ export const getRouteOptions = async (
     console.error(e);
     return {
       message: e.message,
-      data: null,
+      results: null,
     };
   }
 };

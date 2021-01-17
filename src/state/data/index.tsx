@@ -12,7 +12,6 @@ import { saveUserLoadout } from "../../utilities/saveUserLoadout";
 import { getSavedLoadout } from "../../utilities/getSavedLoadouts";
 import { getRouteOptions } from "../../utilities/getRouteOptions";
 
-
 NetlifyIdentityWidget.init();
 
 const defaultUser = NetlifyIdentityWidget.currentUser();
@@ -245,8 +244,8 @@ export const DataProvider: FunctionComponent = ({ children }) => {
 
     const results = await getRouteOptions(sendingLoadout as any, startingLocation);
 
-    if (results.data) {
-      setRoutes(results.data);
+    if (results.results) {
+      setRoutes(results.results);
     }
   };
 
