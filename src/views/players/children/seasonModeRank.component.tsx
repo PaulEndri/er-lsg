@@ -22,15 +22,18 @@ export const SeasonModeRankComponent = ({ data }) => {
     <Segment.Group
       style={{
         border: 0,
-
         marginTop: 0,
         paddingTop: 0,
-        background: "rgba(31, 29, 29, 0.2)",
       }}
     >
       <Segment basic style={{ display: "flex" }}>
         <Grid>
-          <Grid.Row stretched>
+          <Grid.Row
+            stretched
+            style={{
+              background: "rgba(31, 29, 29, 0.9)",
+            }}
+          >
             <Grid.Column width={4}>
               <RankComponent mmr={data.mmr} />
             </Grid.Column>
