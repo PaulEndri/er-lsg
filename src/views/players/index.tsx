@@ -3,7 +3,6 @@ import React, { useContext } from "react";
 import { Segment, Grid, Header, Container, Tab, Dropdown, Dimmer, Loader } from "semantic-ui-react";
 import { useParams } from "react-router-dom";
 import { PageComponent } from "../../components/page";
-import { BG_HALF, BG_THIRD } from "../../utilities/bgImages";
 import { CharacterPortrait } from "../../components/characterPortrait.component";
 import { GameModes } from "erbs-client";
 import { SeasonModeRankComponent, Seasons } from "./children/seasonModeRank.component";
@@ -132,7 +131,6 @@ class PlayerContent extends React.PureComponent<Props, State> {
               margin: 0,
               marginTop: 12,
               padding: 0,
-              borderRadius: 0,
             }}
           >
             <Dimmer active>
@@ -153,7 +151,6 @@ class PlayerContent extends React.PureComponent<Props, State> {
               margin: 0,
               marginTop: 12,
               padding: 0,
-              borderRadius: 0,
             }}
           >
             <Header size="huge">Player Unavailable</Header>
@@ -179,7 +176,6 @@ class PlayerContent extends React.PureComponent<Props, State> {
               margin: 0,
               marginTop: 12,
               padding: 0,
-              borderRadius: 0,
             }}
           >
             <Header size="huge">Player Data Missing</Header>
@@ -206,23 +202,14 @@ class PlayerContent extends React.PureComponent<Props, State> {
 
     return (
       <PageComponent title="Eternal Return: Black Survival Test Subject Records">
-        <Segment
-          color="black"
-          inverted
-          style={{
-            margin: 0,
-            marginTop: 12,
-            padding: 0,
-            borderRadius: 0,
-          }}
-        >
-          <Grid style={{ backgroundImage: BG_HALF }} centered>
+        <Container>
+          <Grid centered>
             <Grid.Row
               style={{
-                backgroundColor: "rgba(76, 70, 70, 1)",
-                backgroundImage: BG_THIRD,
+                marginTop: "2em",
                 borderBottom: "1px groove",
                 borderTop: "1px groove",
+                backgroundColor: "rgba(125, 120, 120, 0.5)",
               }}
               centered
             >
@@ -243,7 +230,7 @@ class PlayerContent extends React.PureComponent<Props, State> {
                     ))}
                 </div>
               </Grid.Column>
-              <Grid.Column width={IS_MOBILE ? 7 : 4}>
+              <Grid.Column width={IS_MOBILE ? 7 : 4} style={{ alignSelf: "center" }}>
                 <div>
                   <Header
                     inverted
@@ -258,13 +245,16 @@ class PlayerContent extends React.PureComponent<Props, State> {
                   >
                     {activePlayer.name}
                   </Header>
-                  <span style={{ marginLeft: "8px", fontSize: "smaller" }}>
+                  <span style={{ marginLeft: "8px", fontSize: "smaller", color: "white" }}>
                     Last Updated: {timeSince(new Date(activePlayer.lastUpdated))}
                   </span>
                 </div>
               </Grid.Column>
-              <Grid.Column width={IS_MOBILE ? 7 : 5}>
-                <Segment compact style={{ alignSelf: "end", marginTop: "2.5em" }}>
+              <Grid.Column width={IS_MOBILE ? 7 : 6}>
+                <Segment
+                  compact
+                  style={{ alignSelf: "end", marginTop: "2.5em", background: "transparent" }}
+                >
                   <Dropdown
                     value={activeSeason}
                     compact
@@ -275,33 +265,31 @@ class PlayerContent extends React.PureComponent<Props, State> {
                 </Segment>
               </Grid.Column>
             </Grid.Row>
-          </Grid>
-        </Segment>
-        <Container fluid>
-          <Grid centered>
-            <Grid.Column width={14} style={{ paddingLeft: 0, paddingRight: 0 }}>
-              <Segment
-                style={{
-                  padding: 1,
-                  paddingTop: 0,
-                  borderTop: 0,
-                  backgroundColor: "rgba(51, 49, 50, 0.8)",
-                  width: "100%",
-                }}
-              >
-                <Tab
-                  menu={{
-                    centered: true,
-                    color: "yellow",
-                    tertiary: true,
-                    inverted: true,
-                    attached: true,
-                    style: { justifyContent: "center" },
+            <Grid.Row>
+              <Grid.Column width={16} style={{ paddingLeft: 0, paddingRight: 0 }}>
+                <Segment
+                  style={{
+                    padding: 1,
+                    paddingTop: 0,
+                    borderTop: 0,
+                    width: "100%",
+                    background: "transparent",
                   }}
-                  panes={panes}
-                />
-              </Segment>
-            </Grid.Column>
+                >
+                  <Tab
+                    menu={{
+                      centered: true,
+                      color: "yellow",
+                      tertiary: true,
+                      inverted: true,
+                      attached: true,
+                      style: { justifyContent: "center" },
+                    }}
+                    panes={panes}
+                  />
+                </Segment>
+              </Grid.Column>
+            </Grid.Row>
           </Grid>
         </Container>
       </PageComponent>

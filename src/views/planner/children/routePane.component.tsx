@@ -9,11 +9,18 @@ export const RoutePaneComponent: React.FC<any> = ({ moveToCrafting }) => {
   return (
     <Segment
       centered
-      style={{ height: "max-content", marginTop: 0, backgroundColor: "rgba(54, 50, 52, 0.5)" }}
+      basic
+      style={{
+        height: "max-content",
+        marginTop: 0,
+        padding: 0,
+
+        marginLeft: "3em",
+      }}
     >
-      <Segment raised basic style={{}}>
+      <Segment raised basic style={{ borderRadius: 0 }}>
         {!routes && (
-          <Segment secondary inverted placeholder textAlign="center">
+          <Segment secondary inverted placeholder textAlign="center" style={{ borderRadius: 0 }}>
             No Routes Generated
           </Segment>
         )}

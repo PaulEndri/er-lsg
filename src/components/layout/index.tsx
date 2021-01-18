@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button, Container, Icon, Image, Menu, Segment } from "semantic-ui-react";
 import { NavContext } from "../../state/nav";
 import { getImageSrc } from "../../utilities/getImageSrc";
@@ -13,6 +13,7 @@ const LayoutComponent = ({ children }: any) => {
   const [showPlayValue, updatePlayValue] = useState(false);
   const { toggleVisible } = useContext(NavContext);
   const { user } = useContext(DataContext);
+  const location = useLocation();
 
   const el = useCallback(() => {
     const el = window.document.getElementById("SHOW_PLAYER_SEARCH");
@@ -22,6 +23,7 @@ const LayoutComponent = ({ children }: any) => {
     }
   }, []);
 
+  const menuItems = ["home", "wiki", "planner", "about"];
   return (
     <div ref={el}>
       <Container fluid style={{ margin: "0px" }}>
@@ -29,32 +31,45 @@ const LayoutComponent = ({ children }: any) => {
           inverted
           style={{
             marginBottom: 0,
-            borderRadius: 0,
+
             padding: 0,
           }}
           raised={true}
         >
           <Menu inverted>
-            <Menu.Item onClick={() => toggleVisible()}>
-              <Icon name="bars"></Icon>
-            </Menu.Item>
+            <IsMobile>
+              <Menu.Item onClick={() => toggleVisible()}>
+                <Icon name="bars"></Icon>
+              </Menu.Item>
+            </IsMobile>
             <IsDesktop>
               <Menu.Item header as={Link} to="/">
                 <Image src={getImageSrc("icon")} size="mini" />
                 Surival Guide
               </Menu.Item>
-              <Menu.Item as={Link} to="/" exact>
-                Home
-              </Menu.Item>
-              <Menu.Item as={Link} to="/wiki/*">
-                Wiki
-              </Menu.Item>
-              <Menu.Item as={Link} to="/planner">
-                Planner
-              </Menu.Item>
-              <Menu.Item as={Link} to="/about">
-                About
-              </Menu.Item>
+              {menuItems.map((item) => (
+                <Menu.Item
+                  key={item}
+                  as={Link}
+                  to={item === "home" ? "/" : `/${item}`}
+                  color={
+                    item === "home"
+                      ? location.pathname === "/"
+                        ? "teal"
+                        : null
+                      : location.pathname.includes(item)
+                      ? "teal"
+                      : null
+                  }
+                  active={
+                    item === "home" ? location.pathname === "/" : location.pathname.includes(item)
+                  }
+                  exact={item === "home"}
+                  style={{ textTransform: "capitalize" }}
+                >
+                  {item === "planner" ? "Routes" : item}
+                </Menu.Item>
+              ))}
               {showPlayValue && <SearchComponent />}
               <Menu.Item position="right">
                 <span style={{ marginRight: "1em" }}>{user && "Welcome Back!"}</span>
@@ -86,12 +101,12 @@ const LayoutComponent = ({ children }: any) => {
         <Segment basic style={{ padding: 0, margin: 0 }}>
           {children}
         </Segment>
-        <Segment color="black" inverted basic attached="bottom" size="tiny">
-          Lumia Survival Guide and co. are in no way affiliated with Nimble Neuron, Eternal Return:
-          Black Survival, or any related entity. For questions and support email the
-          <a href="mailto:jrs.abrecan@gmail.com"> the site administrator.</a>
-        </Segment>
       </Container>
+      <Segment color="black" inverted basic size="tiny">
+        Lumia Survival Guide and co. are in no way affiliated with Nimble Neuron, Eternal Return:
+        Black Survival, or any related entity. For questions and support email the
+        <a href="mailto:jrs.abrecan@gmail.com"> the site administrator.</a>
+      </Segment>
     </div>
   );
 };

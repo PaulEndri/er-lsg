@@ -22,15 +22,18 @@ export const SeasonModeRankComponent = ({ data }) => {
     <Segment.Group
       style={{
         border: 0,
-        borderRadius: 0,
         marginTop: 0,
         paddingTop: 0,
-        background: "rgba(31, 29, 29, 0.2)",
       }}
     >
-      <Segment basic style={{ display: "flex" }}>
+      <Segment basic style={{ display: "flex", background: "transparent" }}>
         <Grid>
-          <Grid.Row stretched>
+          <Grid.Row
+            stretched
+            style={{
+              background: "rgba(31, 29, 29, 0.9)",
+            }}
+          >
             <Grid.Column width={4}>
               <RankComponent mmr={data.mmr} />
             </Grid.Column>
@@ -128,7 +131,7 @@ export const SeasonModeRankComponent = ({ data }) => {
           </Grid.Row>
         </Grid>
       </Segment>
-      <Segment basic>
+      <Segment basic style={{ background: "transparent" }}>
         <Item.Group>
           {data.characterStats.map((charStat, i) => {
             const character = new Character(charStat.characterCode);
@@ -136,7 +139,7 @@ export const SeasonModeRankComponent = ({ data }) => {
               <Item
                 style={{
                   padding: "10px",
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  backgroundColor: "rgba(32, 30, 30, 0.8)",
                   marginTop: "10px",
                 }}
               >

@@ -37,7 +37,7 @@
 }
 
 body {
-  background-color: aqua;
+  background-color: #29282b;
 }
 
 .fancy-hover:hover:not(.active) {

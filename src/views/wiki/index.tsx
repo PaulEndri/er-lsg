@@ -1,6 +1,6 @@
 import { Armors, Character, Locations, Weapons } from "erbs-sdk";
 import React, { useState } from "react";
-import { Menu, Grid, Label, Header, Image, Button } from "semantic-ui-react";
+import { Menu, Grid, Label, Header, Image, Button, Container } from "semantic-ui-react";
 import { Link, Route, Switch, useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import { PageComponent } from "../../components/page";
 import { CharacterLandingPage, CharacterPage } from "./children/characterPage.component";
@@ -10,7 +10,6 @@ import { ItemPage } from "./children/itemPage.component";
 import { LocationLandingPage, LocationPage } from "./children/locationPage.component";
 import CharacterThumbnailComponent from "../../components/characterThumbnail.component";
 import { getImageSrc } from "../../utilities/getImageSrc";
-import { BG_THIRD } from "../../utilities/bgImages";
 import { MapComponent } from "../../components/map/index";
 import { AnimalLandingPage, AnimalPage } from "./children/animalPage.component";
 import { MiscListKeys } from "../../utilities/getList";
@@ -76,9 +75,17 @@ const WikiView = () => {
     const showSubMenu = isActive && !isRoot && subMenuItems && subMenuItems.length > 0;
 
     return (
-      <Menu.Item key={route} active={isActive} as={Link} to={path} className="fancy-hover">
+      <Menu.Item
+        key={route}
+        active={isActive}
+        color={isActive ? "red" : "teal"}
+        inverted
+        as={Link}
+        to={path}
+        className="fancy-hover"
+      >
         {name}
-        {showSubMenu && (
+        {showSubMenu && IS_MOBILE && (
           <Menu.Menu>
             {subMenuItems.map((subRoute) => (
               <Menu.Item
@@ -98,6 +105,7 @@ const WikiView = () => {
       sidebarTitle="Information"
       sidebarItems={sidebarItems}
       title="Lumia Island Information Center"
+      fluid
     >
       <Switch>
         <Route path={`${path}/characters/:id`}>
@@ -137,158 +145,154 @@ const WikiView = () => {
           <AnimalPage />
         </Route>
         <Route path="" exact>
-          <Grid
-            centered
-            style={{
-              backgroundColor: "rgba(50, 50, 50, 0.9)",
-              backgroundImage: BG_THIRD,
-              backgroundPosition: "5px 25px",
-            }}
-          >
-            <Grid.Row textAlign="center" centered>
-              <Grid.Column mobile={16} desktop={3} tablet={4} widescreen={3}>
-                <Image size="medium" src={getImageSrc("logo")} centered />
-              </Grid.Column>
-              <br />
-              <Grid.Column mobile={16} desktop={3} tablet={4} widescreen={3}>
-                <Header size="huge" inverted style={{ textAlign: "center" }}>
-                  Survival Guide
-                </Header>
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row style={{ margin: 0, padding: 0 }}></Grid.Row>
-            <Grid.Row style={{ marginTop: "2rem" }}>
-              <Grid.Column mobile={16} desktop={4} widescreen={4} tablet={8}>
-                <div>
-                  <HpHeader content={"Test Subjects"} path={"characters"} />
-                  <div
+          <Container>
+            <Grid centered>
+              <Grid.Row textAlign="center" centered>
+                <Grid.Column mobile={16} desktop={4} tablet={4} widescreen={3} textAlign="center">
+                  <Image size="medium" src={getImageSrc("logo")} centered />
+                  <Header size="huge" inverted style={{ textAlign: "center" }}>
+                    Survival Guide
+                  </Header>
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row style={{ margin: 0, padding: 0 }}></Grid.Row>
+              <Grid.Row style={{ marginTop: "2rem" }}>
+                <Grid.Column mobile={16} desktop={6} widescreen={6} tablet={8}>
+                  <div>
+                    <HpHeader content={"Test Subjects"} path={"characters"} />
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        flexWrap: "wrap",
+                        justifyContent: "center",
+                      }}
+                    >
+                      {(menuItems[0][2] as string[]).map((char) => (
+                        <CharacterThumbnailComponent
+                          key={char}
+                          isActive={false}
+                          onClick={() => history.push(`/wiki/characters/${char}`)}
+                          name={char}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </Grid.Column>
+                <Grid.Column
+                  mobile={16}
+                  desktop={10}
+                  widescreen={10}
+                  tablet={8}
+                  style={{ paddingLeft: IS_MOBILE ? "auto" : "0" }}
+                >
+                  <Grid
                     style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      flexWrap: "wrap",
-                      justifyContent: "center",
+                      borderLeft: IS_MOBILE ? "" : "3px groove rgba(200, 200 , 200, 0.2)",
+                      paddingLeft: IS_MOBILE ? "0.5em" : "inherit",
+                      paddingTop: IS_MOBILE ? "1em" : "inherit",
                     }}
                   >
-                    {(menuItems[0][2] as string[]).map((char) => (
-                      <CharacterThumbnailComponent
+                    <Grid.Row basic fluid>
+                      <HpHeader content="Weapon Types" path={"weapons"} />
+                    </Grid.Row>
+                    <Grid.Row>
+                      <div style={{ paddingLeft: "1rem" }}>
+                        {Object.entries(Weapons).map(([key, wpn]) => (
+                          <Button
+                            key={wpn}
+                            color="grey"
+                            style={{
+                              marginRight: 0,
+                              marginLeft: 0,
+                              border: "1px solid rgba(255, 255, 255, 0.1)",
+                            }}
+                            compact
+                            onClick={() => history.push(`/wiki/weapons/${key}`)}
+                          >
+                            <Image
+                              wrapped
+                              size="small"
+                              style={{
+                                maxHeight: "auto",
+                                width: "50px",
+                              }}
+                              src={getImageSrc(`Weapon${wpn}`)}
+                            />
+                          </Button>
+                        ))}
+                      </div>
+                    </Grid.Row>
+                    <Grid.Row basic>
+                      <HpHeader content="Armors & Items" path={"items"} />
+                    </Grid.Row>
+                    <Grid.Row>
+                      <div style={{ paddingLeft: "1rem" }}>
+                        {(menuItems[2][2] as string[]).map((char) => (
+                          <Label
+                            size="large"
+                            color="orange"
+                            style={{ margin: 4 }}
+                            key={char}
+                            icon="user"
+                            as={Link}
+                            to={`/wiki/armors/${char}`}
+                          >
+                            {char}
+                          </Label>
+                        ))}
+                        {(menuItems[4][2] as string[]).map((char) => (
+                          <Label
+                            size="large"
+                            color="orange"
+                            style={{ margin: 4 }}
+                            key={char}
+                            icon="user"
+                            as={Link}
+                            to={`/wiki/items/${char}`}
+                          >
+                            {char}
+                          </Label>
+                        ))}
+                      </div>
+                    </Grid.Row>
+                  </Grid>
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row
+                style={{
+                  marginTop: "0px",
+                  paddingTop: "0px",
+                }}
+              >
+                <HpHeader content="Lumia Island" path={"locations"} />
+                <IsDesktop>
+                  <div style={{ paddingLeft: "1rem", display: "flex", flexFlow: "row wrap" }}>
+                    <MapComponent onClick={(e) => history.push(`/wiki/locations/${e}`)} />
+                  </div>
+                </IsDesktop>
+              </Grid.Row>
+              <IsMobile>
+                <Grid.Row>
+                  <div style={{ paddingLeft: "1rem" }}>
+                    {(menuItems[3][2] as string[]).map((char) => (
+                      <Label
+                        size="large"
+                        color="yellow"
+                        style={{ margin: 4 }}
                         key={char}
-                        isActive={false}
-                        onClick={() => history.push(`/wiki/characters/${char}`)}
-                        name={char}
-                      />
+                        icon="user"
+                        as={Link}
+                        to={`/wiki/locations/${char}`}
+                      >
+                        {char}
+                      </Label>
                     ))}
                   </div>
-                </div>
-              </Grid.Column>
-              <Grid.Column
-                mobile={16}
-                desktop={8}
-                widescreen={8}
-                tablet={8}
-                style={{ paddingLeft: IS_MOBILE ? "auto" : "0" }}
-              >
-                <Grid
-                  style={{
-                    borderLeft: IS_MOBILE ? "" : "3px groove rgba(200, 200 , 200, 0.2)",
-                    paddingLeft: IS_MOBILE ? "0.5em" : "inherit",
-                    paddingTop: IS_MOBILE ? "1em" : "inherit",
-                  }}
-                >
-                  <Grid.Row basic fluid>
-                    <HpHeader content="Weapon Types" path={"weapons"} />
-                  </Grid.Row>
-                  <Grid.Row>
-                    <div style={{ paddingLeft: "1rem" }}>
-                      {Object.entries(Weapons).map(([key, wpn]) => (
-                        <Button
-                          key={wpn}
-                          color="grey"
-                          style={{
-                            borderRadius: 0,
-                            marginRight: 0,
-                            marginLeft: 0,
-                            border: "1px solid rgba(255, 255, 255, 0.1)",
-                          }}
-                          compact
-                          onClick={() => history.push(`/wiki/weapons/${key}`)}
-                        >
-                          <Image
-                            wrapped
-                            size="small"
-                            style={{
-                              maxHeight: "auto",
-                              width: "50px",
-                            }}
-                            src={getImageSrc(`Weapon${wpn}`)}
-                          />
-                        </Button>
-                      ))}
-                    </div>
-                  </Grid.Row>
-                  <Grid.Row basic>
-                    <HpHeader content="Armors & Items" path={"items"} />
-                  </Grid.Row>
-                  <Grid.Row>
-                    <div style={{ paddingLeft: "1rem" }}>
-                      {(menuItems[2][2] as string[]).map((char) => (
-                        <Label
-                          size="large"
-                          color="orange"
-                          style={{ margin: 4 }}
-                          key={char}
-                          icon="user"
-                          as={Link}
-                          to={`/wiki/armors/${char}`}
-                        >
-                          {char}
-                        </Label>
-                      ))}
-                      {(menuItems[4][2] as string[]).map((char) => (
-                        <Label
-                          size="large"
-                          color="orange"
-                          style={{ margin: 4 }}
-                          key={char}
-                          icon="user"
-                          as={Link}
-                          to={`/wiki/items/${char}`}
-                        >
-                          {char}
-                        </Label>
-                      ))}
-                    </div>
-                  </Grid.Row>
-                </Grid>
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row basic style={{ borderRadius: 0 }}>
-              <HpHeader content="Lumia Island" path={"locations"} />
-              <IsDesktop>
-                <div style={{ paddingLeft: "1rem", display: "flex", flexFlow: "row wrap" }}>
-                  <MapComponent onClick={(e) => history.push(`/wiki/locations/${e}`)} />
-                </div>
-              </IsDesktop>
-            </Grid.Row>
-            <IsMobile>
-              <Grid.Row>
-                <div style={{ paddingLeft: "1rem" }}>
-                  {(menuItems[3][2] as string[]).map((char) => (
-                    <Label
-                      size="large"
-                      color="yellow"
-                      style={{ margin: 4 }}
-                      key={char}
-                      icon="user"
-                      as={Link}
-                      to={`/wiki/locations/${char}`}
-                    >
-                      {char}
-                    </Label>
-                  ))}
-                </div>
-              </Grid.Row>
-            </IsMobile>
-          </Grid>
+                </Grid.Row>
+              </IsMobile>
+            </Grid>
+          </Container>
         </Route>
       </Switch>
     </PageComponent>

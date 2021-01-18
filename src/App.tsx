@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from "react";
 import "./App.css";
-import "semantic-ui-css/semantic.min.css";
+import "semantic-ui-less/semantic.less";
 import LayoutComponent from "./components/layout";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { ItemModalProvider } from "./state/itemModal";

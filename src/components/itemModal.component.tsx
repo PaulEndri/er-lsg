@@ -73,7 +73,7 @@ export const ItemModalComponent = () => {
             <Segment
               color="black"
               inverted
-              style={{ borderRadius: 0, marginTop: 0, paddingLeft: 0, paddingRight: 0 }}
+              style={{ marginTop: 0, paddingLeft: 0, paddingRight: 0 }}
             >
               {itemHistory && itemHistory.length > 0 && (
                 <Button

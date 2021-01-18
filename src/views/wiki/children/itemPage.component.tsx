@@ -16,7 +16,6 @@ export const ItemPage = () => {
         secondary
         inverted
         style={{
-          borderRadius: 0,
           marginBottom: 0,
           justifyContent: "center",
         }}
@@ -35,11 +34,13 @@ export const ItemPage = () => {
         ))}
       </Menu>
 
-      <ItemSearchComponent
-        path={`/wiki/items`}
-        items={getMiscList(id)}
-        title={`${id || "Item"} Options`}
-      />
+      <Container>
+        <ItemSearchComponent
+          path={`/wiki/items`}
+          items={getMiscList(id)}
+          title={`${id || "Item"} Options`}
+        />
+      </Container>
     </Container>
   );
 };

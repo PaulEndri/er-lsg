@@ -20,7 +20,6 @@ const InnerButton = React.memo<ItemModalButtonProps>(({ item, action, label }) =
     content={<Image centered rounded size="tiny" src={getImageSrc(item.displayName)} />}
     onClick={action}
     style={{
-      borderRadius: 0,
       marginBottom: "5px",
       maxWidth: label ? "150px" : "100px",
       padding: 0,

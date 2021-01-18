@@ -18,7 +18,6 @@ export const ItemSearchComponent: React.FC<Props> = ({
   setSelectedItem,
   selectedItem,
   items,
-  title,
   path,
 }) => {
   const history = useHistory();
@@ -44,32 +43,24 @@ export const ItemSearchComponent: React.FC<Props> = ({
   const realSelectedItem = selectedItem || localItem;
 
   return (
-    <Grid>
+    <Grid centered>
       <Grid.Row
         style={{
-          borderRadius: 0,
           marginBottom: 0,
           paddingBottom: 0,
         }}
         textAlign="center"
       >
-        <Grid.Column width={16}>
+        <Grid.Column width={16} style={{ padding: 0 }}>
           <Segment
-            fluid
-            stacked
-            raised
+            textAlign="center"
             style={{
-              borderRadius: 0,
-              padding: 0,
+              border: 0,
+              padding: "1em",
               backgroundColor: "rgba(62, 58, 58, 1)",
             }}
           >
-            <Input
-              label={{ content: title, color: "orange" }}
-              inline
-              placeholder="Search Items"
-              onChange={handleSearchChange}
-            />
+            <Input inline placeholder="Search Items" onChange={handleSearchChange} />
           </Segment>
         </Grid.Column>
       </Grid.Row>
@@ -78,7 +69,7 @@ export const ItemSearchComponent: React.FC<Props> = ({
         style={{
           padding: IS_DESKTOP ? "5rem" : "1rem",
           paddingTop: "10px",
-          borderRadius: 0,
+
           backgroundColor: "rgba(150, 145, 138, 0.1)",
           boxShadow: "0px 0px 1px 1px black",
           marginLeft: 0,
@@ -86,14 +77,14 @@ export const ItemSearchComponent: React.FC<Props> = ({
         textAlign="center"
       >
         {realSelectedItem && (
-          <Grid.Column width={6} style={{ marginRight: 0, paddingRight: 0 }}>
+          <Grid.Column width={5} style={{ marginRight: 0, paddingRight: 0 }}>
             <Transition>
               <ItemCardComponent item={new Item(realSelectedItem)} />
             </Transition>
           </Grid.Column>
         )}
         <Grid.Column
-          width={realSelectedItem ? 10 : 16}
+          width={realSelectedItem ? 6 : 11}
           style={{
             paddingTop: 10,
             marginLeft: 0,

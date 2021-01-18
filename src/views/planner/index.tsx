@@ -1,6 +1,16 @@
 import { Item, Weapons } from "erbs-sdk";
 import React, { useContext, useState, lazy, Suspense, createRef } from "react";
-import { Container, Menu, Dimmer, Loader, Grid, Ref } from "semantic-ui-react";
+import {
+  Container,
+  Menu,
+  Dimmer,
+  Loader,
+  Grid,
+  Ref,
+  Rail,
+  Segment,
+  Sticky,
+} from "semantic-ui-react";
 import { Types } from "../../utilities/types";
 import { PageComponent } from "../../components/page";
 import { DataContext } from "../../state/data";
@@ -8,13 +18,14 @@ import { FilterContext } from "./state";
 import { ItemModalContext } from "../../state/itemModal";
 import { Route, Switch, useHistory } from "react-router-dom";
 import { SidebarContents } from "./children/sidebarContents.component";
-import { IS_DESKTOP } from "../../components/isDesktop";
+import IsDesktop, { IS_DESKTOP } from "../../components/isDesktop";
 import IsMobile from "../../components/isMobile";
 import { MobileLoadoutComponent } from "./children/mobileLoadoutComponent";
 
 const RouteCraftingPaneComponent = lazy(() => import("./children/routeCraftingPane.component"));
 const SelectionPaneComponent = lazy(() => import("./children/selectionPane.component"));
 const RoutePaneComponent = lazy(() => import("./children/routePane.component"));
+const MobileSelectionPaneComponent = lazy(() => import("./children/mobileSelectionPane.component"));
 
 export const initialLoadout = {
   Weapon: null,
@@ -35,7 +46,7 @@ export const loadoutMenu = [
 ];
 
 const PlannerView = () => {
-  const { loadout, character, fetchRoutes } = useContext(DataContext);
+  const { loadout, character, fetchRoutes, updateLoadout } = useContext(DataContext);
   const { setItem } = useContext(ItemModalContext);
   const { massUpdate } = useContext(FilterContext);
   const [activeTab, setActiveTab] = useState(
@@ -88,78 +99,73 @@ const PlannerView = () => {
     }
   };
 
+  const menuItems = (
+    <>
+      <Menu.Item
+        active={activeTab === 0}
+        onClick={() => {
+          setActiveTab(0);
+          history.push(`/planner/selection`);
+        }}
+        color="red"
+        className={IS_DESKTOP ? "fancy-hover" : null}
+        style={{}}
+      >
+        Selection
+      </Menu.Item>
+      <Menu.Item
+        active={activeTab === 1}
+        onClick={() => {
+          setActiveTab(1);
+          history.push(`/planner/route`);
+        }}
+        color="red"
+        className={IS_DESKTOP ? "fancy-hover" : null}
+        style={{}}
+      >
+        Generation
+      </Menu.Item>
+      <Menu.Item
+        active={activeTab === 2}
+        onClick={() => {
+          setActiveTab(2);
+          history.push(`/planner/craft`);
+        }}
+        color="red"
+        className={IS_DESKTOP ? "fancy-hover" : null}
+        style={{}}
+      >
+        Route Crafting
+      </Menu.Item>
+    </>
+  );
   const contextRef = createRef() as any;
   return (
     <>
       <PageComponent
         title="Eternal Return: Black Survival Route & Loadout Planner"
-        sidebarTitle={IS_DESKTOP ? "Loadout" : ""}
-        staticMenu={IS_DESKTOP}
-        sidebarItems={
-          IS_DESKTOP ? (
-            <SidebarContents
-              loadout={loadout}
-              selectedCharacter={character}
-              onLoadoutItemClick={onLoadoutItemClick}
-              generateRoute={generateRoute}
-            />
-          ) : null
-        }
+        sidebarTitle={IS_DESKTOP ? "" : ""}
+        staticMenu={false}
+        sidebarItems={IS_DESKTOP ? menuItems : null}
       >
         <Ref innerRef={contextRef}>
           <Container fluid>
-            <Menu
-              className="attached"
-              color="red"
-              attached="top"
-              inverted
-              style={{
-                borderRadius: 0,
-                marginBottom: 0,
-                justifyContent: "center",
-                flexWrap: "wrap",
-              }}
-            >
-              <Menu.Item
-                active={activeTab === 0}
-                onClick={() => {
-                  setActiveTab(0);
-                  history.push(`/planner/selection`);
-                }}
+            <IsMobile>
+              <Menu
+                className="attached"
                 color="red"
+                attached="top"
+                inverted
                 style={{
-                  borderRadius: 0,
+                  marginBottom: 0,
+                  justifyContent: "center",
+                  flexWrap: "wrap",
                 }}
               >
-                Selection
-              </Menu.Item>
-              <Menu.Item
-                active={activeTab === 1}
-                onClick={() => {
-                  setActiveTab(1);
-                  history.push(`/planner/route`);
-                }}
-                color="red"
-                style={{
-                  borderRadius: 0,
-                }}
-              >
-                Generation
-              </Menu.Item>
-              <Menu.Item
-                active={activeTab === 2}
-                onClick={() => {
-                  setActiveTab(2);
-                  history.push(`/planner/craft`);
-                }}
-                color="red"
-                style={{
-                  borderRadius: 0,
-                }}
-              >
-                Crafting
-              </Menu.Item>
-            </Menu>
+                {menuItems}
+              </Menu>
+            </IsMobile>
+
             <Container fluid>
               <Suspense
                 fallback={
@@ -168,24 +174,49 @@ const PlannerView = () => {
                   </Dimmer>
                 }
               >
-                <Switch>
-                  <Route path={"/planner"} exact>
-                    <Grid centered style={{ height: "max-content", marginTop: 0 }}>
-                      <SelectionPaneComponent generateRoute={generateRoute} />
-                    </Grid>
-                  </Route>
-                  <Route path={"/planner/selection"} exact>
-                    <Grid centered style={{ height: "max-content", marginTop: 0 }}>
-                      <SelectionPaneComponent generateRoute={generateRoute} />
-                    </Grid>
-                  </Route>
-                  <Route path="/planner/route" exact>
-                    <RoutePaneComponent moveToCrafting={moveToCrafting} />
-                  </Route>
-                  <Route path="/planner/craft" exact>
-                    <RouteCraftingPaneComponent />
-                  </Route>
-                </Switch>
+                <Segment basic>
+                  <Switch>
+                    <Route path={"/planner"} exact>
+                      <Grid centered style={{ height: "max-content", marginTop: 0 }}>
+                        <IsMobile>
+                          <MobileSelectionPaneComponent generateRoute={generateRoute} />
+                        </IsMobile>
+                        <IsDesktop>
+                          <SelectionPaneComponent generateRoute={generateRoute} />
+                        </IsDesktop>
+                      </Grid>
+                    </Route>
+                    <Route path={"/planner/selection"} exact>
+                      <Grid centered style={{ height: "max-content", marginTop: 0 }}>
+                        <IsMobile>
+                          <MobileSelectionPaneComponent generateRoute={generateRoute} />
+                        </IsMobile>
+                        <IsDesktop>
+                          <SelectionPaneComponent generateRoute={generateRoute} />
+                        </IsDesktop>
+                      </Grid>
+                    </Route>
+                    <Route path="/planner/route" exact>
+                      <RoutePaneComponent moveToCrafting={moveToCrafting} />
+                    </Route>
+                    <Route path="/planner/craft" exact>
+                      <RouteCraftingPaneComponent />
+                    </Route>
+                  </Switch>
+                  <IsDesktop>
+                    <Rail position="left">
+                      <Sticky context={contextRef} style={{ marginTop: "2em", marginLeft: "45%" }}>
+                        <SidebarContents
+                          loadout={loadout}
+                          selectedCharacter={character}
+                          onLoadoutItemClick={onLoadoutItemClick}
+                          generateRoute={generateRoute}
+                          clearLoadout={() => updateLoadout(null, null)}
+                        />
+                      </Sticky>
+                    </Rail>
+                  </IsDesktop>
+                </Segment>
               </Suspense>
             </Container>
           </Container>

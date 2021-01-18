@@ -1,12 +1,15 @@
 import React, { ReactNode, useContext } from "react";
-import { Segment, Header, Container, Dimmer } from "semantic-ui-react";
+import { Segment, Header, Container, Dimmer, Menu } from "semantic-ui-react";
 import { NavContext } from "../../state/nav";
-import { IS_DESKTOP } from "../isDesktop";
+import IsDesktop, { IS_DESKTOP } from "../isDesktop";
+import { IS_MOBILE } from "../isMobile";
 import { SidebarComponent } from "./sidebar.component";
 
 interface PageProps {
   sidebarItems?: ReactNode;
   title: ReactNode;
+  subMenu?: ReactNode;
+  fluid?: boolean;
   staticMenu?: boolean;
   sidebarTitle?: ReactNode;
 }
@@ -15,17 +18,15 @@ export const PageComponent: React.FC<PageProps> = ({
   sidebarItems,
   title,
   sidebarTitle,
+  subMenu,
   staticMenu = false,
+  fluid,
   children,
 }) => {
   const { visible, toggleVisible } = useContext(NavContext);
 
   const divStyle = IS_DESKTOP
     ? {
-        maxHeight: "95vh",
-        overflow: "auto",
-        overflowX: "hidden",
-        minHeight: "85vh",
         transform: "* 2s",
         marginLeft: visible || staticMenu ? "150px" : "auto",
       }
@@ -37,26 +38,57 @@ export const PageComponent: React.FC<PageProps> = ({
       <SidebarComponent staticMenu={staticMenu} title={sidebarTitle}>
         {sidebarItems}
       </SidebarComponent>
-      <Segment
-        inverted
-        raised
-        color="red"
-        textAlign="center"
-        padded={false}
-        basic
+      {!sidebarItems || IS_MOBILE ? (
+        <Segment
+          inverted
+          raised
+          color="teal"
+          textAlign="center"
+          padded={false}
+          basic
+          style={{
+            marginBottom: 0,
+            padding: 0,
+            marginTop: 0,
+
+            marginLeft: (IS_DESKTOP && visible) || staticMenu ? "150px" : "auto",
+          }}
+          onPressOut
+        >
+          <Header style={{ padding: "10px" }}>{title}</Header>
+        </Segment>
+      ) : null}
+      {sidebarItems && (
+        <IsDesktop>
+          <Segment
+            inverted
+            raised
+            color="grey"
+            textAlign="center"
+            padded={false}
+            basic
+            style={{
+              marginBottom: 0,
+              padding: 0,
+
+              marginTop: 0,
+              marginLeft: (IS_DESKTOP && visible) || staticMenu ? "150px" : "auto",
+            }}
+            onPressOut
+          >
+            <Menu style={{ justifyContent: "center" }} color="teal" inverted>
+              {sidebarItems}
+            </Menu>
+          </Segment>
+          {subMenu}
+        </IsDesktop>
+      )}
+      <Container
         style={{
-          marginBottom: 0,
-          padding: 0,
-          marginTop: 0,
-          marginLeft: (IS_DESKTOP && visible) || staticMenu ? "150px" : "auto",
+          minHeight: "80vh",
         }}
-        onPressOut
+        fluid={fluid}
       >
-        <Header as="h2" style={{ padding: "10px" }}>
-          {title}
-        </Header>
-      </Segment>
-      <Container style={{ borderTop: "0.5px groove  rgba(219, 40, 40, 1)" }}>
         <Dimmer active={!staticMenu && visible} onClick={() => toggleVisible()}></Dimmer>
 
         <div style={divStyle as any}>{children}</div>
