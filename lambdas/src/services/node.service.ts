@@ -79,6 +79,23 @@ export class NodeService {
     };
   }
 
+  private async checkQueryForPoints(query, points = 5) {
+    try {
+      const results = await Nodes.find({ ...query, point: { $lte: points } }, [], { lean: true });
+
+      if (results && results.length > 0) {
+        return {
+          results: this.transform(results),
+          message: `Found values with ${points}`,
+        };
+      }
+    } catch (e) {
+      console.warn("[Failed on Early Results]", e);
+    }
+
+    return null;
+  }
+
   public generateOrQuery(items: number[], max = 5) {
     const perms: number[][] = [...new Permutation(items), max];
     const query = {
@@ -86,8 +103,6 @@ export class NodeService {
         itemsCompleted: { $all: partialItems },
       })),
     };
-
-    console.log(query);
 
     return query;
   }
@@ -99,26 +114,25 @@ export class NodeService {
       query.$and.push({ [`materials.${key}`]: { $gte: +val } });
     });
 
-    let response;
-
     if (this.startingLocation) {
       query["locations.0"] = this.startingLocation;
     }
-    console.log("[test]", JSON.stringify(query));
-    const results = await Nodes.find(query, [], { lean: true });
 
-    if (results && results.length) {
-      response = {
-        results: this.transform(results),
-        message: "Found all six",
-      };
-    } else {
-      response = {
-        results: this.route.generate(this.startingLocation),
-        message: "Bad loadout",
-      };
+    const pointValues = [3, 4, 5];
+
+    console.log("[test]", JSON.stringify(query));
+
+    for (const point of pointValues) {
+      const results = await this.checkQueryForPoints(query, point);
+
+      if (results) {
+        return results;
+      }
     }
 
-    return response;
+    return {
+      results: this.route.generate(this.startingLocation),
+      message: "Bad loadout",
+    };
   }
 }
