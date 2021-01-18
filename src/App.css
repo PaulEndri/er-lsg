@@ -36,10 +36,6 @@
   }
 }
 
-body {
-  background-color: aqua;
-}
-
 .fancy-hover:hover:not(.active) {
   color: rgba(252, 205, 51, 1) !important;
   background: linear-gradient(
