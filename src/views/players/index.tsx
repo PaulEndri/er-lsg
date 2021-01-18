@@ -209,7 +209,7 @@ class PlayerContent extends React.PureComponent<Props, State> {
                 marginTop: "2em",
                 borderBottom: "1px groove",
                 borderTop: "1px groove",
-                backgroudnColor: "rgba(125, 120, 120, 0.5)",
+                backgroundColor: "rgba(125, 120, 120, 0.5)",
               }}
               centered
             >
