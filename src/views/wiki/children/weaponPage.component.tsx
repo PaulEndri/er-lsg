@@ -8,7 +8,6 @@ import { ItemModalButton } from "../../../components/itemModalButton.component";
 import { ItemCardComponent } from "../../../components/itemCard.component";
 import { Types } from "../../../utilities/types";
 import { ItemSearchComponent } from "./ItemSearch.component";
-import { BG_THIRD } from "../../../utilities/bgImages";
 import { getList } from "../../../utilities/getList";
 
 export const WeaponPage = () => {
@@ -60,10 +59,11 @@ export const WeaponPage = () => {
               margin: 0,
               marginTop: 12,
               padding: 0,
+              background: "rgba(32, 30, 30, 0.5)",
             }}
           >
             <Grid centered>
-              <Grid.Row style={{ backgroundImage: BG_THIRD }}>
+              <Grid.Row>
                 <Grid.Column width={16}>
                   <Grid centered>
                     <Grid.Row
@@ -154,7 +154,6 @@ export const WeaponPage = () => {
               <Grid.Row
                 style={{
                   backgroundColor: "rgba(32, 29, 29, 0.2)",
-                  background: BG_THIRD,
                 }}
                 centered
               >
