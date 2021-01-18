@@ -226,7 +226,7 @@ class PlayerContent extends React.PureComponent<Props, State> {
               }}
               centered
             >
-              <Grid.Column width={IS_MOBILE ? 14 : 3}>
+              <Grid.Column width={IS_MOBILE ? 14 : 6}>
                 <div style={{ display: "flex", justifyContent: "flex-start" }}>
                   <CharacterPortrait
                     type="mini"
@@ -243,7 +243,7 @@ class PlayerContent extends React.PureComponent<Props, State> {
                     ))}
                 </div>
               </Grid.Column>
-              <Grid.Column width={IS_MOBILE ? 7 : 3}>
+              <Grid.Column width={IS_MOBILE ? 7 : 4}>
                 <div>
                   <Header
                     inverted
@@ -263,7 +263,7 @@ class PlayerContent extends React.PureComponent<Props, State> {
                   </span>
                 </div>
               </Grid.Column>
-              <Grid.Column width={IS_MOBILE ? 7 : 3}>
+              <Grid.Column width={IS_MOBILE ? 7 : 5}>
                 <Segment compact style={{ alignSelf: "end", marginTop: "2.5em" }}>
                   <Dropdown
                     value={activeSeason}
