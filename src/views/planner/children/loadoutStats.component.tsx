@@ -47,7 +47,7 @@ export const LoadoutStats: React.FC<Props> = ({ loadout }) => {
           return (
             <Table.Row key={statName}>
               <Table.Cell>{name}</Table.Cell>
-              <Table.Cell>{isNaN(value) ? value : +value.toFixed(2)}</Table.Cell>
+              <Table.Cell>{typeof value === "string" ? value : (+value).toFixed(2)}</Table.Cell>
             </Table.Row>
           );
         })}
