@@ -279,7 +279,7 @@ class PlayerContent extends React.PureComponent<Props, State> {
         </Segment>
         <Container fluid>
           <Grid centered>
-            <Grid.Column width={IS_MOBILE ? 14 : 8} style={{ paddingLeft: 0, paddingRight: 0 }}>
+            <Grid.Column width={14} style={{ paddingLeft: 0, paddingRight: 0 }}>
               <Segment
                 style={{
                   padding: 1,
