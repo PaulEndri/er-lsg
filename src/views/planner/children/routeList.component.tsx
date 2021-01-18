@@ -85,10 +85,9 @@ export const RouteListComponent: React.FC<Props> = ({ root, setRoute, routes, mo
       {routes.length > 10 && (
         <Pagination
           inverted
-          defaultActivePage={1}
           totalPages={Math.ceil(routes.length / 10)}
           activePage={activePage + 1}
-          onPageChange={(e, { value }) => updateActivePage(value - 1)}
+          onPageChange={(e, { activePage }) => updateActivePage(+activePage - 1)}
         />
       )}
       <Table inverted celled striped collapsing style={{ margin: "auto" }}>
@@ -112,6 +111,7 @@ export const RouteListComponent: React.FC<Props> = ({ root, setRoute, routes, mo
                 />
               </Table.HeaderCell>
             ))}
+            <Table.HeaderCell />
           </Table.Row>
         </Table.Header>
         <Table.Header>

@@ -14,7 +14,7 @@ export class NodeService {
     this.route = new Route(this.loadout);
   }
 
-  private transform(results: DataNode[]) {
+  private transform(results: Array<DataNode>) {
     const base: RouteNode = {
       id: 0,
       traversed: [],
@@ -23,28 +23,55 @@ export class NodeService {
       next: {},
     };
 
-    results.forEach(({ locations }) => {
-      let currentNode = base;
-      locations.forEach((locationId, i) => {
-        const location = new Location(locationId);
+    const data = results
+      .map((result) => {
+        const { locations } = result;
+        const completed = this.loadout.checkCompletedItems(result.materials);
+        let currentNode = base;
+        let routeWeaponValue = 0;
 
-        if (!currentNode.next || !currentNode.next[locationId]) {
-          const newNode = this.route.generateNewNode(currentNode, location, i);
+        locations.forEach((locationId, i) => {
+          const location = new Location(locationId);
+          if (!currentNode.next || !currentNode.next[locationId]) {
+            const newNode = this.route.generateNewNode(currentNode, location, i);
 
-          if (currentNode.next) {
-            currentNode.next[locationId] = newNode;
+            if (currentNode.next) {
+              currentNode.next[locationId] = newNode;
+            } else {
+              currentNode.next = { [locationId]: newNode };
+            }
+
+            if (!routeWeaponValue && currentNode.completed.length !== newNode.completed.length) {
+              if (
+                this.loadout
+                  .checkCompletedItems(newNode.materials.list)
+                  .includes(this.loadout.Weapon)
+              ) {
+                routeWeaponValue = 7 - 1;
+              }
+            }
+            currentNode = newNode;
           } else {
-            currentNode.next = { [locationId]: newNode };
+            currentNode = currentNode.next[locationId];
           }
+        });
 
-          currentNode = newNode;
-        } else {
-          currentNode = currentNode.next[locationId];
-        }
-      });
-    });
+        return {
+          routeWeaponValue,
+          id: locations.join("-"),
+          traversed: locations,
+          materials: null,
+          completed,
+        };
+      })
+      .sort(
+        (a, b) => b.routeWeaponValue - a.routeWeaponValue || b.completed.length - a.completed.length
+      );
 
-    return base;
+    return {
+      root: base,
+      routes: data,
+    };
   }
 
   public generateOrQuery(items: number[], max = 5) {
@@ -77,17 +104,7 @@ export class NodeService {
 
     if (results && results.length) {
       response = {
-        results: {
-          root: this.transform(results),
-          routes: results
-            .map(({ locations, materials }) => ({
-              id: locations.join("-"),
-              traversed: locations,
-              materials: null,
-              completed: this.loadout.checkCompletedItems(materials),
-            }))
-            .sort((a, b) => b.completed.length - a.completed.length),
-        },
+        results: this.transform(results),
         message: "Found all six",
       };
     } else {
