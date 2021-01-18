@@ -34,16 +34,6 @@ let defaultStateValues = {
   savedLoadouts: [] as ISavedLoadout[],
 };
 
-try {
-  const storage = window.localStorage.getItem("dataCache");
-
-  if (storage) {
-    defaultStateValues = { ...defaultStateValues, ...JSON.parse(storage) };
-  }
-} catch (e) {
-  console.log("[Local Storage Unavailable]", e);
-}
-
 export const initialState = {
   updateCharacter: (character: ICharacter | Character | keyof typeof Characters) => null,
   updateLoadout: (slot, item) => null,

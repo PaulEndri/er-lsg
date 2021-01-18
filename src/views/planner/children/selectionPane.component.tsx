@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
-import { Grid, Header, Segment, Button, Label, Dropdown, Form, Radio } from "semantic-ui-react";
-import { Character, Characters, Item, Items, Locations } from "erbs-sdk";
+import { Grid, Header, Segment, Button, Label, Form, Radio } from "semantic-ui-react";
+import { Character, Characters, Item, Items } from "erbs-sdk";
 import { Types } from "../../../utilities/types";
 import { getImageSrc } from "../../../utilities/getImageSrc";
 import { ItemModalButton } from "../../../components/itemModalButton.component";
@@ -17,7 +17,7 @@ import { LoadoutStats } from "./loadoutStats.component";
 import { LoadoutPersistenceComponent } from "./loadoutPersistence.component";
 
 export const SelectionPaneComponent: React.FC<any> = ({ generateRoute, full = true }) => {
-  const [startingLocation, setStartingLocation] = useState(null);
+  // const [startingLocation, setStartingLocation] = useState(null);
   const [quickAdd, toggleQuickAdd] = useState(false);
   const { toggle, filterStates } = useContext(FilterContext);
   const { setItem } = useContext(ItemModalContext);
@@ -161,7 +161,7 @@ export const SelectionPaneComponent: React.FC<any> = ({ generateRoute, full = tr
                 color="red"
               />
             </Segment>
-            <Segment basic inverted style={{ padding: 8, margin: 0 }}>
+            {/* <Segment basic inverted style={{ padding: 8, margin: 0 }}>
               <Header>Desired Starting Location</Header>
             </Segment>
             <Segment raised>
@@ -180,7 +180,7 @@ export const SelectionPaneComponent: React.FC<any> = ({ generateRoute, full = tr
                     }))
                 )}
               />
-            </Segment>
+            </Segment> */}
 
             <Segment basic inverted style={{ padding: 8, margin: 0 }}>
               <Header>Loadout Stats</Header>{" "}
