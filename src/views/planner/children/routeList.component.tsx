@@ -21,7 +21,7 @@ export const RouteListComponent: React.FC<Props> = ({ root, setRoute, routes, mo
     );
 
     updateActivePage(0);
-    updateTableFilters(tableFilters);
+    updateTableFilters(newTableFilters);
   };
 
   if (!routes || routes.length === 0) {
@@ -112,11 +112,6 @@ export const RouteListComponent: React.FC<Props> = ({ root, setRoute, routes, mo
                 />
               </Table.HeaderCell>
             ))}
-            <Table.HeaderCell>asd</Table.HeaderCell>
-            <Table.HeaderCell>asd</Table.HeaderCell>
-            <Table.HeaderCell>asd</Table.HeaderCell>
-            <Table.HeaderCell>asd</Table.HeaderCell>
-            <Table.HeaderCell>asd</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Header>
