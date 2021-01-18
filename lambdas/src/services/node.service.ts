@@ -41,13 +41,18 @@ export class NodeService {
               currentNode.next = { [locationId]: newNode };
             }
 
-            if (!routeWeaponValue && currentNode.completed.length !== newNode.completed.length) {
+            if (
+              !routeWeaponValue &&
+              currentNode.completed.length !== newNode.completed.length &&
+              this.loadout.Weapon
+            ) {
               if (
                 this.loadout
                   .checkCompletedItems(newNode.materials.list)
-                  .includes(this.loadout.Weapon)
+                  .map(({ id }) => id)
+                  .includes(this.loadout.Weapon.id)
               ) {
-                routeWeaponValue = 7 - 1;
+                routeWeaponValue = 7 - i;
               }
             }
             currentNode = newNode;
