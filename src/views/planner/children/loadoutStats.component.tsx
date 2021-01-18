@@ -10,7 +10,7 @@ type Props = {
 export const LoadoutStats: React.FC<Props> = ({ loadout }) => {
   const totalStats = {};
 
-  if (!loadout) {
+  if (!loadout || !loadout.items) {
     return null;
   }
 
