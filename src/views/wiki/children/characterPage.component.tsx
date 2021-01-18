@@ -92,7 +92,7 @@ const CharacterView: React.FC = ({ children }) => {
         </div>
       </div>
 
-      {children}
+      <Container>{children}</Container>
     </Container>
   );
 };
@@ -282,14 +282,14 @@ export const CharacterPage = () => {
             centered
           >
             <Grid centered style={{ margin: 0, padding: 0 }}>
-              <Grid.Column mobile={8} desktop={2} widescreen={2} tablet={3}>
+              <Grid.Column mobile={8} desktop={3} widescreen={3} tablet={4}>
                 <CharacterPortrait type="mini" width={100} name={character.name} />
               </Grid.Column>
               <Grid.Column
                 mobile={8}
-                desktop={2}
-                widescreen={1}
-                tablet={3}
+                desktop={3}
+                widescreen={2}
+                tablet={4}
                 textAlign="center"
                 style={{ paddingLeft: 0 }}
                 verticalAlign="middle"
@@ -322,8 +322,11 @@ export const CharacterPage = () => {
               ))}
             </Grid>
           </Grid.Column>
-          <Grid.Row style={{ backgroundColor: "rgba(31, 29, 29, 0.9)", paddingTop: 0 }} centered>
-            <Grid.Column width={16} style={{ backgroundImage: BG_THIRD }}>
+          <Grid.Row
+            style={{ backgroundColor: "rgba(150, 145, 138, 0.1)", paddingTop: 0, padding: 0 }}
+            centered
+          >
+            <Grid.Column width={16} style={{ padding: 0 }}>
               <Tab
                 menu={{
                   secondary: false,
@@ -332,6 +335,7 @@ export const CharacterPage = () => {
                   style: {
                     justifyContent: "center",
                     backgroundColor: "rgba(62, 58, 58, 1)",
+                    padding: 0,
                   },
                 }}
                 style={{ borderRadius: 0 }}
@@ -354,9 +358,7 @@ export const CharacterLandingPage = () => {
         <IsDesktop>
           <Segment
             style={{
-              backgroundColor: "rgba(31, 29, 29, 0.9)",
-
-              backgroundImage: BG_THIRD,
+              backgroundColor: "rgba(150, 145, 138, 0.1)",
               marginTop: 0,
             }}
             textAlign="center"

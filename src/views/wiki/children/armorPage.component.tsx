@@ -37,11 +37,13 @@ export const ArmorPage = () => {
         ))}
       </Menu>
 
-      <ItemSearchComponent
-        path={`/wiki/armors`}
-        items={getList(id)}
-        title={`${id || "Armor"} Options`}
-      />
+      <Container>
+        <ItemSearchComponent
+          path={`/wiki/armors`}
+          items={getList(id)}
+          title={`${id || "Armor"} Options`}
+        />
+      </Container>
     </Container>
   );
 };

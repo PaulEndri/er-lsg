@@ -203,15 +203,7 @@ class PlayerContent extends React.PureComponent<Props, State> {
 
     return (
       <PageComponent title="Eternal Return: Black Survival Test Subject Records">
-        <Segment
-          color="black"
-          inverted
-          style={{
-            margin: 0,
-            marginTop: 12,
-            padding: 0,
-          }}
-        >
+        <Container>
           <Grid style={{ backgroundImage: BG_HALF }} centered>
             <Grid.Row
               style={{
@@ -259,7 +251,7 @@ class PlayerContent extends React.PureComponent<Props, State> {
                   </span>
                 </div>
               </Grid.Column>
-              <Grid.Column width={IS_MOBILE ? 7 : 5}>
+              <Grid.Column width={IS_MOBILE ? 7 : 6}>
                 <Segment compact style={{ alignSelf: "end", marginTop: "2.5em" }}>
                   <Dropdown
                     value={activeSeason}
@@ -271,10 +263,6 @@ class PlayerContent extends React.PureComponent<Props, State> {
                 </Segment>
               </Grid.Column>
             </Grid.Row>
-          </Grid>
-        </Segment>
-        <Container fluid>
-          <Grid centered>
             <Grid.Column width={14} style={{ paddingLeft: 0, paddingRight: 0 }}>
               <Segment
                 style={{

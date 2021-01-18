@@ -10,7 +10,6 @@ import { ItemPage } from "./children/itemPage.component";
 import { LocationLandingPage, LocationPage } from "./children/locationPage.component";
 import CharacterThumbnailComponent from "../../components/characterThumbnail.component";
 import { getImageSrc } from "../../utilities/getImageSrc";
-import { BG_THIRD } from "../../utilities/bgImages";
 import { MapComponent } from "../../components/map/index";
 import { AnimalLandingPage, AnimalPage } from "./children/animalPage.component";
 import { MiscListKeys } from "../../utilities/getList";
@@ -76,7 +75,15 @@ const WikiView = () => {
     const showSubMenu = isActive && !isRoot && subMenuItems && subMenuItems.length > 0;
 
     return (
-      <Menu.Item key={route} active={isActive} as={Link} to={path} className="fancy-hover">
+      <Menu.Item
+        key={route}
+        active={isActive}
+        color={isActive ? "red" : "teal"}
+        inverted
+        as={Link}
+        to={path}
+        className="fancy-hover"
+      >
         {name}
         {showSubMenu && IS_MOBILE && (
           <Menu.Menu>

@@ -51,9 +51,8 @@ export const ItemSearchComponent: React.FC<Props> = ({
         }}
         textAlign="center"
       >
-        <Grid.Column width={16} style={{}}>
+        <Grid.Column width={16} style={{ padding: 0 }}>
           <Segment
-            fluid
             textAlign="center"
             style={{
               border: 0,
@@ -85,7 +84,7 @@ export const ItemSearchComponent: React.FC<Props> = ({
           </Grid.Column>
         )}
         <Grid.Column
-          width={realSelectedItem ? 5 : 10}
+          width={realSelectedItem ? 6 : 11}
           style={{
             paddingTop: 10,
             marginLeft: 0,

@@ -34,11 +34,13 @@ export const ItemPage = () => {
         ))}
       </Menu>
 
-      <ItemSearchComponent
-        path={`/wiki/items`}
-        items={getMiscList(id)}
-        title={`${id || "Item"} Options`}
-      />
+      <Container>
+        <ItemSearchComponent
+          path={`/wiki/items`}
+          items={getMiscList(id)}
+          title={`${id || "Item"} Options`}
+        />
+      </Container>
     </Container>
   );
 };
