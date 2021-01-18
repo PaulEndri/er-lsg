@@ -5,7 +5,6 @@ import { Grid, Input, Segment, Transition, TransitionGroup } from "semantic-ui-r
 import { IS_DESKTOP } from "../../../components/isDesktop";
 import { ItemCardComponent } from "../../../components/itemCard.component";
 import { ItemModalButton } from "../../../components/itemModalButton.component";
-import { BG_THIRD } from "../../../utilities/bgImages";
 
 type Props = {
   setSelectedItem?: any;
@@ -80,8 +79,8 @@ export const ItemSearchComponent: React.FC<Props> = ({
           padding: IS_DESKTOP ? "5rem" : "1rem",
           paddingTop: "10px",
           borderRadius: 0,
-          backgroundColor: "rgba(31, 29, 29, 0.9)",
-          backgroundImage: BG_THIRD,
+          backgroundColor: "rgba(150, 145, 138, 0.1)",
+          boxShadow: "0px 0px 1px 1px black",
           marginLeft: 0,
         }}
         textAlign="center"

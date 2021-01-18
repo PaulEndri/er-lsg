@@ -10,6 +10,10 @@ type Props = {
 export const LoadoutStats: React.FC<Props> = ({ loadout }) => {
   const totalStats = {};
 
+  if (!loadout || !loadout.items) {
+    return null;
+  }
+
   loadout.items
     .filter((x) => x)
     .forEach((item) => {

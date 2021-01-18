@@ -47,14 +47,7 @@ const AnimalView: React.FC = ({ children }) => {
                 paddingLeft: 0,
               }}
             >
-              <Label
-                icon={id === type ? "close" : null}
-                style={{ width: "100%", boxShadow: "2px 2px 2px 2px rgba(0,0,0,0.1)" }}
-                color="yellow"
-                size="large"
-              >
-                {type}
-              </Label>
+              {type}
             </Menu.Item>
           ))}
       </Menu>

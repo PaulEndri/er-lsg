@@ -39,7 +39,7 @@ export const SelectionPaneComponent: React.FC<any> = ({ generateRoute, full = tr
     >
       {full && (
         <Grid.Row stretched>
-          <Grid.Column width={IS_MOBILE ? mobileWidth : desktopWidth}>
+          <Grid.Column width={14}>
             <Segment style={{ borderRadius: 0 }} inverted color="black" raised stacked padded>
               <p>
                 <Header inverted>Equipment/Loadout Selection</Header>
@@ -116,7 +116,7 @@ export const SelectionPaneComponent: React.FC<any> = ({ generateRoute, full = tr
               padding: 0,
             }}
           >
-            <Segment textAlign="center" basic inverted style={{ padding: 8, margin: 0 }}>
+            <Segment basic inverted style={{ padding: 8, margin: 0 }}>
               <Header>Options</Header>
             </Segment>
             <Segment
@@ -131,9 +131,7 @@ export const SelectionPaneComponent: React.FC<any> = ({ generateRoute, full = tr
             >
               <div
                 style={{
-                  textAlign: "center",
                   padding: "1em",
-                  backgroundColor: "rgba(255, 255, 255, 0.25)",
                 }}
               >
                 <Form inverted>
@@ -148,22 +146,22 @@ export const SelectionPaneComponent: React.FC<any> = ({ generateRoute, full = tr
                   </Form.Field>
                 </Form>
               </div>
-              <Button.Group fluid>
-                <Button
-                  style={{ borderRadius: 0 }}
-                  onClick={generateRoute}
-                  content="Generate Routes"
-                  color="green"
-                />
-                <Button
-                  style={{ borderRadius: 0 }}
-                  onClick={() => updateLoadout(null, null)}
-                  content="Clear Loadout"
-                  color="red"
-                />
-              </Button.Group>
+              <Button
+                fluid
+                style={{ borderRadius: 0 }}
+                onClick={generateRoute}
+                content="Generate Routes"
+                color="green"
+              />
+              <Button
+                fluid
+                style={{ borderRadius: 0 }}
+                onClick={() => updateLoadout(null, null)}
+                content="Clear Loadout"
+                color="red"
+              />
             </Segment>
-            <Segment textAlign="center" basic inverted style={{ padding: 8, margin: 0 }}>
+            <Segment basic inverted style={{ padding: 8, margin: 0 }}>
               <Header>Desired Starting Location</Header>
             </Segment>
             <Segment raised>
@@ -184,7 +182,13 @@ export const SelectionPaneComponent: React.FC<any> = ({ generateRoute, full = tr
               />
             </Segment>
 
-            <Segment textAlign="center" basic inverted style={{ padding: 8, margin: 0 }}>
+            <Segment basic inverted style={{ padding: 8, margin: 0 }}>
+              <Header>Loadout Stats</Header>{" "}
+            </Segment>
+            <Segment raised color="black" inverted secondary>
+              <LoadoutStats loadout={loadout} />
+            </Segment>
+            <Segment basic inverted style={{ padding: 8, margin: 0 }}>
               <Header>Total Materials Needed</Header>
             </Segment>
             <Segment raised color="black" inverted secondary>
@@ -197,39 +201,33 @@ export const SelectionPaneComponent: React.FC<any> = ({ generateRoute, full = tr
                   justifyContent: "center",
                 }}
               >
-                {Object.entries(loadout.materials)
-                  .filter(([material]) => material && material !== "undefined")
-                  .map(([material, quantity], key) => {
-                    const item = new Item(Items[material]);
+                {loadout.materials &&
+                  Object.entries(loadout.materials)
+                    .filter(([material]) => material && material !== "undefined")
+                    .map(([material, quantity], key) => {
+                      const item = new Item(Items[material]);
 
-                    return (
-                      <div key={key + material} style={{ margin: "5px" }}>
-                        <Label
-                          style={{
-                            background: itemRarityBackground(item.rarity),
-                            boxShadow: "1px 1px 4px 0px rgba(0, 0, 0, 0.5)",
-                            "&:hover": {
-                              boxShadow: "none",
-                            },
-                          }}
-                          as={Button}
-                          image
-                          onClick={() => setItem(item)}
-                        >
-                          <img alt={material} src={getImageSrc(item.displayName)} />
-                          <Label.Detail style={{ marginLeft: "-.5em" }}>{quantity}</Label.Detail>
-                        </Label>
-                      </div>
-                    );
-                  })}
+                      return (
+                        <div key={key + material} style={{ margin: "5px" }}>
+                          <Label
+                            style={{
+                              background: itemRarityBackground(item.rarity),
+                              boxShadow: "1px 1px 4px 0px rgba(0, 0, 0, 0.5)",
+                              "&:hover": {
+                                boxShadow: "none",
+                              },
+                            }}
+                            as={Button}
+                            image
+                            onClick={() => setItem(item)}
+                          >
+                            <img alt={material} src={getImageSrc(item.displayName)} />
+                            <Label.Detail style={{ marginLeft: "-.5em" }}>{quantity}</Label.Detail>
+                          </Label>
+                        </div>
+                      );
+                    })}
               </div>
-            </Segment>
-
-            <Segment textAlign="center" basic inverted style={{ padding: 8, margin: 0 }}>
-              <Header>Loadout Stats</Header>{" "}
-            </Segment>
-            <Segment raised color="black" inverted secondary>
-              <LoadoutStats loadout={loadout} />
             </Segment>
           </Segment.Group>
         </Grid.Column>

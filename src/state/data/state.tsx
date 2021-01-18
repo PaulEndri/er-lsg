@@ -24,27 +24,41 @@ export const generateEmptyDetail = (val = null) => ({
 
 const defaultCharacter = Math.floor((Math.random() * Object.keys(Characters).length) / 2);
 
-export const initialState = {
+let defaultStateValues = {
   loadout: Loadout.GenerateLoadout(initialLoadout),
   character: new Character(defaultCharacter),
-  updateCharacter: (character: ICharacter | Character | keyof typeof Characters) => null,
-  updateLoadout: (slot, item) => null,
   routes: null,
-  setRoutes: (routes: any) => null,
   activeRoute: new Array(5).fill(generateEmptyDetail()) as ActiveRouteDetail[],
-  setRoute: (routes: ActiveRouteDetail[]) => null,
-  updateActiveRoute: (index: number, newLocation: Location) => null,
   playerData: {} as Record<number, IPlayer>,
   activePlayer: null as IPlayer,
+  savedLoadouts: [] as ISavedLoadout[],
+};
+
+try {
+  const storage = window.localStorage.getItem("dataCache");
+
+  if (storage) {
+    defaultStateValues = { ...defaultStateValues, ...JSON.parse(storage) };
+  }
+} catch (e) {
+  console.log("[Local Storage Unavailable]", e);
+}
+
+export const initialState = {
+  updateCharacter: (character: ICharacter | Character | keyof typeof Characters) => null,
+  updateLoadout: (slot, item) => null,
+  fetchRoutes: () => Promise.resolve(null),
+  setRoute: (routes: ActiveRouteDetail[]) => null,
+  updateActiveRoute: (index: number, newLocation: Location) => null,
   updatePlayerData: (id: number, data: IPlayer) => null,
   getPlayerData: (id: number) => Promise.resolve({} as IPlayer),
-  user: null,
-  loadoutName: null,
-  currentSavedLoadoutId: null,
-  savedLoadouts: [] as ISavedLoadout[],
   saveLoadout: (name: string) => Promise.resolve({} as ISavedLoadout),
   getLoadout: (loadoutId?: string) => Promise.resolve([] as ISavedLoadout[]),
   loadLoadout: (loadoutId: string) => null,
   deleteLoadout: (loadoutId: string) => Promise.resolve(),
   setSavedLoadouts: (loadouts: any) => null,
+  user: null,
+  loadoutName: null,
+  currentSavedLoadoutId: null,
+  ...defaultStateValues,
 };

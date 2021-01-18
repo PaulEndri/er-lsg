@@ -1,6 +1,6 @@
 import { Categories, Character, ICharacter, Characters, Location, Loadout, Route } from "erbs-sdk";
 import { MaterialList } from "erbs-sdk/dist/libs/MaterialList";
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { Types } from "../../utilities/types";
 import { initialState, initialLoadout, generateEmptyDetail } from "./state";
 import { ActiveRouteDetail } from "../../utilities/activeRouteDetail";
@@ -10,6 +10,7 @@ import * as NetlifyIdentityWidget from "netlify-identity-widget";
 import { ISavedLoadout } from "../../utilities/savedLoadout";
 import { saveUserLoadout } from "../../utilities/saveUserLoadout";
 import { getSavedLoadout } from "../../utilities/getSavedLoadouts";
+import { getRouteOptions } from "../../utilities/getRouteOptions";
 
 NetlifyIdentityWidget.init();
 
@@ -231,6 +232,23 @@ export const DataProvider: FunctionComponent = ({ children }) => {
     });
   };
 
+  const fetchRoutes = async (startingLocation?: number) => {
+    const sendingLoadout = {
+      Weapon: loadout.Weapon?.id,
+      Arm: loadout.Arm?.id,
+      Chest: loadout.Chest?.id,
+      Leg: loadout.Leg?.id,
+      Head: loadout.Head?.id,
+      Accessory: loadout.Accessory?.id,
+    };
+
+    const results = await getRouteOptions(sendingLoadout as any, startingLocation);
+
+    if (results.results) {
+      setRoutes(results.results);
+    }
+  };
+
   const fetchPlayerData = async (id: number | string) => {
     if (typeof id === "string") {
       // search local first
@@ -260,7 +278,7 @@ export const DataProvider: FunctionComponent = ({ children }) => {
   const state = {
     character,
     routes,
-    setRoutes,
+    fetchRoutes,
     loadout,
     updateCharacter,
     updateLoadout,
@@ -282,6 +300,25 @@ export const DataProvider: FunctionComponent = ({ children }) => {
     setSavedLoadouts,
     currentSavedLoadoutId,
   };
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(
+        "dataCache",
+        JSON.stringify({
+          character,
+          routes,
+          loadout,
+          playerData,
+          activeRoute,
+          activePlayer,
+          savedLoadouts,
+        })
+      );
+    } catch (e) {
+      console.log("[Local Storage Unavailable]", e);
+    }
+  }, [character, routes, loadout, playerData, activeRoute, activePlayer, savedLoadouts]);
 
   return <DataContext.Provider value={state as any}>{children}</DataContext.Provider>;
 };

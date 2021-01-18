@@ -56,7 +56,7 @@ export const PageComponent: React.FC<PageProps> = ({
           {title}
         </Header>
       </Segment>
-      <Container fluid style={{ borderTop: "0.5px ridge rgba(200, 200, 200, 1)" }}>
+      <Container style={{ borderTop: "0.5px groove  rgba(219, 40, 40, 1)" }}>
         <Dimmer active={!staticMenu && visible} onClick={() => toggleVisible()}></Dimmer>
 
         <div style={divStyle as any}>{children}</div>

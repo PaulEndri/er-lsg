@@ -147,7 +147,6 @@ class PlayerContent extends React.PureComponent<Props, State> {
       return (
         <PageComponent title="Eternal Return: Black Survival Test Subject Records">
           <Segment
-            color="yellow"
             inverted
             placeholder
             style={{
@@ -174,7 +173,6 @@ class PlayerContent extends React.PureComponent<Props, State> {
       return (
         <PageComponent title="Eternal Return: Black Survival Test Subject Records">
           <Segment
-            color="yellow"
             inverted
             placeholder
             style={{

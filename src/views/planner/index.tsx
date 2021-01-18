@@ -1,4 +1,4 @@
-import { Item, Weapons, Route as LoadoutRoute } from "erbs-sdk";
+import { Item, Weapons } from "erbs-sdk";
 import React, { useContext, useState, lazy, Suspense, createRef } from "react";
 import { Container, Menu, Dimmer, Loader, Grid, Ref } from "semantic-ui-react";
 import { Types } from "../../utilities/types";
@@ -35,7 +35,7 @@ export const loadoutMenu = [
 ];
 
 const PlannerView = () => {
-  const { loadout, character, setRoutes } = useContext(DataContext);
+  const { loadout, character, fetchRoutes } = useContext(DataContext);
   const { setItem } = useContext(ItemModalContext);
   const { massUpdate } = useContext(FilterContext);
   const [activeTab, setActiveTab] = useState(
@@ -62,11 +62,10 @@ const PlannerView = () => {
     }
   };
 
-  const generateRoute = () => {
+  const generateRoute = async () => {
     setLoading(true);
     try {
-      const route = new LoadoutRoute(loadout);
-      setRoutes(route.generate());
+      await fetchRoutes();
 
       setActiveTab(1);
       history.push("/planner/route");
