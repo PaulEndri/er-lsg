@@ -19,7 +19,7 @@ export const SidebarComponent: React.FC<SidebarProps> = ({
     <Menu
       style={{
         display: visible || staticMenu ? "block" : "none",
-        borderRadius: 0,
+
         height: "100%",
         position: "absolute",
         zIndex: 1001,

@@ -29,7 +29,6 @@ export const SectionComponent: React.FC<Props> = ({
         onClick={() => clickHandler(!showContent)}
         inverted
         style={{
-          borderRadius: 0,
           marginBottom: 0,
           border: 0,
           cursor: "pointer",

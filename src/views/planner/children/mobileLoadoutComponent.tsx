@@ -49,7 +49,7 @@ export const MobileLoadoutComponent: FunctionComponent = () => {
         marginTop: 0,
         marginRight: 0,
         padding: 0,
-        borderRadius: 0,
+
         width: "100%",
         display: "flex",
       }}

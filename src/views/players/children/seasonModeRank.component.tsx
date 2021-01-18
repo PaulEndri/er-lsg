@@ -22,7 +22,7 @@ export const SeasonModeRankComponent = ({ data }) => {
     <Segment.Group
       style={{
         border: 0,
-        borderRadius: 0,
+
         marginTop: 0,
         paddingTop: 0,
         background: "rgba(31, 29, 29, 0.2)",

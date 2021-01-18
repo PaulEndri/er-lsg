@@ -1,0 +1,31 @@
+/*******************************
+     User Global Variables
+*******************************/
+
+@pageBackground: #29282b;
+@defaultBorderRadius: 0;
+
+// #E8DDCB,#CDB380,#036564,#033649,#031634
+// beige, sand, teal, blue, darkblue
+/*
+@blue: #00A0B0;
+@orange: #EB6841;
+@yellow: #EDC951;
+@brown: #6A4A3C;
+@black: #333333;
+@red: #CC333F;
+@teal: #036564;
+@primaryColor: @blue;
+@secondaryColor: @black;
+
+*/
+
+@blue: #75694c;
+@orange: #5A6262;
+@yellow: #a58400;
+@brown: #6A4A3C;
+@black: #333333;
+@red: #CC333F;
+@teal: #E8B900;
+@primaryColor: @teal;
+@secondaryColor: @black;

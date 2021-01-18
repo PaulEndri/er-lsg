@@ -61,7 +61,7 @@ const HomeView = () => {
           </Header>
           <Header
             as={Link}
-            to="/planner"
+            to="/about"
             size="large"
             inverted
             className="fancy-hover"

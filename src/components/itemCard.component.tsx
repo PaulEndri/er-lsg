@@ -18,7 +18,6 @@ export const ItemCardComponent: FunctionComponent<ItemCardProps> = ({ item, show
   return (
     <Segment.Group
       style={{
-        borderRadius: 0,
         backgroundColor: "rgba(66, 64, 74, 0.2)",
       }}
     >
@@ -124,14 +123,7 @@ export const ItemCardComponent: FunctionComponent<ItemCardProps> = ({ item, show
         </React.Fragment>
       )}
       {!item && (
-        <Segment
-          attached="top"
-          basic
-          textAlign="center"
-          placeholder
-          inverted
-          style={{ borderRadius: 0, border: 0 }}
-        >
+        <Segment attached="top" basic textAlign="center" placeholder inverted style={{ border: 0 }}>
           No Item Selected
         </Segment>
       )}

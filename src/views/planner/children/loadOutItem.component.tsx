@@ -28,7 +28,7 @@ export const LoadOutItemComponent = ({ item, onClick, type }) => {
         style={{
           margin: 0,
           padding: 0,
-          borderRadius: 0,
+
           background: itemRarityBackground(item.rarity),
           border: "2px outset rgba(200, 200, 200, 0.5)",
         }}

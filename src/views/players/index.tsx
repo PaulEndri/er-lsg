@@ -132,7 +132,6 @@ class PlayerContent extends React.PureComponent<Props, State> {
               margin: 0,
               marginTop: 12,
               padding: 0,
-              borderRadius: 0,
             }}
           >
             <Dimmer active>
@@ -153,7 +152,6 @@ class PlayerContent extends React.PureComponent<Props, State> {
               margin: 0,
               marginTop: 12,
               padding: 0,
-              borderRadius: 0,
             }}
           >
             <Header size="huge">Player Unavailable</Header>
@@ -179,7 +177,6 @@ class PlayerContent extends React.PureComponent<Props, State> {
               margin: 0,
               marginTop: 12,
               padding: 0,
-              borderRadius: 0,
             }}
           >
             <Header size="huge">Player Data Missing</Header>
@@ -213,7 +210,6 @@ class PlayerContent extends React.PureComponent<Props, State> {
             margin: 0,
             marginTop: 12,
             padding: 0,
-            borderRadius: 0,
           }}
         >
           <Grid style={{ backgroundImage: BG_HALF }} centered>

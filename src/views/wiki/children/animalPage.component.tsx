@@ -27,7 +27,6 @@ const AnimalView: React.FC = ({ children }) => {
         secondary
         inverted
         style={{
-          borderRadius: 0,
           marginBottom: 0,
           justifyContent: "center",
         }}
@@ -43,7 +42,6 @@ const AnimalView: React.FC = ({ children }) => {
               }}
               color="red"
               style={{
-                borderRadius: 0,
                 paddingLeft: 0,
               }}
             >
@@ -67,10 +65,7 @@ export const AnimalLandingPage = () => {
         </Header>
       </Segment>
 
-      <Segment
-        style={{ marginTop: 0, borderRadius: 0, background: "transparent" }}
-        textAlign="center"
-      >
+      <Segment style={{ marginTop: 0, background: "transparent" }} textAlign="center">
         <Table selectable inverted striped collapsing style={{ margin: "auto", borderRadius: 0 }}>
           <Table.Header>
             <Table.HeaderCell>Name</Table.HeaderCell>
@@ -120,7 +115,7 @@ export const AnimalPage = () => {
           margin: 0,
           marginTop: 12,
           padding: 0,
-          borderRadius: 0,
+
           border: 0,
         }}
       >
@@ -186,7 +181,7 @@ export const AnimalPage = () => {
             style={{
               padding: "5rem",
               paddingTop: "10px",
-              borderRadius: 0,
+
               backgroundColor: "rgba(31, 29, 29, 0.9)",
               marginLeft: 0,
             }}

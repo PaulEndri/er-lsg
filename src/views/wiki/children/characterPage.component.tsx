@@ -80,7 +80,7 @@ const CharacterView: React.FC = ({ children }) => {
 
           {id && (
             <Button
-              style={{ width: "100%", borderRadius: 0, margin: 0 }}
+              style={{ width: "100%", margin: 0 }}
               compact={!minimized}
               onClick={() => setMinimized(!minimized)}
               color="red"
@@ -268,7 +268,6 @@ export const CharacterPage = () => {
           margin: 0,
           marginTop: 12,
           padding: 0,
-          borderRadius: 0,
         }}
       >
         <Grid style={{ backgroundImage: BG_THIRD }} centered>
@@ -331,7 +330,6 @@ export const CharacterPage = () => {
                   inverted: true,
                   attached: true,
                   style: {
-                    borderRadius: 0,
                     justifyContent: "center",
                     backgroundColor: "rgba(62, 58, 58, 1)",
                   },
@@ -360,7 +358,6 @@ export const CharacterLandingPage = () => {
 
               backgroundImage: BG_THIRD,
               marginTop: 0,
-              borderRadius: 0,
             }}
             textAlign="center"
           >

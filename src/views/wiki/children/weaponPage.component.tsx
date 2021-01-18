@@ -25,7 +25,6 @@ export const WeaponPage = () => {
         secondary
         inverted
         style={{
-          borderRadius: 0,
           marginBottom: 0,
           justifyContent: "center",
           flexWrap: "wrap",
@@ -39,9 +38,7 @@ export const WeaponPage = () => {
               history.push(`/wiki/weapons/${key}`);
             }}
             color="red"
-            style={{
-              borderRadius: 0,
-            }}
+            style={{}}
           >
             <div
               style={{
@@ -63,7 +60,6 @@ export const WeaponPage = () => {
             margin: 0,
             marginTop: 12,
             padding: 0,
-            borderRadius: 0,
           }}
         >
           <Grid centered>

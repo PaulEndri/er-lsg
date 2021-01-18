@@ -46,7 +46,6 @@ export const ItemSearchComponent: React.FC<Props> = ({
     <Grid centered>
       <Grid.Row
         style={{
-          borderRadius: 0,
           marginBottom: 0,
           paddingBottom: 0,
         }}
@@ -57,7 +56,6 @@ export const ItemSearchComponent: React.FC<Props> = ({
             fluid
             textAlign="center"
             style={{
-              borderRadius: 0,
               border: 0,
               padding: "1em",
               backgroundColor: "rgba(62, 58, 58, 1)",
@@ -72,7 +70,7 @@ export const ItemSearchComponent: React.FC<Props> = ({
         style={{
           padding: IS_DESKTOP ? "5rem" : "1rem",
           paddingTop: "10px",
-          borderRadius: 0,
+
           backgroundColor: "rgba(150, 145, 138, 0.1)",
           boxShadow: "0px 0px 1px 1px black",
           marginLeft: 0,

@@ -39,7 +39,6 @@ export const RouteCustomizerComponent: React.FC<Props> = ({
       <Segment
         style={{
           border: 0,
-          borderRadius: 0,
         }}
         raised
         inverted

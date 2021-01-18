@@ -16,7 +16,6 @@ export const ItemPage = () => {
         secondary
         inverted
         style={{
-          borderRadius: 0,
           marginBottom: 0,
           justifyContent: "center",
         }}

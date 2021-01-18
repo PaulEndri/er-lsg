@@ -31,7 +31,7 @@ const LayoutComponent = ({ children }: any) => {
           inverted
           style={{
             marginBottom: 0,
-            borderRadius: 0,
+
             padding: 0,
           }}
           raised={true}
@@ -43,7 +43,6 @@ const LayoutComponent = ({ children }: any) => {
               </Menu.Item>
             </IsMobile>
             <IsDesktop>
-              .
               <Menu.Item header as={Link} to="/">
                 <Image src={getImageSrc("icon")} size="mini" />
                 Surival Guide

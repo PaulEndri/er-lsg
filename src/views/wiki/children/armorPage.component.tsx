@@ -17,7 +17,6 @@ export const ArmorPage = () => {
         inverted
         secondary
         style={{
-          borderRadius: 0,
           marginBottom: 0,
           justifyContent: "center",
         }}

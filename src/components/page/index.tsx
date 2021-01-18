@@ -50,15 +50,12 @@ export const PageComponent: React.FC<PageProps> = ({
             marginBottom: 0,
             padding: 0,
             marginTop: 0,
-            borderRadius: 0,
 
             marginLeft: (IS_DESKTOP && visible) || staticMenu ? "150px" : "auto",
           }}
           onPressOut
         >
-          <Header as="h2" style={{ padding: "10px" }}>
-            {title}
-          </Header>
+          <Header style={{ padding: "10px" }}>{title}</Header>
         </Segment>
       ) : null}
       {sidebarItems && (
@@ -73,20 +70,25 @@ export const PageComponent: React.FC<PageProps> = ({
             style={{
               marginBottom: 0,
               padding: 0,
-              borderRadius: 0,
+
               marginTop: 0,
               marginLeft: (IS_DESKTOP && visible) || staticMenu ? "150px" : "auto",
             }}
             onPressOut
           >
-            <Menu style={{ borderRadius: 0, justifyContent: "center" }} color="teal" inverted>
+            <Menu style={{ justifyContent: "center" }} color="teal" inverted>
               {sidebarItems}
             </Menu>
           </Segment>
           {subMenu}
         </IsDesktop>
       )}
-      <Container style={{ marginTop: IS_DESKTOP && !fluid ? "2rem" : 0 }} fluid={fluid}>
+      <Container
+        style={{
+          minHeight: "80vh",
+        }}
+        fluid={fluid}
+      >
         <Dimmer active={!staticMenu && visible} onClick={() => toggleVisible()}></Dimmer>
 
         <div style={divStyle as any}>{children}</div>

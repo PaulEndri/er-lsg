@@ -196,7 +196,6 @@ const WikiView = () => {
                             key={wpn}
                             color="grey"
                             style={{
-                              borderRadius: 0,
                               marginRight: 0,
                               marginLeft: 0,
                               border: "1px solid rgba(255, 255, 255, 0.1)",
@@ -255,7 +254,6 @@ const WikiView = () => {
               </Grid.Row>
               <Grid.Row
                 style={{
-                  borderRadius: 0,
                   marginTop: "0px",
                   paddingTop: "0px",
                 }}
