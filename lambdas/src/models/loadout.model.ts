@@ -1,7 +1,7 @@
 import { Document, model, Model, Schema } from "mongoose";
 import { BasicLoadout } from "erbs-sdk/dist/types/loadout";
 import { RouteNode } from "erbs-sdk";
-
+import { v4 } from "uuid";
 export interface ISavedLoadout extends Document {
   name: string;
   id?: string;
@@ -28,6 +28,10 @@ const SavedLoadoutSchema: Schema<ISavedLoadout> = new Schema({
 
 SavedLoadoutSchema.pre("save", function (next) {
   const now = new Date();
+
+  if (!this.id) {
+    this.id = v4();
+  }
 
   if (!this.createdAt) {
     this.createdAt = now;

@@ -107,7 +107,7 @@ export const LoadoutPersistenceComponent = () => {
         )}
         <SimpleLoadoutLookup getLoadout={getLoadout} />
         <Segment basic style={{ borderRadius: 0 }} color="black" inverted secondary>
-          <Input fluid>
+          <Input fluid style={{ borderRadius: 0 }}>
             <Select
               fluid
               style={{ borderRadius: 0 }}
@@ -197,8 +197,12 @@ export const LoadoutPersistenceComponent = () => {
               />
             </>
           )}
-          <Input fluid type="text" placeholder="New Loadout Name">
-            <input value={newName} onChange={(e) => setNewName(e.target.value)} />
+          <Input fluid type="text" placeholder="New Loadout Name" style={{ borderRadius: 0 }}>
+            <input
+              value={newName}
+              onChange={(e) => setNewName(e.target.value)}
+              style={{ borderRadius: 0 }}
+            />
             <Button
               style={{ borderRadius: 0 }}
               color="green"
@@ -210,7 +214,7 @@ export const LoadoutPersistenceComponent = () => {
                   .finally(() => setLoading(false));
               }}
             >
-              Save New Loadout
+              Save
             </Button>
           </Input>
         </Segment>
