@@ -35,7 +35,7 @@ export const SelectionPaneComponent: React.FC<any> = ({ generateRoute, full = tr
   return (
     <Grid
       centered
-      style={{ height: "max-content", marginTop: 0, backgroundColor: "rgba(54, 50, 52, 0.5)" }}
+      style={{ height: "max-content", marginTop: 0, backgroundColor: "rgba(54, 52, 52, 0)" }}
     >
       {full && (
         <Grid.Row stretched>

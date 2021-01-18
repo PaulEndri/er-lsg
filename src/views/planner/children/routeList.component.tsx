@@ -36,17 +36,16 @@ export const RouteListComponent: React.FC<Props> = ({ root, setRoute, routes, mo
     );
   }
 
+  const activeRoutes = routes.filter((route) =>
+    tableFilters && tableFilters.length
+      ? tableFilters.every((f, i) => !f || route.traversed[i] === f)
+      : true
+  );
   const getPage = () => {
-    if (routes.length > 10) {
-      return routes
-        .filter((route) =>
-          tableFilters && tableFilters.length
-            ? tableFilters.every((f, i) => !f || route.traversed[i] === f)
-            : true
-        )
-        .slice(activePage * 10, activePage * 10 + 10);
+    if (activeRoutes.length > 10) {
+      return activeRoutes.slice(activePage * 10, activePage * 10 + 10);
     } else {
-      return routes;
+      return activeRoutes;
     }
   };
 
@@ -85,7 +84,7 @@ export const RouteListComponent: React.FC<Props> = ({ root, setRoute, routes, mo
       {routes.length > 10 && (
         <Pagination
           inverted
-          totalPages={Math.ceil(routes.length / 10)}
+          totalPages={Math.floor(activeRoutes.length / 10)}
           activePage={activePage + 1}
           onPageChange={(e, { activePage }) => updateActivePage(+activePage - 1)}
         />

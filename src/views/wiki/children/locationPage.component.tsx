@@ -49,7 +49,7 @@ const LocationView: React.FC = ({ children }) => {
             </Menu.Item>
           ))}
       </Menu>
-      {children}
+      <Container>{children}</Container>
     </Container>
   );
 };
@@ -74,8 +74,8 @@ export const LocationLandingPage = () => {
         </Header>
       </Segment>
 
-      <Segment style={{ marginTop: 0, borderRadius: 0 }} textAlign="center">
-        <Table selectable striped collapsing style={{ margin: "auto" }}>
+      <Segment inverted style={{ marginTop: 0, borderRadius: 0 }} textAlign="center">
+        <Table inverted selectable striped collapsing style={{ margin: "auto" }}>
           <Table.Header>
             <Table.HeaderCell>Name</Table.HeaderCell>
             <Table.HeaderCell>Wildlife</Table.HeaderCell>
@@ -91,12 +91,14 @@ export const LocationLandingPage = () => {
                   <Table.Cell>{locObject.name}</Table.Cell>
                   <Table.Cell>
                     {locObject.animals.map(({ name }, id) => (
-                      <Label key={id}>{`${name}`.replace(/([A-Z])/g, " $1").trim()}</Label>
+                      <Label color="grey" key={id}>
+                        {`${name}`.replace(/([A-Z])/g, " $1").trim()}
+                      </Label>
                     ))}
                   </Table.Cell>
                   <Table.Cell>
                     {locObject.drops.map(({ name, id, quantity }) => (
-                      <Label key={id}>
+                      <Label color="grey" key={id}>
                         {`${name}`.replace(/([A-Z])/g, " $1").trim()}
                         <Label.Detail>{quantity}</Label.Detail>
                       </Label>

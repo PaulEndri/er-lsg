@@ -97,7 +97,7 @@ export const ItemCardComponent: FunctionComponent<ItemCardProps> = ({ item, show
           )}
 
           {item.materials && showReqs && Object.entries(item.materials).length > 0 && (
-            <Segment inverted style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }} basic>
+            <Segment inverted style={{ backgroundColor: "transparent" }} basic>
               <Label style={{ width: "100%", textAlign: "center" }} color="red">
                 Total Material Requirements
               </Label>

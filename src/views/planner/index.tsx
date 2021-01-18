@@ -1,6 +1,6 @@
 import { Item, Weapons } from "erbs-sdk";
 import React, { useContext, useState, lazy, Suspense, createRef } from "react";
-import { Container, Menu, Dimmer, Loader, Grid, Ref } from "semantic-ui-react";
+import { Container, Menu, Dimmer, Loader, Grid, Ref, Rail } from "semantic-ui-react";
 import { Types } from "../../utilities/types";
 import { PageComponent } from "../../components/page";
 import { DataContext } from "../../state/data";
@@ -93,18 +93,9 @@ const PlannerView = () => {
     <>
       <PageComponent
         title="Eternal Return: Black Survival Route & Loadout Planner"
-        sidebarTitle={IS_DESKTOP ? "Loadout" : ""}
-        staticMenu={IS_DESKTOP}
-        sidebarItems={
-          IS_DESKTOP ? (
-            <SidebarContents
-              loadout={loadout}
-              selectedCharacter={character}
-              onLoadoutItemClick={onLoadoutItemClick}
-              generateRoute={generateRoute}
-            />
-          ) : null
-        }
+        sidebarTitle={IS_DESKTOP ? "" : ""}
+        staticMenu={false}
+        sidebarItems={null}
       >
         <Ref innerRef={contextRef}>
           <Container fluid>
@@ -160,6 +151,14 @@ const PlannerView = () => {
                 Crafting
               </Menu.Item>
             </Menu>
+            <Rail position="left">
+              <SidebarContents
+                loadout={loadout}
+                selectedCharacter={character}
+                onLoadoutItemClick={onLoadoutItemClick}
+                generateRoute={generateRoute}
+              />
+            </Rail>
             <Container fluid>
               <Suspense
                 fallback={

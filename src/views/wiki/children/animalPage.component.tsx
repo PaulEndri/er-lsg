@@ -51,7 +51,7 @@ const AnimalView: React.FC = ({ children }) => {
             </Menu.Item>
           ))}
       </Menu>
-      {children}
+      <Container>{children}</Container>
     </Container>
   );
 };
@@ -83,7 +83,7 @@ export const AnimalLandingPage = () => {
                 <Table.Cell>{aniObject.displayName}</Table.Cell>
                 <Table.Cell>
                   {Object.entries(aniObject.locations).map(([name, quantity], id) => (
-                    <Label key={id} content={name} detail={quantity} />
+                    <Label color="grey" key={id} content={name} detail={quantity} />
                   ))}
                 </Table.Cell>
                 <Table.Cell>
