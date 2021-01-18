@@ -209,6 +209,7 @@ class PlayerContent extends React.PureComponent<Props, State> {
                 marginTop: "2em",
                 borderBottom: "1px groove",
                 borderTop: "1px groove",
+                backgroudnColor: "rgba(125, 120, 120, 0.5)",
               }}
               centered
             >
@@ -250,7 +251,10 @@ class PlayerContent extends React.PureComponent<Props, State> {
                 </div>
               </Grid.Column>
               <Grid.Column width={IS_MOBILE ? 7 : 6}>
-                <Segment compact style={{ alignSelf: "end", marginTop: "2.5em" }}>
+                <Segment
+                  compact
+                  style={{ alignSelf: "end", marginTop: "2.5em", background: "transparent" }}
+                >
                   <Dropdown
                     value={activeSeason}
                     compact
@@ -269,6 +273,7 @@ class PlayerContent extends React.PureComponent<Props, State> {
                     paddingTop: 0,
                     borderTop: 0,
                     width: "100%",
+                    background: "transparent",
                   }}
                 >
                   <Tab

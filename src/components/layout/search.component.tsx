@@ -51,7 +51,7 @@ export const SearchComponent = () => {
         disabled={loading}
         loading={loading}
         error={error}
-        style={{ margin: "auto", paddingRight: "25%" }}
+        style={{ margin: "auto" }}
         onChange={(e) => {
           updateSearch(e.target.value);
         }}

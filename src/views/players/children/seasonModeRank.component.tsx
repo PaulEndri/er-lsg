@@ -26,7 +26,7 @@ export const SeasonModeRankComponent = ({ data }) => {
         paddingTop: 0,
       }}
     >
-      <Segment basic style={{ display: "flex" }}>
+      <Segment basic style={{ display: "flex", background: "transparent" }}>
         <Grid>
           <Grid.Row
             stretched
@@ -131,7 +131,7 @@ export const SeasonModeRankComponent = ({ data }) => {
           </Grid.Row>
         </Grid>
       </Segment>
-      <Segment basic>
+      <Segment basic style={{ background: "transparent" }}>
         <Item.Group>
           {data.characterStats.map((charStat, i) => {
             const character = new Character(charStat.characterCode);
@@ -139,7 +139,7 @@ export const SeasonModeRankComponent = ({ data }) => {
               <Item
                 style={{
                   padding: "10px",
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  backgroundColor: "rgba(32, 30, 30, 0.8)",
                   marginTop: "10px",
                 }}
               >
