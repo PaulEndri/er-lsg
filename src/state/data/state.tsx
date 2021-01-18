@@ -22,7 +22,7 @@ export const generateEmptyDetail = (val = null) => ({
   completed: [],
 });
 
-const defaultCharacter = Math.floor((Math.random() * Object.keys(Characters).length) / 2);
+const defaultCharacter = Math.ceil((Math.random() * Object.keys(Characters).length) / 2);
 
 let defaultStateValues = {
   loadout: Loadout.GenerateLoadout(initialLoadout),
