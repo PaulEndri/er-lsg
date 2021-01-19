@@ -83,7 +83,7 @@ export const RouteListComponent: React.FC<Props> = ({ root, setRoute, routes, mo
     <>
       {routes.length > 10 && (
         <Pagination
-          inverted={true}
+          inverted
           totalPages={Math.floor(activeRoutes.length / 10)}
           activePage={activePage + 1}
           onPageChange={(e, { activePage }) => updateActivePage(+activePage - 1)}

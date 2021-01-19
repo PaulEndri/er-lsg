@@ -72,8 +72,8 @@ export const LocationLandingPage = () => {
         </Header>
       </Segment>
 
-      <Segment inverted={true} style={{ marginTop: 0, borderRadius: 0 }} textAlign="center">
-        <Table inverted={true} selectable striped collapsing style={{ margin: "auto" }}>
+      <Segment inverted style={{ marginTop: 0, borderRadius: 0 }} textAlign="center">
+        <Table inverted selectable striped collapsing style={{ margin: "auto" }}>
           <Table.Header>
             <Table.HeaderCell>Name</Table.HeaderCell>
             <Table.HeaderCell>Wildlife</Table.HeaderCell>

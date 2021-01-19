@@ -96,7 +96,7 @@ export const ItemCardComponent: FunctionComponent<ItemCardProps> = ({ item, show
           )}
 
           {item.materials && showReqs && Object.entries(item.materials).length > 0 && (
-            <Segment inverted={true} style={{ backgroundColor: "transparent" }} basic>
+            <Segment inverted style={{ backgroundColor: "transparent" }} basic>
               <Label style={{ width: "100%", textAlign: "center" }} color="red">
                 Total Material Requirements
               </Label>
@@ -123,14 +123,7 @@ export const ItemCardComponent: FunctionComponent<ItemCardProps> = ({ item, show
         </React.Fragment>
       )}
       {!item && (
-        <Segment
-          attached="top"
-          basic
-          textAlign="center"
-          placeholder
-          inverted={true}
-          style={{ border: 0 }}
-        >
+        <Segment attached="top" basic textAlign="center" placeholder inverted style={{ border: 0 }}>
           No Item Selected
         </Segment>
       )}

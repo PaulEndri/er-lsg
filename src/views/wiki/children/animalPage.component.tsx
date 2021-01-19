@@ -66,13 +66,7 @@ export const AnimalLandingPage = () => {
       </Segment>
 
       <Segment style={{ marginTop: 0, background: "transparent" }} textAlign="center">
-        <Table
-          selectable
-          inverted={true}
-          striped
-          collapsing
-          style={{ margin: "auto", borderRadius: 0 }}
-        >
+        <Table selectable inverted striped collapsing style={{ margin: "auto", borderRadius: 0 }}>
           <Table.Header>
             <Table.HeaderCell>Name</Table.HeaderCell>
             <Table.HeaderCell>Locations</Table.HeaderCell>

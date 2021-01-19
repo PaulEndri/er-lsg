@@ -72,7 +72,7 @@ export const ItemModalComponent = () => {
           <div style={{ maxWidth: "450px", margin: "auto" }}>
             <Segment
               color="black"
-              inverted={true}
+              inverted
               style={{ marginTop: 0, paddingLeft: 0, paddingRight: 0 }}
             >
               {itemHistory && itemHistory.length > 0 && (

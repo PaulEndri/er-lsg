@@ -54,7 +54,7 @@ export const WeaponPage = () => {
       <Container>
         {id && (
           <Segment
-            inverted={true}
+            inverted
             style={{
               margin: 0,
               marginTop: 12,
@@ -94,7 +94,7 @@ export const WeaponPage = () => {
                         tablet={3}
                         textAlign="center"
                       >
-                        <Header inverted={true} textAlign="center">
+                        <Header inverted textAlign="center">
                           {weaponType.name}
                         </Header>
                       </Grid.Column>
@@ -126,7 +126,7 @@ export const WeaponPage = () => {
                         centered
                       >
                         <Grid.Column width={16} textAlign="center">
-                          <Header inverted={true} as="h1">
+                          <Header inverted as="h1">
                             {weaponType.abilityDetails.name.replace(/_/g, " ")}
                           </Header>
                         </Grid.Column>
@@ -138,7 +138,7 @@ export const WeaponPage = () => {
                             size={"mini"}
                             widths="three"
                             color="red"
-                            inverted={true}
+                            inverted
                             items={weaponType.abilityDetails.info.map(({ title, value }) => ({
                               key: title,
                               value,
@@ -158,14 +158,8 @@ export const WeaponPage = () => {
                 centered
               >
                 <Grid.Column width={16}>
-                  <Segment
-                    style={{ borderRadius: 0 }}
-                    textAlign="center"
-                    secondary
-                    raised
-                    inverted={true}
-                  >
-                    <Header inverted={true}>Weapon Options</Header>
+                  <Segment style={{ borderRadius: 0 }} textAlign="center" secondary raised inverted>
+                    <Header inverted>Weapon Options</Header>
                   </Segment>
                 </Grid.Column>
                 {selectedItem && (

@@ -1,8 +1,7 @@
 import { Character } from "erbs-sdk";
 import React from "react";
-import { Segment, Grid, Header, Statistic, Item, Progress } from "semantic-ui-react";
+import { Segment, Grid, Header, Statistic, Progress } from "semantic-ui-react";
 import { CharacterPortrait } from "../../../components/characterPortrait.component";
-import { IS_MOBILE } from "../../../components/isMobile";
 import { getRankLabel, RankComponent } from "../../../components/rank.component";
 import { WinRateChartComponent } from "./winRateChart.component";
 
