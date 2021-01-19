@@ -3,6 +3,7 @@ import { IPlayer } from "../../utilities/player";
 import { ISavedLoadout } from "../../utilities/savedLoadout";
 
 import { ActiveRouteDetail } from "../../utilities/activeRouteDetail";
+import { DefaultPlayerData } from "../../utilities/playerData";
 
 setStaticCache();
 
@@ -29,7 +30,7 @@ let defaultStateValues = {
   character: new Character(defaultCharacter),
   routes: null,
   activeRoute: new Array(5).fill(generateEmptyDetail()) as ActiveRouteDetail[],
-  playerData: {} as Record<number, IPlayer>,
+  playerData: { 749761: DefaultPlayerData as any } as Record<number, IPlayer>,
   activePlayer: null as IPlayer,
   savedLoadouts: [] as ISavedLoadout[],
 };

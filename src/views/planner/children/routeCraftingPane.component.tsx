@@ -68,9 +68,9 @@ export const RouteCraftingPaneComponent: React.FC = () => {
     <Grid centered style={{ marginTop: 0 }}>
       <Grid.Row stretched>
         <Grid.Column width={15}>
-          <Segment style={{ borderRadius: 0 }} inverted color="black" raised stacked padded>
+          <Segment style={{ borderRadius: 0 }} inverted={true} color="black" raised stacked padded>
             <p>
-              <Header inverted>Route Crafter</Header>
+              <Header inverted={true}>Route Crafter</Header>
               Below you will find a personalized route crafter. Starting with the left most option,
               select your desired starting location and from there you will be able to only select
               connecting areas next. With area you will see all items that are craftable in that

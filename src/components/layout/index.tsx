@@ -28,7 +28,7 @@ const LayoutComponent = ({ children }: any) => {
     <div ref={el}>
       <Container fluid style={{ margin: "0px" }}>
         <Segment
-          inverted
+          inverted={true}
           style={{
             marginBottom: 0,
 

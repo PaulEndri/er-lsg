@@ -27,7 +27,7 @@ export const SectionComponent: React.FC<Props> = ({
         color="black"
         basic
         onClick={() => clickHandler(!showContent)}
-        inverted
+        inverted={true}
         style={{
           marginBottom: 0,
           border: 0,
@@ -37,7 +37,7 @@ export const SectionComponent: React.FC<Props> = ({
         }}
       >
         <Icon name={!showContent ? "plus square outline" : "minus square outline"} />
-        <h3 className="header inverted" style={{ display: "inline", paddingLeft: "8px" }}>
+        <h3 className="header inverted={true}" style={{ display: "inline", paddingLeft: "8px" }}>
           {title}
         </h3>
       </Segment>

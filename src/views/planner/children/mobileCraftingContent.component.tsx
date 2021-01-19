@@ -27,7 +27,14 @@ export const MobileCraftingContentComponent = ({
         {!route ||
           (!route.location && (
             <Grid.Column width={14} key={index}>
-              <Segment raised placeholder textAlign={"center"} color="black" inverted secondary>
+              <Segment
+                raised
+                placeholder
+                textAlign={"center"}
+                color="black"
+                inverted={true}
+                secondary
+              >
                 Select a location above
               </Segment>
             </Grid.Column>

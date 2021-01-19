@@ -42,7 +42,7 @@ export const MobileLoadoutComponent: FunctionComponent = () => {
   return (
     <Segment
       attached="bottom"
-      inverted
+      inverted={true}
       color="black"
       secondary
       style={{

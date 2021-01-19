@@ -34,7 +34,13 @@ const SimpleLoadoutLookup = ({ getLoadout }) => {
   };
 
   return (
-    <Segment basic style={{ borderRadius: 0 }} color={error ? "red" : "black"} inverted secondary>
+    <Segment
+      basic
+      style={{ borderRadius: 0 }}
+      color={error ? "red" : "black"}
+      inverted={true}
+      secondary
+    >
       {error && <Label color="red">{error}</Label>}
       <Form onSubmit={handleSubmit}>
         <Form.Field>
@@ -97,16 +103,16 @@ export const LoadoutPersistenceComponent = () => {
   return (
     <>
       <Segment.Group>
-        <Segment textAlign="center" basic inverted style={{ padding: 8, margin: 0 }}>
+        <Segment textAlign="center" basic inverted={true} style={{ padding: 8, margin: 0 }}>
           <Header>Loadout Management</Header>
         </Segment>
         {error && (
-          <Segment basic style={{ borderRadius: 0 }} color="red" inverted>
+          <Segment basic style={{ borderRadius: 0 }} color="red" inverted={true}>
             {error}
           </Segment>
         )}
         <SimpleLoadoutLookup getLoadout={getLoadout} />
-        <Segment basic style={{ borderRadius: 0 }} color="black" inverted secondary>
+        <Segment basic style={{ borderRadius: 0 }} color="black" inverted={true} secondary>
           <Input fluid style={{ borderRadius: 0 }}>
             <Select
               fluid
@@ -134,7 +140,7 @@ export const LoadoutPersistenceComponent = () => {
             </Button>
           </Input>
         </Segment>
-        <Segment basic style={{ borderRadius: 0 }} color="black" inverted secondary>
+        <Segment basic style={{ borderRadius: 0 }} color="black" inverted={true} secondary>
           {context.currentSavedLoadoutId && (
             <>
               <div>

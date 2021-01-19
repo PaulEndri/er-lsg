@@ -25,7 +25,7 @@ const AnimalView: React.FC = ({ children }) => {
         className="attached"
         color="red"
         secondary
-        inverted
+        inverted={true}
         style={{
           marginBottom: 0,
           justifyContent: "center",
@@ -59,8 +59,8 @@ export const AnimalLandingPage = () => {
 
   return (
     <AnimalView>
-      <Segment style={{ margin: 0, borderRadius: 0 }} color="orange" inverted>
-        <Header inverted size="large">
+      <Segment style={{ margin: 0, borderRadius: 0 }} color="orange" inverted={true}>
+        <Header inverted={true} size="large">
           Lumia Island Wild Life Catalog
         </Header>
       </Segment>
@@ -110,7 +110,7 @@ export const AnimalPage = () => {
     <AnimalView>
       <Segment
         color="black"
-        inverted
+        inverted={true}
         style={{
           margin: 0,
           marginTop: 12,
@@ -134,7 +134,7 @@ export const AnimalPage = () => {
             centered
           >
             <Grid.Column width={16} color="orange">
-              <Header inverted textAlign="center">
+              <Header inverted={true} textAlign="center">
                 {id}
               </Header>
             </Grid.Column>
@@ -152,7 +152,7 @@ export const AnimalPage = () => {
           </Grid.Row>
           <Grid.Row centered style={{ backgroundColor: "rgba(10, 0, 0, 0.5)" }}>
             <Grid.Column width={16} textAlign="center">
-              <Header inverted textAlign="center">
+              <Header inverted={true} textAlign="center">
                 Known Habitats
               </Header>
 
@@ -172,7 +172,7 @@ export const AnimalPage = () => {
           </Grid.Row>
 
           <Grid.Column width={16} style={{ borderTop: "1px solid white" }}>
-            <Header inverted textAlign="center">
+            <Header inverted={true} textAlign="center">
               Drops
             </Header>
           </Grid.Column>

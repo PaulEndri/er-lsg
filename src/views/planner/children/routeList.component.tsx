@@ -26,7 +26,7 @@ export const RouteListComponent: React.FC<Props> = ({ root, setRoute, routes, mo
 
   if (!routes || routes.length === 0) {
     return (
-      <Segment color="red" inverted style={{ borderRadius: 0 }}>
+      <Segment color="red" inverted={true} style={{ borderRadius: 0 }}>
         <Header>No Routes Found</Header>
         <div>
           This means either the loadout isn't complete (Hint: Make sure you have all six items) or
@@ -89,7 +89,7 @@ export const RouteListComponent: React.FC<Props> = ({ root, setRoute, routes, mo
           onPageChange={(e, { activePage }) => updateActivePage(+activePage - 1)}
         />
       )}
-      <Table inverted celled striped collapsing style={{ margin: "auto" }}>
+      <Table inverted={true} celled striped collapsing style={{ margin: "auto" }}>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell colSpan="6" textAlign="center">

@@ -26,7 +26,7 @@ export const SidebarComponent: React.FC<SidebarProps> = ({
         maxWidth: "150px",
       }}
       animation="overlay"
-      inverted
+      inverted={true}
       vertical
     >
       <IsMobile>
@@ -44,7 +44,7 @@ export const SidebarComponent: React.FC<SidebarProps> = ({
         </Menu.Item>
       </IsMobile>
       <Menu.Header style={{ padding: "10px" }}>
-        <Header as="h2" color="black" inverted>
+        <Header as="h2" color="black" inverted={true}>
           {title}
         </Header>
       </Menu.Header>

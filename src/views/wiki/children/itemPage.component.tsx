@@ -14,7 +14,7 @@ export const ItemPage = () => {
         className="attached"
         color="red"
         secondary
-        inverted
+        inverted={true}
         style={{
           marginBottom: 0,
           justifyContent: "center",

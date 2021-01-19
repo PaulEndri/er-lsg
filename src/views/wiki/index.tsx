@@ -57,7 +57,7 @@ const HpHeader = ({ content, path }) => {
         borderBottom: `2px inset ${color}`,
       }}
     >
-      <Header size="large" inverted>
+      <Header size="large" inverted={true}>
         {content}
       </Header>
     </div>

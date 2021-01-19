@@ -32,7 +32,14 @@ export const DesktopCraftingContentComponent = ({
         if (!selectedRoute || !selectedRoute.location) {
           return (
             <Grid.Column width={IS_MOBILE ? 12 : 3} key={index}>
-              <Segment raised placeholder textAlign={"center"} color="black" inverted secondary>
+              <Segment
+                raised
+                placeholder
+                textAlign={"center"}
+                color="black"
+                inverted={true}
+                secondary
+              >
                 Select a location above
               </Segment>
             </Grid.Column>

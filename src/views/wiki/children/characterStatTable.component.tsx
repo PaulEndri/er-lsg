@@ -23,7 +23,7 @@ export const CharacterStatTable: FunctionComponent<CharacterStatTableProps> = ({
       compact
       structured
       striped
-      inverted
+      inverted={true}
       style={{ borderRadius: 0 }}
       unstackable
     >

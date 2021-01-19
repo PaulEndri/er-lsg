@@ -210,10 +210,10 @@ export const SelectionPaneComponent: React.FC<any> = () => {
               />
             </Segment> */}
 
-            <Segment basic inverted style={{ padding: 8, margin: 0 }}>
+            <Segment basic inverted={true} style={{ padding: 8, margin: 0 }}>
               <Header>Loadout Stats</Header>{" "}
             </Segment>
-            <Segment raised color="black" inverted secondary>
+            <Segment raised color="black" inverted={true} secondary>
               <LoadoutStats loadout={loadout} />
             </Segment>
           </Segment.Group>

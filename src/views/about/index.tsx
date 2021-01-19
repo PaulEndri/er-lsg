@@ -8,26 +8,26 @@ const AboutView = () => {
     <PageComponent title="Eternal Return Lumia Survival Guide">
       <Container textAlign="center">
         <Segment.Group style={{ marginTop: "2em" }}>
-          <Segment color="black" inverted style={{ borderRadius: 0 }}>
+          <Segment color="black" inverted={true} style={{ borderRadius: 0 }}>
             <Header>About the App</Header>
             <p>
               This app is meant to be a free tool for players of Eternal Return: Black Survival to
               treat as one stop shop for all their information and theory crafting needs.
             </p>
           </Segment>
-          <Segment color="black" inverted style={{ borderRadius: 0 }}>
+          <Segment color="black" inverted={true} style={{ borderRadius: 0 }}>
             <Segment.Group horizontal={IS_DESKTOP} style={{ border: 0, background: "transparent" }}>
               <Segment
                 textAlign="center"
                 basic
-                inverted
+                inverted={true}
                 vertical
                 style={{ maxWidth: "250px", margin: "auto" }}
               >
-                <Header inverted>Thanks To</Header>
+                <Header inverted={true}>Thanks To</Header>
                 <p>This app could not have been made without the following tools</p>
                 <List
-                  inverted
+                  inverted={true}
                   items={[
                     <a style={{ display: "block" }} href="https://playeternalreturn.com/">
                       Eternal Return: Black Surival
@@ -52,13 +52,13 @@ const AboutView = () => {
                 />
               </Segment>
               <Segment
-                inverted
+                inverted={true}
                 basic
                 compact
                 textAlign="center"
                 style={{ maxWidth: "350px", margin: "auto" }}
               >
-                <Header inverted size="large">
+                <Header inverted={true} size="large">
                   <Icon size="huge" name="discord" /> Discord Bot
                 </Header>
                 <p>
@@ -75,11 +75,11 @@ const AboutView = () => {
                   Click here for Wickeline!
                 </Button>
               </Segment>
-              <Segment inverted>
-                <Header inverted>Roadmap</Header>
+              <Segment inverted={true}>
+                <Header inverted={true}>Roadmap</Header>
                 <a href="https://trello.com/b/Ysa0kgGf/erlsg">Official ER:LSG Roadmap</a>
               </Segment>
-              <Segment color="black" inverted style={{ borderRadius: 0 }}>
+              <Segment color="black" inverted={true} style={{ borderRadius: 0 }}>
                 <Header>Found a bug?</Header>
                 <p>
                   Feel free to send an email to{" "}
@@ -88,8 +88,8 @@ const AboutView = () => {
                 </p>
               </Segment>
             </Segment.Group>
-            <Segment inverted color="black" textAlign="center">
-              <Header inverted>Appreciate the work?</Header>
+            <Segment inverted={true} color="black" textAlign="center">
+              <Header inverted={true}>Appreciate the work?</Header>
               <p style={{ width: "300px", margin: "auto" }}>
                 If you appreciate the site and want to say thanks or want to help out, you can feel
                 free to to donate using any of the following ways. All donations will go towards

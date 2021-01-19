@@ -25,7 +25,7 @@ const LocationView: React.FC = ({ children }) => {
       <Menu
         className="attached"
         color="red"
-        inverted
+        inverted={true}
         secondary
         style={{
           marginBottom: 0,
@@ -57,8 +57,8 @@ export const LocationLandingPage = () => {
 
   return (
     <LocationView>
-      <Segment style={{ margin: 0, borderRadius: 0 }} color="orange" inverted>
-        <Header inverted size="large">
+      <Segment style={{ margin: 0, borderRadius: 0 }} color="orange" inverted={true}>
+        <Header inverted={true} size="large">
           Lumia Island
         </Header>
       </Segment>
@@ -66,8 +66,8 @@ export const LocationLandingPage = () => {
         <MapComponent onClick={(e) => history.push(`/wiki/locations/${e}`)} />
       </Segment>
 
-      <Segment style={{ margin: 0, borderRadius: 0 }} color="orange" inverted>
-        <Header inverted size="large">
+      <Segment style={{ margin: 0, borderRadius: 0 }} color="orange" inverted={true}>
+        <Header inverted={true} size="large">
           Information
         </Header>
       </Segment>
@@ -123,7 +123,7 @@ export const LocationPage = () => {
       <Segment
         color="black"
         fluid
-        inverted
+        inverted={true}
         style={{
           margin: 0,
           marginTop: 12,
@@ -147,14 +147,14 @@ export const LocationPage = () => {
             centered
           >
             <Grid.Column width={16} color="orange">
-              <Header inverted textAlign="center">
+              <Header inverted={true} textAlign="center">
                 {id}
               </Header>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row centered style={{ backgroundColor: "rgba(10, 0, 0, 0.5)" }}>
             <Grid.Column width={16} textAlign="center">
-              <Header inverted textAlign="center">
+              <Header inverted={true} textAlign="center">
                 Connections
               </Header>
 
@@ -193,7 +193,7 @@ export const LocationPage = () => {
             centered
           >
             <Grid.Column width={16} textAlign="center" style={{ paddingBottom: "8px" }}>
-              <Header inverted>Wild Life Catalog</Header>
+              <Header inverted={true}>Wild Life Catalog</Header>
             </Grid.Column>
             {location.animals.map(({ name, id }) => (
               <Grid.Column width={3} key={id}>

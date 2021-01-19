@@ -34,7 +34,7 @@ export const ItemCardComponent: FunctionComponent<ItemCardProps> = ({ item, show
             />
             <Segment
               basic
-              inverted
+              inverted={true}
               raised
               style={{
                 // backgroundColor: '#877e8a',
@@ -53,7 +53,7 @@ export const ItemCardComponent: FunctionComponent<ItemCardProps> = ({ item, show
             <div style={{ color: "white", fontStyle: "italic" }}>{item.description}</div>
           </Segment>
           {item.stats && Object.keys(item.stats).length > 0 && (
-            <Segment inverted raised style={{ backgroundColor: "transparent" }}>
+            <Segment inverted={true} raised style={{ backgroundColor: "transparent" }}>
               <Header>Stats</Header>
               <List
                 items={Object.entries(item.stats).map(([name, val]: any) =>
@@ -63,7 +63,7 @@ export const ItemCardComponent: FunctionComponent<ItemCardProps> = ({ item, show
             </Segment>
           )}
           {item.buildsFrom && item.buildsFrom.length > 0 && (
-            <Segment inverted style={{ backgroundColor: "transparent" }}>
+            <Segment inverted={true} style={{ backgroundColor: "transparent" }}>
               <Header>Built From</Header>
               {item.buildsFrom.map(({ name, id }, idx) => (
                 <ItemModalButton key={`${name}${id}`} id={id} />
@@ -71,7 +71,7 @@ export const ItemCardComponent: FunctionComponent<ItemCardProps> = ({ item, show
             </Segment>
           )}
           {item.buildsInto && Object.entries(item.buildsInto).length > 0 && (
-            <Segment inverted style={{ backgroundColor: "transparent" }}>
+            <Segment inverted={true} style={{ backgroundColor: "transparent" }}>
               <Header>Builds Into</Header>
               {item.buildsInto.map((item, idx) => (
                 <ItemModalButton key={item.id} id={item.id} />
@@ -79,16 +79,16 @@ export const ItemCardComponent: FunctionComponent<ItemCardProps> = ({ item, show
             </Segment>
           )}
           {item.locations && Object.keys(item.locations).length > 0 && (
-            <Segment inverted style={{ backgroundColor: "transparent" }}>
-              <Header inverted>Found In</Header>
+            <Segment inverted={true} style={{ backgroundColor: "transparent" }}>
+              <Header inverted={true}>Found In</Header>
               {Object.entries(item.locations).map(([location, value]) => (
                 <Label key={location} detail={value} content={location} color="yellow" />
               ))}
             </Segment>
           )}
           {item.droppedFrom && item.droppedFrom.length > 0 && (
-            <Segment inverted style={{ backgroundColor: "transparent" }}>
-              <Header inverted>Dropped From</Header>
+            <Segment inverted={true} style={{ backgroundColor: "transparent" }}>
+              <Header inverted={true}>Dropped From</Header>
               {item.droppedFrom.map(({ name }) => (
                 <Label key={name} content={name} color="red" />
               ))}

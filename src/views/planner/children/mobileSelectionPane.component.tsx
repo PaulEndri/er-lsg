@@ -38,9 +38,16 @@ export const MobileSelectionPaneComponent: React.FC<any> = ({ generateRoute, ful
       {full && (
         <Grid.Row stretched>
           <Grid.Column width={14}>
-            <Segment style={{ borderRadius: 0 }} inverted color="black" raised stacked padded>
+            <Segment
+              style={{ borderRadius: 0 }}
+              inverted={true}
+              color="black"
+              raised
+              stacked
+              padded
+            >
               <p>
-                <Header inverted>Equipment/Loadout Selection</Header>
+                <Header inverted={true}>Equipment/Loadout Selection</Header>
                 Select your desired character and equipment below than either generate a route
                 automatically or proceed with
                 <Link to="/planner/craft"> creating your own route.</Link> For automatic route
