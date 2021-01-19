@@ -38,7 +38,7 @@ export const RouteCraftingColumnComponent: React.FC<RouteCraftingComponentProps>
       <Segment
         style={{ padding: 0, backgroundColor: "rgba(29, 25, 25, 1)" }}
         textAlign="center"
-        inverted
+        inverted={true}
         raised
       >
         <div style={{ position: "relative" }}>
@@ -47,7 +47,7 @@ export const RouteCraftingColumnComponent: React.FC<RouteCraftingComponentProps>
             width={"100%"}
           />
           <Segment
-            inverted
+            inverted={true}
             style={{
               margin: 0,
               position: "absolute",
@@ -56,13 +56,13 @@ export const RouteCraftingColumnComponent: React.FC<RouteCraftingComponentProps>
               background: `linear-gradient(180deg,rgba(245, 196, 102, 1) 0%, rgba(195, 146, 52, 0.6) 40%,rgba(245, 196, 102, 0) 90%)`,
             }}
           >
-            <Header inverted>{location.name}</Header>
+            <Header inverted={true}>{location.name}</Header>
           </Segment>
         </div>
 
         {completed && completed.length > 0 && (
           <>
-            <Header inverted style={{ margin: "1rem" }}>
+            <Header inverted={true} style={{ margin: "1rem" }}>
               Loadout Items Completed
             </Header>
             {completed.map((item) => (
@@ -71,7 +71,7 @@ export const RouteCraftingColumnComponent: React.FC<RouteCraftingComponentProps>
           </>
         )}
 
-        <Header inverted style={{ margin: "1rem" }}>
+        <Header inverted={true} style={{ margin: "1rem" }}>
           Items Craftable
         </Header>
         {Object.entries<Item[]>(craftableSets).map(([name, entries], idx) => (

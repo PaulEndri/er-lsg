@@ -155,7 +155,7 @@ const PlannerView = () => {
                 className="attached"
                 color="red"
                 attached="top"
-                inverted
+                inverted={true}
                 style={{
                   marginBottom: 0,
                   justifyContent: "center",

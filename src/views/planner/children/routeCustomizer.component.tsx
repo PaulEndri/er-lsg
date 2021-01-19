@@ -41,16 +41,16 @@ export const RouteCustomizerComponent: React.FC<Props> = ({
           border: 0,
         }}
         raised
-        inverted
+        inverted={true}
         color="black"
         textAlign="center"
       >
         <Header>Customization</Header>
       </Segment>
-      <Segment basic inverted style={{ margin: 0, background: "transparent" }}>
+      <Segment basic inverted={true} style={{ margin: 0, background: "transparent" }}>
         <Header style={{ textAlign: "center" }}>Equipment Importance</Header>
         <Form
-          inverted
+          inverted={true}
           style={{
             display: "flex",
             flexFlow: "wrap column",

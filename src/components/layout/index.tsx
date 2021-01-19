@@ -28,7 +28,7 @@ const LayoutComponent = ({ children }: any) => {
     <div ref={el}>
       <Container fluid style={{ margin: "0px" }}>
         <Segment
-          inverted
+          inverted={true}
           style={{
             marginBottom: 0,
 
@@ -36,7 +36,7 @@ const LayoutComponent = ({ children }: any) => {
           }}
           raised={true}
         >
-          <Menu inverted>
+          <Menu inverted={true}>
             <IsMobile>
               <Menu.Item onClick={() => toggleVisible()}>
                 <Icon name="bars"></Icon>
@@ -102,7 +102,7 @@ const LayoutComponent = ({ children }: any) => {
           {children}
         </Segment>
       </Container>
-      <Segment color="black" inverted basic size="tiny">
+      <Segment color="black" inverted={true} basic size="tiny">
         Lumia Survival Guide and co. are in no way affiliated with Nimble Neuron, Eternal Return:
         Black Survival, or any related entity. For questions and support email the
         <a href="mailto:jrs.abrecan@gmail.com"> the site administrator.</a>

@@ -14,7 +14,7 @@ export const ArmorPage = () => {
       <Menu
         className="attached"
         color="red"
-        inverted
+        inverted={true}
         secondary
         style={{
           marginBottom: 0,

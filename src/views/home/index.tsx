@@ -20,7 +20,7 @@ const HomeView = () => {
             as={Link}
             to="/wiki"
             size="large"
-            inverted
+            inverted={true}
             className="fancy-hover"
             style={{
               marginBottom: 0,
@@ -42,7 +42,7 @@ const HomeView = () => {
             as={Link}
             to="/planner"
             size="large"
-            inverted
+            inverted={true}
             className="fancy-hover"
             style={{
               height: "100%",
@@ -63,7 +63,7 @@ const HomeView = () => {
             as={Link}
             to="/about"
             size="large"
-            inverted
+            inverted={true}
             className="fancy-hover"
             style={{
               height: "100%",
@@ -81,7 +81,7 @@ const HomeView = () => {
             <span style={{}}>the Site</span>
           </Header>
         </div>
-        <Segment color="black" inverted style={{ maxWidth: "700px", margin: "auto" }}>
+        <Segment color="black" inverted={true} style={{ maxWidth: "700px", margin: "auto" }}>
           <Header>Notice</Header>
           <p>
             If you're viewing this on a mobile device, I'm sorry we're still working on mobile. If
@@ -89,7 +89,7 @@ const HomeView = () => {
             ways to report it
           </p>
         </Segment>
-        <Segment color="black" inverted style={{ maxWidth: "700px", margin: "auto" }}>
+        <Segment color="black" inverted={true} style={{ maxWidth: "700px", margin: "auto" }}>
           <Header>Official Eternal Return News and Updates</Header>
           <a href="https://steamcommunity.com/app/1049590/allnews/">
             Visit the official Eternal Return steam news page for all updates regarding Eternal

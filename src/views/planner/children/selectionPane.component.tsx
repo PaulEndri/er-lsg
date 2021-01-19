@@ -32,9 +32,9 @@ export const SelectionPaneComponent: React.FC<any> = () => {
     <Grid centered>
       <Grid.Row stretched>
         <Grid.Column width={16} style={{ padding: 0, paddingLeft: "10px" }}>
-          <Segment style={{ borderRadius: 0 }} inverted color="black" raised stacked padded>
+          <Segment style={{ borderRadius: 0 }} inverted={true} color="black" raised stacked padded>
             <p>
-              <Header inverted>Equipment/Loadout Selection</Header>
+              <Header inverted={true}>Equipment/Loadout Selection</Header>
               Select your desired character and equipment below than either generate a route
               automatically or proceed with
               <Link to="/planner/craft"> creating your own route.</Link> For automatic route
@@ -49,7 +49,7 @@ export const SelectionPaneComponent: React.FC<any> = () => {
       </Grid.Row>
       <Grid.Row style={{ paddingTop: 0, marginTop: 0 }}>
         <Grid.Column width={12}>
-          <Menu tabular color="yellow" fluid inverted activeIndex={activeIndex}>
+          <Menu tabular color="yellow" fluid inverted={true} activeIndex={activeIndex}>
             <Menu.Item active={activeIndex === 0} onClick={menuItemClick(0)}>
               Character
             </Menu.Item>
@@ -74,7 +74,7 @@ export const SelectionPaneComponent: React.FC<any> = () => {
           </Menu>
         </Grid.Column>
         <Grid.Column width={4} style={{ padding: 0 }}>
-          <Segment fluid basic inverted style={{ padding: 8, margin: 0 }}>
+          <Segment fluid basic inverted={true} style={{ padding: 8, margin: 0 }}>
             <Header>Config & Info</Header>
           </Segment>
         </Grid.Column>
@@ -131,12 +131,12 @@ export const SelectionPaneComponent: React.FC<any> = () => {
 
           {loadout.materials && Object.entries(loadout.materials).length > 0 && (
             <>
-              <Segment basic inverted style={{ padding: 8, margin: 0, marginTop: 8 }}>
+              <Segment basic inverted={true} style={{ padding: 8, margin: 0, marginTop: 8 }}>
                 <Header>Total Materials Needed</Header>
               </Segment>
               <Segment
                 raised
-                inverted
+                inverted={true}
                 basic
                 secondary
                 style={{ margin: 0, backgroundColor: "rgba(70, 66, 66, 0.05)" }}
@@ -189,7 +189,7 @@ export const SelectionPaneComponent: React.FC<any> = () => {
               padding: 0,
             }}
           >
-            {/* <Segment basic inverted style={{ padding: 8, margin: 0 }}>
+            {/* <Segment basic inverted={true} style={{ padding: 8, margin: 0 }}>
               <Header>Desired Starting Location</Header>
             </Segment>
             <Segment raised>
@@ -210,10 +210,10 @@ export const SelectionPaneComponent: React.FC<any> = () => {
               />
             </Segment> */}
 
-            <Segment basic inverted style={{ padding: 8, margin: 0 }}>
+            <Segment basic inverted={true} style={{ padding: 8, margin: 0 }}>
               <Header>Loadout Stats</Header>{" "}
             </Segment>
-            <Segment raised color="black" inverted secondary>
+            <Segment raised color="black" inverted={true} secondary>
               <LoadoutStats loadout={loadout} />
             </Segment>
           </Segment.Group>

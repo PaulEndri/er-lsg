@@ -29,7 +29,7 @@ import IsDesktop, { IS_DESKTOP } from "../../../components/isDesktop";
 import IsMobile, { IS_MOBILE } from "../../../components/isMobile";
 
 const CharacterAttrStatistic = ({ attr }) => (
-  <Statistic inverted>
+  <Statistic inverted={true}>
     <Statistic.Value>
       <Image
         wrapped
@@ -115,7 +115,7 @@ export const CharacterPage = () => {
                 tablet={6}
                 style={{ marginRight: 0, paddingRight: 0 }}
               >
-                <Segment style={{ margin: 0, borderRadius: 0 }} inverted>
+                <Segment style={{ margin: 0, borderRadius: 0 }} inverted={true}>
                   <Header>{character.description}</Header>
                   {Object.entries(character.details).map(([key, val]) => (
                     <Label key={key}>
@@ -144,7 +144,7 @@ export const CharacterPage = () => {
           render: () => (
             <Grid centered>
               <Grid.Column width={IS_MOBILE ? 16 : 12}>
-                <Table inverted collapsing style={{ borderRadius: 0 }} structured celled>
+                <Table inverted={true} collapsing style={{ borderRadius: 0 }} structured celled>
                   <Table.Header>
                     <Table.Row>
                       <Table.HeaderCell>Ability</Table.HeaderCell>
@@ -166,7 +166,7 @@ export const CharacterPage = () => {
                           <Table.Cell>{ability.type}</Table.Cell>
                           <Table.Cell>{ability.description}</Table.Cell>
                           <Table.Cell>
-                            <Table basic="very" collapsing compact inverted>
+                            <Table basic="very" collapsing compact inverted={true}>
                               {Object.entries(ability.stats).map(([statName, stat]) => (
                                 <Table.Row key={statName}>
                                   <Table.Cell>{statName}</Table.Cell>
@@ -199,7 +199,14 @@ export const CharacterPage = () => {
             <Grid centered>
               <Grid.Column width={12}>
                 <IsDesktop>
-                  <Table collapsing style={{ borderRadius: 0 }} structured celled striped inverted>
+                  <Table
+                    collapsing
+                    style={{ borderRadius: 0 }}
+                    structured
+                    celled
+                    striped
+                    inverted={true}
+                  >
                     <Table.Header>
                       <Table.HeaderCell>Weapon Type</Table.HeaderCell>
                       <Table.HeaderCell>Difficulty</Table.HeaderCell>
@@ -248,7 +255,7 @@ export const CharacterPage = () => {
                   </Table>
                 </IsDesktop>
                 <IsMobile>
-                  <Segment color="red" centered style={{ borderRadius: 0 }} inverted>
+                  <Segment color="red" centered style={{ borderRadius: 0 }} inverted={true}>
                     Not currently available for Mobile
                   </Segment>
                 </IsMobile>
@@ -263,7 +270,7 @@ export const CharacterPage = () => {
       <Segment
         color="black"
         fluid
-        inverted
+        inverted={true}
         style={{
           margin: 0,
           marginTop: 12,
@@ -294,7 +301,7 @@ export const CharacterPage = () => {
                 style={{ paddingLeft: 0 }}
                 verticalAlign="middle"
               >
-                <Statistic inverted size="tiny">
+                <Statistic inverted={true} size="tiny">
                   <Statistic.Value>{character.name}</Statistic.Value>
                   <Statistic.Label>
                     <span
@@ -330,7 +337,7 @@ export const CharacterPage = () => {
               <Tab
                 menu={{
                   secondary: false,
-                  inverted: true,
+                  inverted: false,
                   attached: true,
                   style: {
                     justifyContent: "center",
@@ -363,7 +370,7 @@ export const CharacterLandingPage = () => {
             }}
             textAlign="center"
           >
-            <Table selectable striped collapsing style={{ margin: "auto" }} inverted>
+            <Table selectable striped collapsing style={{ margin: "auto" }} inverted={true}>
               <Table.Header>
                 <Table.HeaderCell />
                 <Table.HeaderCell>Name</Table.HeaderCell>

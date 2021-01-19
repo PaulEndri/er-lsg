@@ -15,12 +15,12 @@ export const WinRateChartComponent = ({ totalGames, totalWins, width = "75%" }) 
     <div style={{ width, margin: "auto" }}>
       <PieChart
         data={gamesData}
-        lineWidth={20}
+        lineWidth={30}
         labelStyle={{ fill: "white" }}
         totalValue={totalGames}
         labelPosition={0}
         paddingAngle={0}
-        label={({ dataEntry }) => Math.round((totalWins / totalGames) * 100) + "%"}
+        label={({ dataEntry }) => ""}
       >
         Test
       </PieChart>

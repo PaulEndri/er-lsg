@@ -40,7 +40,7 @@ export const PageComponent: React.FC<PageProps> = ({
       </SidebarComponent>
       {!sidebarItems || IS_MOBILE ? (
         <Segment
-          inverted
+          inverted={true}
           raised
           color="teal"
           textAlign="center"
@@ -61,7 +61,7 @@ export const PageComponent: React.FC<PageProps> = ({
       {sidebarItems && (
         <IsDesktop>
           <Segment
-            inverted
+            inverted={true}
             raised
             color="grey"
             textAlign="center"
@@ -76,7 +76,7 @@ export const PageComponent: React.FC<PageProps> = ({
             }}
             onPressOut
           >
-            <Menu style={{ justifyContent: "center" }} color="teal" inverted>
+            <Menu style={{ justifyContent: "center" }} color="teal" inverted={true}>
               {sidebarItems}
             </Menu>
           </Segment>

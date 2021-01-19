@@ -57,7 +57,7 @@ const HpHeader = ({ content, path }) => {
         borderBottom: `2px inset ${color}`,
       }}
     >
-      <Header size="large" inverted>
+      <Header size="large" inverted={true}>
         {content}
       </Header>
     </div>
@@ -79,7 +79,7 @@ const WikiView = () => {
         key={route}
         active={isActive}
         color={isActive ? "red" : "teal"}
-        inverted
+        inverted={true}
         as={Link}
         to={path}
         className="fancy-hover"
@@ -150,7 +150,7 @@ const WikiView = () => {
               <Grid.Row textAlign="center" centered>
                 <Grid.Column mobile={16} desktop={4} tablet={4} widescreen={3} textAlign="center">
                   <Image size="medium" src={getImageSrc("logo")} centered />
-                  <Header size="huge" inverted style={{ textAlign: "center" }}>
+                  <Header size="huge" inverted={true} style={{ textAlign: "center" }}>
                     Survival Guide
                   </Header>
                 </Grid.Column>

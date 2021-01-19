@@ -28,13 +28,13 @@ export const LoadoutStats: React.FC<Props> = ({ loadout }) => {
 
   if (loadout.items.filter((x) => x).length === 0) {
     return (
-      <Segment color="black" inverted textAlign="center" placeholder>
+      <Segment color="black" inverted={true} textAlign="center" placeholder>
         None Yet
       </Segment>
     );
   }
   return (
-    <Table inverted structured striped celled compact collapsing={false}>
+    <Table inverted={true} structured striped celled compact collapsing={false}>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>Stat</Table.HeaderCell>

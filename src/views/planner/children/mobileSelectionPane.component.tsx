@@ -38,9 +38,16 @@ export const MobileSelectionPaneComponent: React.FC<any> = ({ generateRoute, ful
       {full && (
         <Grid.Row stretched>
           <Grid.Column width={14}>
-            <Segment style={{ borderRadius: 0 }} inverted color="black" raised stacked padded>
+            <Segment
+              style={{ borderRadius: 0 }}
+              inverted={true}
+              color="black"
+              raised
+              stacked
+              padded
+            >
               <p>
-                <Header inverted>Equipment/Loadout Selection</Header>
+                <Header inverted={true}>Equipment/Loadout Selection</Header>
                 Select your desired character and equipment below than either generate a route
                 automatically or proceed with
                 <Link to="/planner/craft"> creating your own route.</Link> For automatic route
@@ -109,7 +116,7 @@ export const MobileSelectionPaneComponent: React.FC<any> = ({ generateRoute, ful
               padding: 0,
             }}
           >
-            <Segment basic inverted style={{ padding: 8, margin: 0 }}>
+            <Segment basic inverted={true} style={{ padding: 8, margin: 0 }}>
               <Header>Options</Header>
             </Segment>
             <Segment
@@ -117,7 +124,7 @@ export const MobileSelectionPaneComponent: React.FC<any> = ({ generateRoute, ful
                 border: 0,
               }}
               color="black"
-              inverted
+              inverted={true}
               secondary
               raised
             >
@@ -126,7 +133,7 @@ export const MobileSelectionPaneComponent: React.FC<any> = ({ generateRoute, ful
                   padding: "1em",
                 }}
               >
-                <Form inverted>
+                <Form inverted={true}>
                   <Form.Field>
                     <Radio
                       style={{ color: "white" }}
@@ -153,7 +160,7 @@ export const MobileSelectionPaneComponent: React.FC<any> = ({ generateRoute, ful
                 color="red"
               />
             </Segment>
-            {/* <Segment basic inverted style={{ padding: 8, margin: 0 }}>
+            {/* <Segment basic inverted={true} style={{ padding: 8, margin: 0 }}>
               <Header>Desired Starting Location</Header>
             </Segment>
             <Segment raised>
@@ -174,16 +181,16 @@ export const MobileSelectionPaneComponent: React.FC<any> = ({ generateRoute, ful
               />
             </Segment> */}
 
-            <Segment basic inverted style={{ padding: 8, margin: 0 }}>
+            <Segment basic inverted={true} style={{ padding: 8, margin: 0 }}>
               <Header>Loadout Stats</Header>{" "}
             </Segment>
-            <Segment raised color="black" inverted secondary>
+            <Segment raised color="black" inverted={true} secondary>
               <LoadoutStats loadout={loadout} />
             </Segment>
-            <Segment basic inverted style={{ padding: 8, margin: 0 }}>
+            <Segment basic inverted={true} style={{ padding: 8, margin: 0 }}>
               <Header>Total Materials Needed</Header>
             </Segment>
-            <Segment raised color="black" inverted secondary>
+            <Segment raised color="black" inverted={true} secondary>
               <div
                 style={{
                   width: "100%",

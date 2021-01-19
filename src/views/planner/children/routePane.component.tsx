@@ -20,7 +20,13 @@ export const RoutePaneComponent: React.FC<any> = ({ moveToCrafting }) => {
     >
       <Segment raised basic style={{ borderRadius: 0 }}>
         {!routes && (
-          <Segment secondary inverted placeholder textAlign="center" style={{ borderRadius: 0 }}>
+          <Segment
+            secondary
+            inverted={true}
+            placeholder
+            textAlign="center"
+            style={{ borderRadius: 0 }}
+          >
             No Routes Generated
           </Segment>
         )}

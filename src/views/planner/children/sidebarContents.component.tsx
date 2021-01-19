@@ -12,10 +12,16 @@ export const SidebarContents = ({
   clearLoadout,
 }) => (
   <React.Fragment>
-    <Menu vertical color="black" inverted style={{ maxWidth: "14em", margin: 0, padding: 0 }} fluid>
+    <Menu
+      vertical
+      color="black"
+      inverted={true}
+      style={{ maxWidth: "14em", margin: 0, padding: 0 }}
+      fluid
+    >
       <Segment
         raised
-        inverted
+        inverted={true}
         secondary
         color="black"
         textAlign="center"
