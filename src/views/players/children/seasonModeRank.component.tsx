@@ -32,7 +32,6 @@ export const SeasonModeRankComponent = ({ data }) => {
           textAlign="center"
         >
           <div>
-            <RankComponent mmr={data.mmr} />
             <Header
               content={getRankLabel(data.mmr)}
               subheader={data.mmr + " LP"}
@@ -40,6 +39,7 @@ export const SeasonModeRankComponent = ({ data }) => {
               inverted={true}
               style={{ marginTop: 0 }}
             />
+            <RankComponent mmr={data.mmr} />
           </div>
         </Segment>
         <Segment
@@ -77,70 +77,80 @@ export const SeasonModeRankComponent = ({ data }) => {
             </Statistic>
           </Statistic.Group>
         </Segment>
-        <Segment basic>
-          <Segment.Group style={{ background: "transparent" }}>
-            <Segment
-              basic
-              inverted
-              style={{
-                background: "rgba(55, 54, 54, 1)",
-                border,
-                boxShadow: "2px 2px 2px 0px rgba(255, 255, 255, 0.1)",
-              }}
-            >
-              <Statistic.Group size="small" inverted={true} style={{ justifyContent: "center" }}>
-                <Statistic>
-                  <Statistic.Label>Top</Statistic.Label>
-                  <Statistic.Value>{Math.round(data.rankPercent * 100)} %</Statistic.Value>
-                </Statistic>
-                <Statistic>
-                  <Statistic.Label>Rank</Statistic.Label>
-                  <Statistic.Value>{data.rank}</Statistic.Value>
-                </Statistic>
-                <Statistic>
-                  <Statistic.Label>Out Of</Statistic.Label>
-                  <Statistic.Value>{data.rankSize}</Statistic.Value>
-                </Statistic>
-              </Statistic.Group>
-            </Segment>
-            <Segment
-              basic
-              inverted
-              textAlign="center"
-              style={{
-                background: "rgba(55, 54, 54, 1)",
-                marginTop: "2em",
-                border,
-                boxShadow: "2px 2px 2px 0px rgba(255, 255, 255, 0.1)",
-              }}
-            >
-              <Statistic.Group inverted={true} style={{ justifyContent: "center" }}>
-                <Statistic>
-                  <Statistic.Label>Average Kills</Statistic.Label>
-                  <Statistic.Value>{data.averageKills}</Statistic.Value>
-                </Statistic>
-                <Statistic>
-                  <Statistic.Label>Average Rank</Statistic.Label>
-                  <Statistic.Value>{data.averageRank}</Statistic.Value>
-                </Statistic>
-                <Statistic>
-                  <Statistic.Label>Average Hunts</Statistic.Label>
-                  <Statistic.Value>{data.averageHunts}</Statistic.Value>
-                </Statistic>
-              </Statistic.Group>
-            </Segment>
-          </Segment.Group>
+        <Segment
+          basic
+          textAlign="center"
+          inverted
+          style={{
+            background: "rgba(55, 54, 54, 1)",
+            marginLeft: "2em",
+            border,
+            display: "flex",
+            flexFlow: "column",
+            boxShadow: "2px 2px 2px 0px rgba(255, 255, 255, 0.1)",
+          }}
+        >
+          <Header style={{ textDecoration: "underline" }} inverted>
+            Rankings
+          </Header>
+          <Statistic.Group horizontal style={{ display: "flex", flexFlow: "column wrap" }}>
+            <Statistic inverted>
+              <Statistic.Label>Top</Statistic.Label>
+              <Statistic.Value>{Math.round(data.rankPercent * 100)} %</Statistic.Value>
+            </Statistic>
+            <Statistic inverted>
+              <Statistic.Label>Rank</Statistic.Label>
+              <Statistic.Value>{data.rank}</Statistic.Value>
+            </Statistic>
+            <Statistic inverted>
+              <Statistic.Label>Out Of</Statistic.Label>
+              <Statistic.Value>{data.rankSize}</Statistic.Value>
+            </Statistic>
+          </Statistic.Group>
         </Segment>
         <Segment
           basic
           inverted
+          textAlign="center"
           style={{
             background: "rgba(55, 54, 54, 1)",
+            marginLeft: "2em",
             border,
             boxShadow: "2px 2px 2px 0px rgba(255, 255, 255, 0.1)",
           }}
         >
-          <Header size="tiny">Average Rankings</Header>
+          <Header style={{ textDecoration: "underline" }} inverted>
+            Averages
+          </Header>
+          <Statistic.Group inverted={true} horizontal>
+            <Statistic>
+              <Statistic.Label>Kills</Statistic.Label>
+              <Statistic.Value>{data.averageKills}</Statistic.Value>
+            </Statistic>
+            <Statistic>
+              <Statistic.Label>Rank</Statistic.Label>
+              <Statistic.Value>{data.averageRank}</Statistic.Value>
+            </Statistic>
+            <Statistic>
+              <Statistic.Label>Hunts</Statistic.Label>
+              <Statistic.Value>{data.averageHunts}</Statistic.Value>
+            </Statistic>
+          </Statistic.Group>
+        </Segment>
+        <Segment
+          basic
+          inverted
+          textAlign="center"
+          style={{
+            background: "rgba(55, 54, 54, 1)",
+            marginLeft: "2em",
+            border,
+            boxShadow: "2px 2px 2px 0px rgba(255, 255, 255, 0.1)",
+          }}
+        >
+          <Header style={{ textDecoration: "underline" }} size="tiny">
+            Average Rankings
+          </Header>
           <Progress
             inverted
             label="Top 2"
@@ -171,10 +181,10 @@ export const SeasonModeRankComponent = ({ data }) => {
           />
         </Segment>
       </Segment.Group>
-      <Segment basic style={{ background: "transparent", padding: 0 }}>
-        <Grid padded="vertically" centered style={{ padding: 0 }}>
+      <Segment basic style={{ background: "transparent", padding: 0, marginTop: "1em" }}>
+        <Grid style={{ padding: 0 }}>
           <Grid.Row>
-            <Grid.Column width={15}>
+            <Grid.Column width={16}>
               <Segment color="blue" inverted textAlign="center">
                 <Header inverted>Top Played Characters</Header>
               </Segment>
