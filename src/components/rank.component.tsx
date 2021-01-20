@@ -30,7 +30,7 @@ export const RankComponent: React.FC<Props> = ({ mmr, label = false }) => {
 
   return (
     <div>
-      <Image size="small" src={getImageSrc(`ranks/${rank + 1}`)} />
+      <Image size="small" src={getImageSrc(`ranks/${rank + 1}`)} centered />
       {label && (
         <span>
           {RankMap[rank + 1]} {tier}

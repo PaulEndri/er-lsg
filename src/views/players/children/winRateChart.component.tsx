@@ -1,18 +1,24 @@
 import React from "react";
 import { PieChart } from "react-minimal-pie-chart";
 
-export const WinRateChartComponent = ({ totalGames, totalWins, width = "75%" }) => {
+export const WinRateChartComponent = ({
+  totalGames,
+  totalWins,
+  width = "75%",
+  style = {},
+  title = "",
+}) => {
   const gamesData = [
     {
       title: "Other Games",
       value: totalGames - totalWins,
-      color: "rgba(138, 129, 127, 1)",
+      color: "rgba(200, 155, 144, 0.8)",
     },
-    { title: "Games Won", value: totalWins, color: "rgba(20, 255, 95, 1)" },
+    { title: "Games Won", value: totalWins, color: "#2ECC40" },
   ];
 
   return (
-    <div style={{ width, margin: "auto" }}>
+    <div style={{ width, margin: "auto", ...style }}>
       <PieChart
         data={gamesData}
         lineWidth={30}
@@ -20,7 +26,7 @@ export const WinRateChartComponent = ({ totalGames, totalWins, width = "75%" }) 
         totalValue={totalGames}
         labelPosition={0}
         paddingAngle={0}
-        label={({ dataEntry }) => ""}
+        label={({ dataEntry }) => title}
       >
         Test
       </PieChart>

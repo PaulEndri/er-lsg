@@ -9,6 +9,7 @@ import { SeasonModeRankComponent, Seasons } from "./children/seasonModeRank.comp
 import { DataContext } from "../../state/data";
 import { IPlayer } from "../../utilities/player";
 import { IS_MOBILE } from "../../components/isMobile";
+import { DefaultPlayerData } from "../../utilities/playerData";
 
 const reverseCharLookup = Object.fromEntries(Object.entries(Characters).map(([k, v]) => [v, k]));
 
@@ -93,7 +94,8 @@ class PlayerContent extends React.PureComponent<Props, State> {
   }
 
   getCharsPlayed() {
-    const { activePlayer } = this.props;
+    // const { activePlayer } = this.props;
+    const activePlayer = DefaultPlayerData;
 
     return activePlayer.seasonRecords
       .map((season) => season.info)
@@ -117,8 +119,9 @@ class PlayerContent extends React.PureComponent<Props, State> {
       .sort((a, b) => b[1] - a[1]);
   }
   render() {
-    const { id, activePlayer } = this.props;
+    const { id } = this.props;
     const { activeSeason, loading, error } = this.state;
+    const activePlayer = DefaultPlayerData;
 
     if (loading) {
       return (
@@ -206,9 +209,8 @@ class PlayerContent extends React.PureComponent<Props, State> {
           <Grid centered>
             <Grid.Row
               style={{
-                marginTop: "2em",
+                marginTop: "1em",
                 borderBottom: "1px groove",
-                borderTop: "1px groove",
                 backgroundColor: "rgba(125, 120, 120, 1)",
               }}
               centered
@@ -262,12 +264,11 @@ class PlayerContent extends React.PureComponent<Props, State> {
                 </Segment>
               </Grid.Column>
             </Grid.Row>
-            <Grid.Row>
+            <Grid.Row style={{ padding: 0 }}>
               <Grid.Column width={16} style={{ paddingLeft: 0, paddingRight: 0 }}>
                 <Segment
                   style={{
-                    padding: 1,
-                    paddingTop: 0,
+                    padding: 0,
                     borderTop: 0,
                     width: "100%",
                     background: "transparent",

@@ -20,12 +20,12 @@
 
 */
 
-@blue: #75694c;
+@blue: #618C70;
 @orange: #5A6262;
-@yellow: #a58400;
+@yellow: #01260A;
 @brown: #6A4A3C;
-@black: #333333;
+@black: #0D0D0D;
 @red: #CC333F;
-@teal: #E8B900;
+@teal: #08591C;
 @primaryColor: @teal;
 @secondaryColor: @black;
