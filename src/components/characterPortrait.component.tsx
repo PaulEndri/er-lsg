@@ -7,6 +7,7 @@ type CharacterPortraitProps = {
   name: string;
   width?: number;
   type?: string;
+  float?: any;
   margin?: string;
 };
 
@@ -14,6 +15,7 @@ export const CharacterPortrait: FunctionComponent<CharacterPortraitProps> = ({
   width = 200,
   type = "half",
   margin = "auto",
+  float = null,
   name,
 }) => (
   <div
@@ -27,6 +29,7 @@ export const CharacterPortrait: FunctionComponent<CharacterPortraitProps> = ({
       // border: '1px solid rgba(125, 125, 125, 0.1)',
       boxShadow: "0 3px 2px 0 rgba(34,36,38,.15)",
       overflow: "hidden",
+      float,
     }}
   >
     <Image style={{ maxWidth: width, width }} src={getImageSrc(`characters/${type}/${name}`)} />

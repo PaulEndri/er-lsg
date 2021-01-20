@@ -178,11 +178,8 @@ export class PlayerSeasons extends Model {
         relation: Model.HasManyRelation,
         modelClass: PlayerSeasonCharacters,
         join: {
-          to: [
-            "player_season_character_records.playerId",
-            "player_season_character_records.seasonId",
-          ],
-          from: ["player_season_records.playerId", "player_season_records.seasonId"],
+          to: "player_season_character_records.playerSeasonRecordId",
+          from: "player_season_records.id",
         },
       },
     };
@@ -208,11 +205,8 @@ export class PlayerSeasonCharacters extends Model {
         relation: Model.HasOneRelation,
         modelClass: PlayerSeasons,
         join: {
-          from: [
-            "player_season_character_records.playerId",
-            "player_season_character_records.seasonId",
-          ],
-          to: ["player_season_records.playerId", "player_season_records.seasonId"],
+          from: ["player_season_character_records.playerSeasonRecordId"],
+          to: ["player_season_records.id"],
         },
       },
     };

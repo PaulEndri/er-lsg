@@ -9,6 +9,7 @@ import { SeasonModeRankComponent, Seasons } from "./children/seasonModeRank.comp
 import { DataContext } from "../../state/data";
 import { IPlayer } from "../../utilities/player";
 import { IS_MOBILE } from "../../components/isMobile";
+import { MatchInfoComponent } from "./children/matchItem.component";
 // import { DefaultPlayerData } from "../../utilities/playerData";
 
 const reverseCharLookup = Object.fromEntries(Object.entries(Characters).map(([k, v]) => [v, k]));
@@ -38,7 +39,7 @@ const timeSince = (timeStamp) => {
 
 type Props = {
   id: string;
-  activePlayer: IPlayer;
+  activePlayer: any;
   getPlayerData: (id) => Promise<any>;
 };
 
@@ -193,6 +194,13 @@ class PlayerContent extends React.PureComponent<Props, State> {
     }
 
     const charsPlayed = this.getCharsPlayed();
+    const matchHistory = (
+      <>
+        {activePlayer?.games.map((data, i) => (
+          <MatchInfoComponent data={data} key={i} />
+        ))}
+      </>
+    );
 
     const panes = activePlayer.seasonRecords
       .filter((season) => season.season === activeSeason)
@@ -203,6 +211,10 @@ class PlayerContent extends React.PureComponent<Props, State> {
         render: () => <SeasonModeRankComponent data={data} />,
       }));
 
+    panes.push({
+      menuItem: "Match History",
+      render: () => matchHistory,
+    });
     return (
       <PageComponent title="Eternal Return: Black Survival Test Subject Records">
         <Container>
