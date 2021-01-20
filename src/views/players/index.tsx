@@ -9,7 +9,7 @@ import { SeasonModeRankComponent, Seasons } from "./children/seasonModeRank.comp
 import { DataContext } from "../../state/data";
 import { IPlayer } from "../../utilities/player";
 import { IS_MOBILE } from "../../components/isMobile";
-import { DefaultPlayerData } from "../../utilities/playerData";
+// import { DefaultPlayerData } from "../../utilities/playerData";
 
 const reverseCharLookup = Object.fromEntries(Object.entries(Characters).map(([k, v]) => [v, k]));
 
@@ -94,8 +94,8 @@ class PlayerContent extends React.PureComponent<Props, State> {
   }
 
   getCharsPlayed() {
-    // const { activePlayer } = this.props;
-    const activePlayer = DefaultPlayerData;
+    const { activePlayer } = this.props;
+    // const activePlayer = DefaultPlayerData;
 
     return activePlayer.seasonRecords
       .map((season) => season.info)
@@ -119,9 +119,9 @@ class PlayerContent extends React.PureComponent<Props, State> {
       .sort((a, b) => b[1] - a[1]);
   }
   render() {
-    const { id } = this.props;
+    const { id, activePlayer } = this.props;
     const { activeSeason, loading, error } = this.state;
-    const activePlayer = DefaultPlayerData;
+    // const activePlayer = DefaultPlayerData;
 
     if (loading) {
       return (
