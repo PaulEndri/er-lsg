@@ -25,7 +25,7 @@ export async function handler(event: APIGatewayEvent) {
 
   try {
     const results = await Player.query()
-      .withGraphFetched("[games, seasonRecords, seasonRecords.characterStats")
+      .withGraphFetched("[games, seasonRecords, seasonRecords.characterStats]")
       .findOne("name", "like", name);
 
     if (results) {
