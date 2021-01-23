@@ -2,6 +2,7 @@ import { Model } from "objection";
 import dotenv from "dotenv";
 import Knex from "knex";
 import { IUserGameHistory, IUserRecord } from "erbs-client";
+import { SQL_VIEWS } from "../types/sqlViews";
 
 dotenv.config();
 
@@ -210,5 +211,28 @@ export class PlayerSeasonCharacters extends Model {
         },
       },
     };
+  }
+}
+
+export class CharacterRates extends Model {
+  static get tableName() {
+    return SQL_VIEWS.CHARACTER_RATES;
+  }
+}
+
+export class CharacterModeRates extends Model {
+  static get tableName() {
+    return SQL_VIEWS.CHARACTER_RATES_BY_MODE;
+  }
+}
+
+export class CharacterModeVersionRates extends Model {
+  static get tableName() {
+    return SQL_VIEWS.CHARACTER_RATES_BY_MODE_AND_VERSION;
+  }
+}
+export class EquipmentRates extends Model {
+  static get tableName() {
+    return SQL_VIEWS.EQUIP_STATS;
   }
 }

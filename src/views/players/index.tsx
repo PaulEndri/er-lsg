@@ -7,7 +7,6 @@ import { CharacterPortrait } from "../../components/characterPortrait.component"
 import { GameModes } from "erbs-client";
 import { SeasonModeRankComponent, Seasons } from "./children/seasonModeRank.component";
 import { DataContext } from "../../state/data";
-import { IPlayer } from "../../utilities/player";
 import { IS_MOBILE } from "../../components/isMobile";
 import { MatchInfoComponent } from "./children/matchItem.component";
 // import { DefaultPlayerData } from "../../utilities/playerData";
