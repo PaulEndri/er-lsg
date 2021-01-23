@@ -33,7 +33,7 @@ export const SearchComponent = () => {
       setLoading(false);
       setTimeout(() => {
         setError(null);
-      });
+      }, 5000);
     }
   };
 

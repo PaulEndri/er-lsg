@@ -170,7 +170,7 @@ const PlannerView = () => {
               <Suspense
                 fallback={
                   <Dimmer active>
-                    <Loader />
+                    <Loader active />
                   </Dimmer>
                 }
               >

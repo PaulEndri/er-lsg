@@ -26,7 +26,6 @@ const LocationView: React.FC = ({ children }) => {
         className="attached"
         color="red"
         inverted={true}
-        secondary
         style={{
           marginBottom: 0,
           justifyContent: "center",

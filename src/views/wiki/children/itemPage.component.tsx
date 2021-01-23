@@ -13,7 +13,6 @@ export const ItemPage = () => {
       <Menu
         className="attached"
         color="red"
-        secondary
         inverted={true}
         style={{
           marginBottom: 0,

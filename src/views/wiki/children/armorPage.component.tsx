@@ -15,7 +15,6 @@ export const ArmorPage = () => {
         className="attached"
         color="red"
         inverted={true}
-        secondary
         style={{
           marginBottom: 0,
           justifyContent: "center",

@@ -1,8 +1,7 @@
 import { APIGatewayEvent } from "aws-lambda";
-import Client from "./services/client.service";
 import Redis from "./services/redis.service";
-import { Players } from "./models/player.model";
 import mongoose from "mongoose";
+import { Player } from "./models/sql.models";
 
 mongoose.connect(process.env.MONGO_STRING, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -13,7 +12,7 @@ const generateResponse = (body, status) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(body),
+    body: typeof body === "string" ? body : JSON.stringify(body),
   };
 };
 
@@ -25,38 +24,40 @@ export async function handler(event: APIGatewayEvent) {
   }
 
   try {
-    const query = {
-      name,
-    };
+    const results = await Player.query()
+      .withGraphFetched("[games.[skills, equipment], seasonRecords.[characterStats]]")
+      .findOne("name", "like", name);
 
-    const mongoResults = await Players.findOne(query, null, {
-      lean: true,
-      collation: {
-        locale: "en",
-        strength: 2,
-      },
-    });
-
-    if (mongoResults) {
-      await Redis.queuePlayer("numbers", mongoResults.id);
-
-      return generateResponse(mongoResults, 200);
+    if (results) {
+      await Redis.queuePlayer("numbers", results.id);
+      const basicObject = results.toJSON();
+      const seasonRecords = {};
+      basicObject?.seasonRecords?.map((record) => {
+        if (seasonRecords[record?.seasonId]) {
+          seasonRecords[record.seasonId].info.push(record);
+        } else {
+          seasonRecords[record?.seasonId] = {
+            season: record?.seasonId,
+            info: [record],
+          };
+        }
+      });
+      return generateResponse(
+        {
+          ...basicObject,
+          seasonRecords: Object.values(seasonRecords),
+        },
+        200
+      );
     } else {
-      const results = await Client.getPlayer(name);
-
-      if (results) {
-        await Redis.queuePlayer("numbers", results.id);
-        return generateResponse(results, 200);
-      } else {
-        await Redis.queuePlayer("names", name);
-        return generateResponse(
-          {
-            message:
-              "The player in question either doesn't exist, or not in our databases yet. It's most likely they're not in our database yet. In which case they've now been queued up and you should back shortly.",
-          },
-          404
-        );
-      }
+      await Redis.queuePlayer("names", name);
+      return generateResponse(
+        {
+          message:
+            "The player in question either doesn't exist, or not in our databases yet. It's most likely they're not in our database yet. In which case they've now been queued up and you should back shortly.",
+        },
+        404
+      );
     }
   } catch (e) {
     console.warn(e);
