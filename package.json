@@ -9,7 +9,7 @@
     "@types/netlify-identity-widget": "^1.9.1",
     "dotenv": "^8.2.0",
     "erbs-client": "^1.6.12",
-    "erbs-data": "^1.7.4",
+    "erbs-data": "^1.7.5",
     "erbs-sdk": "^1.7.4",
     "netlify-identity-widget": "^1.9.1",
     "netlify-lambda": "^2.0.2",
