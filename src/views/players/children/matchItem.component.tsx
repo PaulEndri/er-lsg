@@ -1,9 +1,11 @@
-import { Character } from "erbs-sdk";
+import { Character, Item } from "erbs-sdk";
 import React from "react";
-import { Grid, Header, Segment, Statistic, Table } from "semantic-ui-react";
+import { Grid, Header, Image, Segment, Statistic, Table } from "semantic-ui-react";
 import { CharacterPortrait } from "../../../components/characterPortrait.component";
 import { ItemModalButton } from "../../../components/itemModalButton.component";
 import { GameModes } from "erbs-client";
+import { getImageSrc } from "../../../utilities/getImageSrc";
+import { SkillMap } from "../../../utilities/skillMap";
 
 const src = {
   matchingTeamMode: 3,
@@ -56,6 +58,7 @@ const src = {
   teamNumber: 4,
   preMade: 3,
   gainedNormalMmrKFactor: 11,
+  skills: [],
   equipment: [
     { itemId: 110407 },
     { itemId: 202106 },
@@ -67,6 +70,8 @@ const src = {
 
 export const MatchInfoComponent = ({ data = src }) => {
   const character = new Character(data.characterNum);
+  const eqp = data.equipment.map((id) => new Item(id));
+  const wpn = eqp.find((i) => i.category === "Weapon");
 
   return (
     <Segment style={{ backgroundColor: "rgba(50, 50, 50, 1)" }}>
@@ -76,6 +81,14 @@ export const MatchInfoComponent = ({ data = src }) => {
             <CharacterPortrait name={character.name} type="mini" width={110} />
           </Grid.Column>
           <Grid.Column width={2} textAlign="left" style={{ color: "white" }}>
+            {wpn && (
+              <Image
+                centered
+                size="mini"
+                src={getImageSrc(`Weapon${wpn.apiMetaData.type}`)}
+                bordered
+              />
+            )}
             <Header
               inverted
               subheader={`${GameModes[data.matchingTeamMode]} - ${
@@ -155,17 +168,9 @@ export const MatchInfoComponent = ({ data = src }) => {
               <Table.Body>
                 <Table.Row>
                   <Table.Cell>Skill</Table.Cell>
-                  <Table.Cell>Q</Table.Cell>
-                  <Table.Cell>W</Table.Cell>
-                  <Table.Cell>E</Table.Cell>
-                  <Table.Cell>Q</Table.Cell>
-                  <Table.Cell>T</Table.Cell>
-                  <Table.Cell>R</Table.Cell>
-                  <Table.Cell>Q</Table.Cell>
-                  <Table.Cell>W</Table.Cell>
-                  <Table.Cell>Q</Table.Cell>
-                  <Table.Cell>W</Table.Cell>
-                  <Table.Cell>R</Table.Cell>
+                  {data.skills.slice(0, 11).map(({ skillId }, idx) => (
+                    <Table.Cell key={idx}>{SkillMap[`${skillId}`]}</Table.Cell>
+                  ))}
                 </Table.Row>
               </Table.Body>
             </Table>
@@ -177,12 +182,17 @@ export const MatchInfoComponent = ({ data = src }) => {
                 border: "3px groove rgba(255, 255, 255, 0.4)",
               }}
             >
-              <Header inverted style={{ padding: 0, margin: 0, paddingTop: "8px" }}>
+              <Header
+                inverted
+                style={{ padding: 0, margin: 0, paddingTop: "8px", textAlign: "center" }}
+              >
                 Equipment
               </Header>
               <div
                 style={{
                   display: "flex",
+                  paddingLeft: 5,
+                  paddingTop: 5,
                   flexFlow: "row wrap",
                   margin: "1em",
                   marginTop: "0",
