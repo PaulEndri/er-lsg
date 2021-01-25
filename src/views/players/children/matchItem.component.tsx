@@ -70,7 +70,7 @@ const src = {
 
 export const MatchInfoComponent = ({ data = src }) => {
   const character = new Character(data.characterNum);
-  const eqp = data.equipment.map((id) => new Item(id));
+  const eqp = data.equipment.map(({ itemId }) => new Item(itemId));
   const wpn = eqp.find((i) => i.category === "Weapon");
 
   return (
