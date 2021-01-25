@@ -115,7 +115,7 @@ export const CharacterPage = () => {
                 tablet={6}
                 style={{ marginRight: 0, paddingRight: 0 }}
               >
-                <Segment style={{ margin: 0, borderRadius: 0 }} inverted={true}>
+                <Segment style={{ margin: 0, borderRadius: 0 }} color="black" inverted={true}>
                   <Header>{character.description}</Header>
                   {Object.entries(character.details).map(([key, val]) => (
                     <Label key={key}>
@@ -268,16 +268,18 @@ export const CharacterPage = () => {
   return (
     <CharacterView>
       <Segment
-        color="black"
         fluid
         inverted={true}
+        basic
         style={{
           margin: 0,
           marginTop: 12,
+          background: "transparent",
+          backgroundColor: "transparent",
           padding: 0,
         }}
       >
-        <Grid style={{ backgroundImage: BG_THIRD }} centered>
+        <Grid centered>
           <Grid.Column
             width={16}
             style={{
@@ -330,14 +332,14 @@ export const CharacterPage = () => {
             </Grid>
           </Grid.Column>
           <Grid.Row
-            style={{ backgroundColor: "rgba(150, 145, 138, 0.1)", paddingTop: 0, padding: 0 }}
+            style={{ paddingTop: 0, padding: 0, backgroundColor: "rgba(0, 0,0, 0.5)" }}
             centered
           >
             <Grid.Column width={16} style={{ padding: 0 }}>
               <Tab
                 menu={{
                   secondary: false,
-                  inverted: false,
+                  inverted: true,
                   attached: true,
                   style: {
                     justifyContent: "center",

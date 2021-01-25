@@ -24,10 +24,8 @@ const AnimalView: React.FC = ({ children }) => {
       <Menu
         className="attached"
         color="red"
-        secondary
         inverted={true}
         style={{
-          marginBottom: 0,
           justifyContent: "center",
         }}
       >
@@ -41,9 +39,6 @@ const AnimalView: React.FC = ({ children }) => {
                 history.push(`/wiki/animals/${type}`);
               }}
               color="red"
-              style={{
-                paddingLeft: 0,
-              }}
             >
               {type}
             </Menu.Item>
@@ -65,7 +60,7 @@ export const AnimalLandingPage = () => {
         </Header>
       </Segment>
 
-      <Segment style={{ marginTop: 0, background: "transparent" }} textAlign="center">
+      <Segment style={{ marginTop: 1, background: "transparent", padding: 0 }} textAlign="center">
         <Table selectable inverted striped collapsing style={{ margin: "auto", borderRadius: 0 }}>
           <Table.Header>
             <Table.HeaderCell>Name</Table.HeaderCell>
@@ -110,29 +105,18 @@ export const AnimalPage = () => {
     <AnimalView>
       <Segment
         color="black"
+        basic
         inverted={true}
         style={{
           margin: 0,
-          marginTop: 12,
+          marginTop: 14,
           padding: 0,
-
           border: 0,
+          background: "transparent",
         }}
       >
-        <Grid
-          centered
-          style={{
-            backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/animals/${id}.jpg) `,
-            backgroundSize: "cover",
-          }}
-        >
-          <Grid.Row
-            verticalAlign="middle"
-            style={{
-              backgroundColor: "rgba(76, 70, 70, 1)",
-            }}
-            centered
-          >
+        <Grid centered style={{ padding: 0, background: "rgba(38, 35, 35, 1)" }}>
+          <Grid.Row verticalAlign="middle" centered>
             <Grid.Column width={16} color="orange">
               <Header inverted={true} textAlign="center">
                 {id}
@@ -148,9 +132,11 @@ export const AnimalPage = () => {
             }}
             centered
           >
-            <Image centered size="medium" src={getImageSrc(`/animals/${animal.name}`)} />
+            <Grid.Column width={16}>
+              <Image centered size="medium" src={getImageSrc(`/animals/${animal.name}`)} />
+            </Grid.Column>
           </Grid.Row>
-          <Grid.Row centered style={{ backgroundColor: "rgba(10, 0, 0, 0.5)" }}>
+          <Grid.Row centered style={{ background: "rgba(255, 255, 255, 0.1)" }}>
             <Grid.Column width={16} textAlign="center">
               <Header inverted={true} textAlign="center">
                 Known Habitats
@@ -171,7 +157,13 @@ export const AnimalPage = () => {
             </Grid.Column>
           </Grid.Row>
 
-          <Grid.Column width={16} style={{ borderTop: "1px solid white" }}>
+          <Grid.Column
+            width={16}
+            style={{
+              borderTop: "1px solid white",
+              borderBottom: "1px solid rgba(255, 255, 255, 0.2)",
+            }}
+          >
             <Header inverted={true} textAlign="center">
               Drops
             </Header>

@@ -75,7 +75,7 @@ export class NodeService {
 
     return {
       root: base,
-      routes: data,
+      routes: data.slice(0, 100),
     };
   }
 
