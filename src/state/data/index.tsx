@@ -267,11 +267,14 @@ export const DataProvider: FunctionComponent = ({ children }) => {
         });
 
         setActivePlayer(results.data);
+
+        return results.data;
       } else {
         return results;
       }
     } else {
       setActivePlayer(playerData[id] || null);
+      return playerData[id];
     }
   };
 

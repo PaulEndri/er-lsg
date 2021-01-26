@@ -18,15 +18,9 @@ export const SearchComponent = () => {
     setLoading(true);
 
     try {
-      const results = await getPlayerData(search);
+      await getPlayerData(search);
 
-      if (!results) {
-        history.push(`/players/${search}`);
-      } else {
-        throw new Error(
-          "Player matched no current results. Try again later or contact the side admin"
-        );
-      }
+      history.push(`/players/${search}`);
     } catch (e) {
       setError(e.message || "Player could not be found");
     } finally {

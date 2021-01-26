@@ -30,7 +30,9 @@ export async function handler(event: APIGatewayEvent) {
         strength: 1,
       },
     });
+
     if (results) {
+      await Redis.queuePlayer("numbers", results.id);
       return generateResponse(
         {
           data: results,

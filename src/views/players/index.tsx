@@ -45,6 +45,7 @@ type Props = {
 type State = {
   activeSeason: number;
   loading: boolean;
+  loadingMessage: string;
   error: any;
 };
 
@@ -52,26 +53,23 @@ class PlayerContent extends React.PureComponent<Props, State> {
   state = {
     activeSeason: 0,
     loading: true,
+    loadingMessage: null,
     error: null,
   };
 
   componentDidMount() {
-    const { id, activePlayer, getPlayerData } = this.props;
+    const { id, activePlayer } = this.props;
 
     if (id && !activePlayer) {
-      this.setState({ loading: true });
-      getPlayerData(id)
-        .then(() => this.setState({ loading: false }))
-        .catch((e) => {
-          this.setState({ error: e, loading: false });
-        });
+      this.processPlayer();
     } else if (id) {
       this.setState({ loading: false });
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps: Props, nextState: State) {
     const { id, activePlayer } = this.props;
+
     if (nextProps.id !== id || nextProps.activePlayer !== activePlayer) {
       return true;
     }
@@ -87,6 +85,40 @@ class PlayerContent extends React.PureComponent<Props, State> {
     }
 
     return false;
+  }
+
+  componentDidUpdate(previousProps: Props) {
+    if (this.props.id !== previousProps.id) {
+      this.processPlayer();
+    }
+  }
+
+  processPlayer(retry = true) {
+    const { id, getPlayerData } = this.props;
+
+    this.setState({ loading: true });
+
+    return getPlayerData(id)
+      .then((data) => {
+        if (!data || !data.id) {
+          this.setState({
+            loadingMessage:
+              "This user does not exist yet in our databases, fetching them now. Please wait",
+          });
+
+          if (retry) {
+            setTimeout(
+              () => this.processPlayer(false).then(() => this.setState({ loadingMessage: null })),
+              1500
+            );
+          }
+        } else {
+          this.setState({ loading: false });
+        }
+      })
+      .catch((e) => {
+        this.setState({ error: e, loading: false });
+      });
   }
 
   updateSeason(val: number) {
@@ -118,9 +150,10 @@ class PlayerContent extends React.PureComponent<Props, State> {
       }, [] as any)
       .sort((a, b) => b[1] - a[1]);
   }
+
   render() {
     const { id, activePlayer } = this.props;
-    const { activeSeason, loading, error } = this.state;
+    const { activeSeason, loading, error, loadingMessage } = this.state;
     // const activePlayer = DefaultPlayerData;
 
     if (loading) {
@@ -137,7 +170,11 @@ class PlayerContent extends React.PureComponent<Props, State> {
             }}
           >
             <Dimmer active>
-              <Loader indeterminate>Fetching Player {id}</Loader>
+              <Loader indeterminate>
+                Fetching Player {id}
+                <br />
+                <div>{loadingMessage}</div>
+              </Loader>
             </Dimmer>
           </Segment>
         </PageComponent>
@@ -195,25 +232,27 @@ class PlayerContent extends React.PureComponent<Props, State> {
     const charsPlayed = this.getCharsPlayed();
     const matchHistory = (
       <>
-        {activePlayer?.games.map((data, i) => (
+        {activePlayer?.games?.map((data, i) => (
           <MatchInfoComponent data={data} key={i} />
         ))}
       </>
     );
 
-    const panes = activePlayer.seasonRecords
-      .filter((season) => season.season === activeSeason)
-      .map((season) => season.info)
-      .flat()
-      .map((data) => ({
-        menuItem: GameModes[data.matchingTeamMode],
-        render: () => <SeasonModeRankComponent data={data} />,
-      }));
+    const panes =
+      activePlayer?.seasonRecords
+        ?.filter((season) => season.season === activeSeason)
+        .map((season) => season.info)
+        .flat()
+        .map((data) => ({
+          menuItem: GameModes[data.matchingTeamMode],
+          render: () => <SeasonModeRankComponent data={data} />,
+        })) || [];
 
     panes.push({
       menuItem: "Match History",
       render: () => matchHistory,
     });
+
     return (
       <PageComponent title="Eternal Return: Black Survival Test Subject Records">
         <Container>

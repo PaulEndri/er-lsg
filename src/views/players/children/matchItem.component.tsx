@@ -94,7 +94,15 @@ export const MatchInfoComponent = ({ data = src }) => {
               subheader={`${GameModes[data.matchingTeamMode]} - ${
                 data.seasonId ? "Season " + data.seasonId : "Unranked"
               }`}
-              content={`${data.gameRank}th Place`}
+              content={`${data.gameRank}${
+                data.gameRank === 1
+                  ? "st"
+                  : data.gameRank === 2
+                  ? "nd"
+                  : data.gameRank === 3
+                  ? "rd"
+                  : "th"
+              } Place`}
             />
             {new Date(data.startDtm).toDateString()}
             <br />
