@@ -1,7 +1,7 @@
 import { APIGatewayEvent } from "aws-lambda";
 import Redis from "./services/redis.service";
 import mongoose from "mongoose";
-import { Players } from "./models/player.model";
+import { Player } from "./models/sql.models";
 
 mongoose.connect(process.env.MONGO_STRING, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -24,18 +24,28 @@ export async function handler(event: APIGatewayEvent) {
   }
 
   try {
-    const results = await Players.findOne({ name }, [], {
-      collation: {
-        locale: "en",
-        strength: 1,
-      },
-    });
+    const results = await Player.query()
+      .withGraphFetched("[games.[skills, equipment], seasonRecords.[characterStats]]")
+      .findOne("name", "like", name);
 
     if (results) {
       await Redis.queuePlayer("numbers", results.id);
+      const basicObject = results.toJSON();
+      const seasonRecords = {};
+      basicObject?.seasonRecords?.map((record) => {
+        if (seasonRecords[record?.seasonId]) {
+          seasonRecords[record.seasonId].info.push(record);
+        } else {
+          seasonRecords[record?.seasonId] = {
+            season: record?.seasonId,
+            info: [record],
+          };
+        }
+      });
       return generateResponse(
         {
-          data: results,
+          ...basicObject,
+          seasonRecords: Object.values(seasonRecords),
         },
         200
       );
