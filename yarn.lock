@@ -4446,17 +4446,17 @@ erbs-client@^1.7.0:
   dependencies:
     node-fetch "^2.6.1"
 
-erbs-data@^1.7.5:
-  version "1.7.5"
-  resolved "https://registry.yarnpkg.com/erbs-data/-/erbs-data-1.7.5.tgz#5bcced3b24e16c22ec0a91efaebc227b6026dd7e"
-  integrity sha512-YtL5qSKknOTeI+EfcYAdIAHTBpaFohWtSB0kD+LCisx5bNNMRG4GkdbWULqp3/JAFv0JTpn4X/4v/IYGdfu1Xg==
+erbs-data@^1.7.6:
+  version "1.7.6"
+  resolved "https://registry.yarnpkg.com/erbs-data/-/erbs-data-1.7.6.tgz#b9c8fe86567ee6fc31eca483f34f0714970c3857"
+  integrity sha512-P006h1nmOAncasvdOpa74OZO9HgRqMri/ZLkObnz1gLHqQXIIK69GciQYBlfnWP1HX8y/kwEFqOgxvU46JZZOw==
   dependencies:
     node-fetch "^2.6.1"
 
-erbs-sdk@^1.7.4:
-  version "1.7.4"
-  resolved "https://registry.yarnpkg.com/erbs-sdk/-/erbs-sdk-1.7.4.tgz#b62552117c01cfad2b702437911df4849287df96"
-  integrity sha512-qUAiLFO/nvwJtZs2DSR9k/g6Spbh209BIrKpw5kxjFBrILfkZHgHlgpz7qT0jyqXfarVwp1aWOMfNyspiAzc8A==
+erbs-sdk@^1.7.6:
+  version "1.7.6"
+  resolved "https://registry.yarnpkg.com/erbs-sdk/-/erbs-sdk-1.7.6.tgz#830cd82eeff2fadcce1b257eee06515930b2b963"
+  integrity sha512-uojyuFM06vtE7HRrIglzc9i8bUfn8u+3Q5JnHsHcTQXQrXHnA1ZDN2zquLvDJQvFKm1Of9Qc1YjsLUdXIugVBA==
   dependencies:
     erbs-client "^1.7.0"
 

@@ -65,8 +65,8 @@ export const ItemCardComponent: FunctionComponent<ItemCardProps> = ({ item, show
           {item.buildsFrom && item.buildsFrom.length > 0 && (
             <Segment inverted={true} style={{ backgroundColor: "transparent" }}>
               <Header>Built From</Header>
-              {item.buildsFrom.map(({ name, id }, idx) => (
-                <ItemModalButton key={`${name}${id}`} id={id} />
+              {item.buildsFrom.map((id, idx) => (
+                <ItemModalButton key={`${idx}${id}`} id={id} />
               ))}
             </Segment>
           )}
@@ -74,7 +74,7 @@ export const ItemCardComponent: FunctionComponent<ItemCardProps> = ({ item, show
             <Segment inverted={true} style={{ backgroundColor: "transparent" }}>
               <Header>Builds Into</Header>
               {item.buildsInto.map((item, idx) => (
-                <ItemModalButton key={item.id} id={item.id} />
+                <ItemModalButton key={`${idx}${item}`} id={item.id} />
               ))}
             </Segment>
           )}
