@@ -12,7 +12,7 @@
     "erbs-data": "^1.7.6",
     "erbs-sdk": "^1.7.6",
     "netlify-identity-widget": "^1.9.1",
-    "netlify-lambda": "^2.0.2",
+    "netlify-lambda": "^2.0.16",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-minimal-pie-chart": "^8.1.0",
